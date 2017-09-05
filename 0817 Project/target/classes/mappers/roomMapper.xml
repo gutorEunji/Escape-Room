@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sesoc.global.escape.dao.RoomDAO">	
 	<insert id="insertRoom" parameterType="Room">
-	insert into room 
-	values(room_seq.nextval, #{map_no}, #{master_id}, #{title}, #{room_pw})
+	insert into room(no, master_id, title, room_pw)
+	values(room_seq.nextval, #{master_id}, #{title}, #{room_pw})
 	</insert>
 	
 	<delete id="deleteRoom" parameterType="Room">

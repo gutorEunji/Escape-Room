@@ -25,7 +25,7 @@
 
 <script>
 $(function() {
-	$("#pw").on('click', clickPW);
+	$("#checkPW").on('click', clickPW);
 	$("#makingRoomBtn").on('click', gotoWatingRoom);
 });
 
