@@ -1,4 +1,5 @@
-﻿drop table room;
+﻿drop table waiting_users;
+drop table room;
 drop table playrecord;
 drop table map;
 drop table users;
@@ -30,7 +31,7 @@ CREATE TABLE MAP
 CREATE TABLE PLAYRECORD 
 (
   NO NUMBER primary key
-, USER_ID VARCHAR2(20) NOT NULL 
+, USER_ID VARCHAR2(30) NOT NULL 
 , CONTRIBUTION VARCHAR2(20) 
 , MAP_NO number NOT NULL 
 , INPUTDATE VARCHAR2(20) 
@@ -44,12 +45,25 @@ CREATE TABLE ROOM
 (
   NO NUMBER primary key
 , MAP_NO number 
-, MASTER_ID VARCHAR2(20 BYTE) 
-, USER_ID VARCHAR2(20 BYTE) 
-, MAX_NUM VARCHAR2(20 BYTE) 
-, TITLE VARCHAR2(20 BYTE) 
-, ROOM_PW VARCHAR2(20 BYTE) 
-, CONSTRAINT room_USEIID_FK FOREIGN KEY(user_id) references users(id)
+, MASTER_ID VARCHAR2(30) 
+, TITLE VARCHAR2(20) 
+, ROOM_PW VARCHAR2(20) 
 , CONSTRAINT room_masterid_FK FOREIGN KEY(master_id) references users(id)
 , CONSTRAINT room_mapno_FK FOREIGN KEY(map_no) references map(no)
 );
+
+create sequence room_seq;
+
+
+
+
+create table waiting_users
+(
+  no number primary key,
+  map_no number,
+  user_id varchar2(30),
+  constraint waiting_users_map_no_FK foreign key(map_no) references map(no),
+  constraint waiting_users_userid_FK foreign key(user_id) references users(id)
+);
+
+create sequence waiting_users_seq;
