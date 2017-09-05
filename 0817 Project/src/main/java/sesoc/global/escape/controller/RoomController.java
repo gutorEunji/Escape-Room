@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import sesoc.global.escape.repository.RoomRepository;
 import sesoc.global.escape.repository.UserRepository;
+import sesoc.global.escape.vo.Room;
 import sesoc.global.escape.vo.SocketData;
 import sesoc.global.escape.vo.Users;
 import sesoc.global.escape.vo.WebsocketVO;
@@ -20,7 +22,10 @@ import sesoc.global.escape.webSocket.WebSocketHandler;
 public class RoomController {
 	
 	@Autowired
-	UserRepository repo;
+	UserRepository user_repo;
+	
+	@Autowired
+	RoomRepository room_repo;
 
 	@RequestMapping(value = "waitingRoom", method = RequestMethod.GET)
 	public String waitingRoom(String num, String nickname, Model model) {
@@ -28,7 +33,7 @@ public class RoomController {
 		
 		Users user = new Users();
 		user.setNickname(nickname);
-		Users selectedUser = repo.selectId(user);
+		Users selectedUser = user_repo.selectId(user);
 		model.addAttribute("user", selectedUser);
 		model.addAttribute("roomNum", num);
 		return "room/waitingRoom";
@@ -52,8 +57,18 @@ public class RoomController {
 	}// waitingRoom
 	
 	@RequestMapping(value = "makingRoomPopUp", method = RequestMethod.GET)
-	public String makingRoom() {
+	public String makingRoomPopUp() {
 		return "room/makingRoomPopUp";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "makingRoom", method = RequestMethod.POST)
+	public boolean makingRoom(Room room) {
+		int result = room_repo.insertRoom(room);
+		if(result == 1) {
+			return true;
+		}
+		return false;
 	}
 	
 	@RequestMapping(value = "roomList", method = RequestMethod.GET)
