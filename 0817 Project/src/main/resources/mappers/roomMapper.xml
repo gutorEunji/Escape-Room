@@ -13,7 +13,7 @@
 	where no = #{no}
 	</delete>
 	
-	<insert id="insertWatingUser" parameterType="Room">
+	<insert id="insertWaitingUser" parameterType="Room">
 	insert into wating_users
 	values(wating_users_seq.nextval, #{map_no}, #{user_id})
 	</insert>
