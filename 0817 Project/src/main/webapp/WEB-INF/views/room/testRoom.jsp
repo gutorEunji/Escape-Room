@@ -76,7 +76,9 @@
 			raycaster_backward;
 	var block = document.getElementById( 'block' ),
 			instructions = document.getElementById( 'instructions' );
-	var mesh1;
+	
+	var mesh1, mesh_door;
+	var move_hand = 0.01;
 	// 포인터락컨트롤
 	var pointerLockControls = function() {
 		console.log( "포인터락 시작" );
@@ -314,7 +316,13 @@
 		wWall.name = "서쪽 벽";
 		scene.add( wWall );
 		objects.push( wWall ); */
-		
+		/* loader.load('resources/json/wall_door.json', function(geomerty, mat){
+	        var faceMaterial = new THREE.MeshPhongMaterial( mat[0] );
+	        mesh_door = new THREE.Mesh(geomerty,faceMaterial);
+	        mesh_door.scale.set(1,1,1);
+	        mesh_door.position.set(1, 1, 1);
+	        camera.add(mesh_door);
+	    }); */
 		
 		
 		window.addEventListener( 'resize', onResize, false );
@@ -385,6 +393,20 @@
 			}
 		}
 		
+		
+		var limit = 0.6
+		if (move_hand < 0.3 ) {
+			mesh1.position.y +=0.01;
+			move_hand+=0.01;
+		}
+		if (move_hand > limit) {
+			move_hand = 0.01;
+		}
+		if(move_hand >= 0.3){
+			mesh1.position.y -= 0.01;
+			move_hand+=0.01;
+		}
+		console.log(move_hand);
 		scene.simulate();
 		controls.update( performance.now() - time );
 		time = performance.now();
