@@ -88,7 +88,7 @@
 				new THREE.BoxGeometry(0.5,0.5,0.5),
 				new THREE.MeshBasicMaterial({color : 0x444ff})
 			)
-	};// 로딩스크린객체를 잡기위한 객체를 생성
+	};// 로딩스크린객체를 잡기위한 객체를 생성 
 	
 	var RESOURCES_LOADED = false;
 	// boolean 변수를 추가하여 언제 소스가 준비 되었는지 추적할 수 있다.
