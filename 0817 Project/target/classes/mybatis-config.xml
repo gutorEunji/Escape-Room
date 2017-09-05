@@ -5,8 +5,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="sesoc.global.escape.vo.Users" alias="User"/>
+		<typeAlias type="sesoc.global.escape.vo.Room" alias="Room"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/userMapper.xml"/>
+		<mapper resource="mappers/roomMapper.xml"/>
 	</mappers>
 </configuration>
