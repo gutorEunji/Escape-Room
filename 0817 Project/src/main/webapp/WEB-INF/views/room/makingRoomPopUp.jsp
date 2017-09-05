@@ -25,15 +25,30 @@
 
 <script>
 $(function() {
+	$("#pw").on('click', clickPW);
+	$("#pw").on('click', gotoWatingRoom);
+});
+
+function clickPW() {
 	if($("#checkPW").is(":checked") == true) {
-		alert($("#checkKPW").is(":checked"));
 		$("#pw").removeAttr("disabled");
 	}
 	else {
 		$("#pw").attr("disabled", true);
 		$("#pw").val("");
 	}
-});
+}
+
+function gotoWatingRoom() {
+	$("#")
+	$.ajax({
+		url: "makingRoom",
+		method: "post",
+		data: 
+	});
+	$(opener.location).attr("href","watingRoom");
+	window.close();
+}
 </script>
 
 </head>
@@ -46,7 +61,7 @@ $(function() {
 		</div>
 		<div class="da-text-container">
 			<form action = "makingRoom" method = "POST">
-				<input type ="text" name = "name" class="da-form-booking-item" placeholder = "Title*">
+				<input type ="text" id="title" name="title" class="da-form-booking-item" placeholder = "Title*">
 				<input type ="checkbox" id="checkPW" name = "pwCheck"><input type ="password" name="pw" id="pw" class="da-form-booking-item" placeholder = "Password*" disabled="disabled">
 				<button id = "makingRoomBtn" class="da-btn da-form-booking-button hvr-sweep-to-right">Make Room</button>
 			</form>
