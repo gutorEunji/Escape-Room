@@ -76,7 +76,7 @@
 			raycaster_backward;
 	var block = document.getElementById( 'block' ),
 			instructions = document.getElementById( 'instructions' );
-	
+	var mesh1;
 	// 포인터락컨트롤
 	var pointerLockControls = function() {
 		console.log( "포인터락 시작" );
@@ -191,6 +191,19 @@
 		scene.add( subLight );
 		
 		
+		
+		var loader = new THREE.JSONLoader();
+        loader.load('resources/json/handd.json', function(geomerty, mat){
+        	var faceMaterial = new THREE.MeshPhongMaterial( mat[0] );
+        	mesh1 = new THREE.Mesh(geomerty,faceMaterial);
+           mesh1.scale.set(0.7,0.7,0.7);
+           mesh1.position.set(controls.getObject().position.x + 3, controls.getObject().position.y - 14, controls.getObject().position.z-7);
+      	   mesh1.rotation.y -= 0.5;
+      	   mesh1.rotation.x += 0.5;
+           camera.add(mesh1);
+        });
+		
+		
 		// 땅바닥 생성
 		var floorMat = new THREE.MeshStandardMaterial( {
 					roughness: 0.8,
@@ -290,7 +303,7 @@
 		scene.add( eWall );
 		objects.push( eWall );
 		
-		wWall = new Physijs.BoxMesh(
+		/* wWall = new Physijs.BoxMesh(
 				new THREE.BoxGeometry( 1, 100, 500 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
@@ -300,7 +313,9 @@
 		wWall.position.x = -249.5;
 		wWall.name = "서쪽 벽";
 		scene.add( wWall );
-		objects.push( wWall );
+		objects.push( wWall ); */
+		
+		
 		
 		window.addEventListener( 'resize', onResize, false );
 	}; // end init
