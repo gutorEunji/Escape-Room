@@ -25,7 +25,7 @@ public class RoomRepository {
 	
 	public int insertWatingUser(Room room) {
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
-		return dao.insertWatingUser(room);
+		return dao.insertWaitingUser(room);
 	}
 	
 	public int deleteWatingUser(Room room) {
