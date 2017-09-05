@@ -471,7 +471,7 @@
 		controls.update( performance.now() - time );
 		time = performance.now();
 		
-		renderer.render( scene, camera );
+		renderer.render( scene, camera ); 
 	}; // end render
 	
 	
