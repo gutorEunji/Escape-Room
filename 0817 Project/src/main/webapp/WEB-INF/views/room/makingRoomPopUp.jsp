@@ -44,7 +44,7 @@ function gotoWatingRoom() {
 	$.ajax({
 		url: "makingRoom",
 		method: "post",
-		data: 
+		data: ""
 	});
 	$(opener.location).attr("href","watingRoom");
 	window.close();
