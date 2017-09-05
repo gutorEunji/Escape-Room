@@ -26,7 +26,7 @@
 <script>
 $(function() {
 	$("#pw").on('click', clickPW);
-	$("#pw").on('click', gotoWatingRoom);
+	$("#makingRoomBtn").on('click', gotoWatingRoom);
 });
 
 function clickPW() {
@@ -40,14 +40,25 @@ function clickPW() {
 }
 
 function gotoWatingRoom() {
-	$("#")
+	var title = $("#title").val();
+	var room_pw = $("#room_pw").val();
+	
+	var sendData = {"title" : title, "room_pw" : room_pw};
+	
 	$.ajax({
 		url: "makingRoom",
 		method: "post",
-		data: ""
+		data: sendData,
+		success: function(resp) {
+			if(resp = true) {
+				$(opener.location).attr("href","watingRoom");
+				window.close();
+			}
+			else {
+				alert("room create error");
+			}
+		}
 	});
-	$(opener.location).attr("href","watingRoom");
-	window.close();
 }
 </script>
 

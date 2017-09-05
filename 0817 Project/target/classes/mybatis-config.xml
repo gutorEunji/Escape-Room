@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias type="sesoc.global.escape.vo.Users" alias="User"/>
 		<typeAlias type="sesoc.global.escape.vo.Room" alias="Room"/>
+		<typeAlias type="sesoc.global.escape.vo.WaitingUsers" alias="WatingUser"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/userMapper.xml"/>

@@ -22,8 +22,8 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="sesoc.global.escape">
-		<context:exclude-filter type="annotation" expression="sesoc.global.escape.controller.UserController"/>
-		<context:exclude-filter type="annotation" expression="sesoc.global.escape.repository.UserRepository"/>
+		<!-- <context:exclude-filter type="annotation" expression="sesoc.global.escape.controller.UserController"/>
+		<context:exclude-filter type="annotation" expression="sesoc.global.escape.repository.UserRepository"/> -->
 	</context:component-scan>
 	
 </beans:beans>

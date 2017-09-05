@@ -1,14 +1,11 @@
 package sesoc.global.escape.vo;
 
-import java.util.List;
-
 public class Room {
 	private int no;
 	private int map_no;
 	private String master_id;
 	private String title;
 	private String room_pw;
-	private List<String> user_id;
 
 	public Room() {
 
@@ -54,18 +51,10 @@ public class Room {
 		this.room_pw = room_pw;
 	}
 	
-	public List<String> getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(List<String> user_id) {
-		this.user_id = user_id;
-	}
-
 	@Override
 	public String toString() {
 		return "Room [no=" + no + ", map_no=" + map_no + ", master_id=" + master_id + ", title=" + title + ", room_pw="
-				+ room_pw + ", user_id=" + user_id + "]";
+				+ room_pw + "]";
 	}
 
 }

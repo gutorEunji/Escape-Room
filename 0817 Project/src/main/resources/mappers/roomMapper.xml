@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sesoc.global.escape.dao.RoomDAO">
+<mapper namespace="sesoc.global.escape.dao.RoomDAO">	
 	<insert id="insertRoom" parameterType="Room">
 	insert into room 
 	values(room_seq.nextval, #{map_no}, #{master_id}, #{title}, #{room_pw})
@@ -13,12 +13,12 @@
 	where no = #{no}
 	</delete>
 	
-	<insert id="insertWaitingUser" parameterType="Room">
+	<insert id="insertWaitingUser" parameterType="WatingUser">
 	insert into wating_users
 	values(wating_users_seq.nextval, #{map_no}, #{user_id})
 	</insert>
 	
-	<delete id="deleteWaitingUser" parameterType="Room">
+	<delete id="deleteWaitingUser" parameterType="WatingUser">
 	delete from wating_users
 	where no = #{no}
 	</delete>
