@@ -60,7 +60,7 @@
 	<script>
 	'use strict';
 	
-	Physijs.scripts.worker = 'resources/libs/physijs_worker.js';
+	Physijs.scripts.worker = 'resources/js/physijs_worker.js';
 	Physijs.scripts.ammo = 'ammo.js';
 	
 	// Global
@@ -79,6 +79,22 @@
 	
 	var mesh1, mesh_door;
 	var move_hand = 0.01;
+	
+	//screen loader
+	var loadingScreen = {
+			scene : new THREE.Scene(),
+			camera : new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 1000),
+			box : new THREE.Mesh(
+				new THREE.BoxGeometry(0.5,0.5,0.5),
+				new THREE.MeshBasicMaterial({color : 0x444ff})
+			)
+	};// 로딩스크린객체를 잡기위한 객체를 생성 
+	
+	var RESOURCES_LOADED = false;
+	// boolean 변수를 추가하여 언제 소스가 준비 되었는지 추적할 수 있다.
+	var LOADING_MANAGER = null;
+	
+	
 	// 포인터락컨트롤
 	var pointerLockControls = function() {
 		console.log( "포인터락 시작" );
@@ -131,6 +147,8 @@
 	var init = function() {
 		console.log( "초기화시작" );
 		
+		
+		
 		// 렌더러 생성
 		renderer = new THREE.WebGLRenderer( );
 		renderer.physicallyCorrectLights = true;
@@ -174,6 +192,22 @@
 		raycaster_right = new THREE.Raycaster();
 		raycaster_right.ray.direction.set( 1, 0, 0 );
 		
+		// 로딩 스크린을 set up 시켜 놓는다.
+		loadingScreen.box.position.set(0,0,5);
+		loadingScreen.camera.lookAt(loadingScreen.box.position);
+		loadingScreen.scene.add(loadingScreen.box);
+		
+		LOADING_MANAGER = new THREE.LoadingManager();
+		LOADING_MANAGER.onProgress = function (item, loaded, total) {//onProgress는  매번 리소스가 로딩되는 트리거이다  onload는 모든 소스가 로딩된 것
+			console.log(item, loaded, total);
+		};
+		LOADING_MANAGER.onLoad = function () {
+			console.log("loaded all resources");
+			RESOURCES_LOADED = true;
+			onResourcesLoaded();// 리소스가 로드 되었을때의 트리거 함수를 생성
+		}
+		
+		
 		// 조명 생성
 		bulbGeometry = new THREE.SphereGeometry( 5, 16, 8 );
 		bulbMat = new THREE.MeshStandardMaterial( {
@@ -193,19 +227,18 @@
 		scene.add( subLight );
 		
 		
-		
-		var loader = new THREE.JSONLoader();
+		var loader = new THREE.JSONLoader(LOADING_MANAGER);
         loader.load('resources/json/handd.json', function(geomerty, mat){
-        	var faceMaterial = new THREE.MeshPhongMaterial( mat[0] );
-        	mesh1 = new THREE.Mesh(geomerty,faceMaterial);
+           var faceMaterial = new THREE.MeshPhongMaterial( mat[0] );
+           mesh1 = new THREE.Mesh(geomerty,faceMaterial);
            mesh1.scale.set(0.7,0.7,0.7);
            mesh1.position.set(controls.getObject().position.x + 3, controls.getObject().position.y - 14, controls.getObject().position.z-7);
-      	   mesh1.rotation.y -= 0.5;
+           mesh1.rotation.y -= 0.5;
       	   mesh1.rotation.x += 0.5;
            camera.add(mesh1);
         });
-		
-		
+   	 
+
 		// 땅바닥 생성
 		var floorMat = new THREE.MeshStandardMaterial( {
 					roughness: 0.8,
@@ -293,7 +326,7 @@
 		scene.add( sWall );
 		objects.push( sWall );
 		
-		eWall = new Physijs.BoxMesh(
+		eWall = new Physijs.BoxMesh( 
 				new THREE.BoxGeometry( 1, 100, 500 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
@@ -316,7 +349,8 @@
 		wWall.name = "서쪽 벽";
 		scene.add( wWall );
 		objects.push( wWall ); */
-		/* loader.load('resources/json/wall_door.json', function(geomerty, mat){
+		
+		 /* loader.load('resources/json/wall_door.json', function(geomerty, mat){
 	        var faceMaterial = new THREE.MeshPhongMaterial( mat[0] );
 	        mesh_door = new THREE.Mesh(geomerty,faceMaterial);
 	        mesh_door.scale.set(1,1,1);
@@ -327,6 +361,13 @@
 		
 		window.addEventListener( 'resize', onResize, false );
 	}; // end init
+	
+	
+	function onResourcesLoaded() {
+		
+		
+		
+	}
 	
 	// 자동 리사이즈
 	var onResize = function() {
@@ -339,9 +380,38 @@
 	
 	// 렌더
 	var render = function() {
-		requestAnimationFrame( render );
 		
-		console.log ( camera.position );
+		if (RESOURCES_LOADED == false) {
+			requestAnimationFrame(render);
+			
+			loadingScreen.box.position.x -= 0.05;
+			if (loadingScreen.box.position.x < -10) {
+				loadingScreen.box.position.x = 10;
+			}// 화면을 넘어가면 초기화
+			loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
+			
+			
+			renderer.render(loadingScreen.scene, loadingScreen.camera);
+			
+			return;
+		}
+		
+		requestAnimationFrame( render );
+		 console.log(mesh1);
+		var limit = 0.6
+		if (move_hand < 0.3 ) {
+			mesh1.position.y += 0.01;
+			move_hand+=0.01;
+		}
+		if (move_hand > limit) {
+			move_hand = 0.01;
+		}
+		if(move_hand >= 0.3){
+			mesh1.position.y -= 0.01;
+			move_hand+=0.01;
+		}
+		
+		// console.log ( camera.position );
 		// console.log ( camera.getWorldDirection() );
 		
 		raycaster_forward.ray.origin.copy(controls.getObject().position);
@@ -394,24 +464,14 @@
 		}
 		
 		
-		var limit = 0.6
-		if (move_hand < 0.3 ) {
-			mesh1.position.y +=0.01;
-			move_hand+=0.01;
-		}
-		if (move_hand > limit) {
-			move_hand = 0.01;
-		}
-		if(move_hand >= 0.3){
-			mesh1.position.y -= 0.01;
-			move_hand+=0.01;
-		}
+		
+		
 		console.log(move_hand);
 		scene.simulate();
 		controls.update( performance.now() - time );
 		time = performance.now();
 		
-		renderer.render( scene, camera );
+		renderer.render( scene, camera ); 
 	}; // end render
 	
 	
