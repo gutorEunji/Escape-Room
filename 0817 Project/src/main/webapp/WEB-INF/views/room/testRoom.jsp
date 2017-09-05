@@ -4,9 +4,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<script type="text/javascript" src="resources/libs/three.min.js"></script>
-	<script type="text/javascript" src="resources/libs/physi.js"></script>
-	<script type="text/javascript" src="resources/libs/PointerLockControls.js"></script>
+	<script type="text/javascript" src="resources/js/three.min.js"></script>
+	<script type="text/javascript" src="resources/js/physi.js"></script>
+	<script type="text/javascript" src="resources/js/PointerLockControls.js"></script>
 	
 	<style type="text/css">
 		body {
