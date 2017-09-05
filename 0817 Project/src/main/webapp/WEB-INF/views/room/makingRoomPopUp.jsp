@@ -31,11 +31,11 @@ $(function() {
 
 function clickPW() {
 	if($("#checkPW").is(":checked") == true) {
-		$("#pw").removeAttr("disabled");
+		$("#room_pw").removeAttr("disabled");
 	}
 	else {
-		$("#pw").attr("disabled", true);
-		$("#pw").val("");
+		$("#room_pw").attr("disabled", true);
+		$("#room_pw").val("");
 	}
 }
 
@@ -73,7 +73,7 @@ function gotoWatingRoom() {
 		<div class="da-text-container">
 			<form action = "makingRoom" method = "POST">
 				<input type ="text" id="title" name="title" class="da-form-booking-item" placeholder = "Title*">
-				<input type ="checkbox" id="checkPW" name = "pwCheck"><input type ="password" name="pw" id="pw" class="da-form-booking-item" placeholder = "Password*" disabled="disabled">
+				<input type ="checkbox" id="checkPW" name = "pwCheck"><input type ="password" name="room_pw" id="room_pw" class="da-form-booking-item" placeholder = "Password*" disabled="disabled">
 				<button id = "makingRoomBtn" class="da-btn da-form-booking-button hvr-sweep-to-right">Make Room</button>
 			</form>
 		</div>

@@ -3,6 +3,8 @@ package sesoc.global.escape.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +65,8 @@ public class RoomController {
 	
 	@ResponseBody
 	@RequestMapping(value = "makingRoom", method = RequestMethod.POST)
-	public boolean makingRoom(Room room) {
+	public boolean makingRoom(Room room, HttpSession session) {
+		room.setMaster_id(((Users)session.getAttribute("loginUser")).getId());
 		int result = room_repo.insertRoom(room);
 		if(result == 1) {
 			return true;
