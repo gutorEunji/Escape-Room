@@ -78,7 +78,7 @@
 	var block = document.getElementById( 'block' ),
 			instructions = document.getElementById( 'instructions' );
 	
-	var mesh1, mesh_door;
+	var mesh1, meshes, mesh_door;
 	var move_hand = 0.01;
 	
 	//screen loader
@@ -94,7 +94,16 @@
 	var RESOURCES_LOADED = false;
 	// boolean 변수를 추가하여 언제 소스가 준비 되었는지 추적할 수 있다.
 	var LOADING_MANAGER = null;
-	
+	var json_object = [
+		'wall'
+	];
+	var json_object_context = {
+			wall:{
+				name:'resources/json/wall_door.json',
+				position:'1,-5,255',
+				scale:'28,25,50'
+			}				
+	};
 	
 	// 포인터락컨트롤
 	var pointerLockControls = function() {
@@ -231,8 +240,8 @@
 		
 		// 손 생성
 		var loader = new THREE.JSONLoader(LOADING_MANAGER);
-			loader.load('resources/json/handd.json', function(geomerty, mat){
-			var faceMaterial = new THREE.MeshPhongMaterial( mat[0] );
+			loader.load('resources/json/hand/handd.json', function(geomerty, mat){
+			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
 			mesh1 = new THREE.Mesh(geomerty,faceMaterial);
 			mesh1.scale.set(0.7,0.7,0.7);
 			mesh1.position.set(controls.getObject().position.x + 3, controls.getObject().position.y - 14, controls.getObject().position.z-7);
@@ -240,7 +249,24 @@
 			mesh1.rotation.x += 0.5;
 			camera.add(mesh1);
 		});
-
+		/* loader.load('resources/json/wall_door.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(28,25,50);
+			mesh_door.position.set(1,-5,255);
+			mesh_door.rotation.x -= 0.01;
+			scene.add(mesh_door);
+		});	 */
+		/* for (var i = 0; i < json_object.length; i++) {
+			alert(json_object_context[json_object[i]].name); 
+			 loader.load(json_object_context[json_object[i]].name, function(geomerty, mat){
+		           meshes = new THREE.Mesh(geomerty, mat[0]);
+		           alert(json_object_context[json_object[i]]); 
+		           meshes.position.set(json_object_context[json_object[i]].position);
+		           meshes.scale.set(json_object_context[json_object[i]].scale);
+		           scene.add(meshes);
+			});
+		} */
+			
 		// 바닥 생성
 		var floorMat = new THREE.MeshStandardMaterial( {
 					roughness: 0.8,
@@ -248,7 +274,7 @@
 					metalness: 0.2,
 					bumpScale: 0.0005
 		});
-		var textureLoader = new THREE.TextureLoader();
+		var textureLoader = new THREE.TextureLoader(LOADING_MANAGER);
 		textureLoader.load( "resources/images/hardwood2_diffuse.jpg", function( map ) {
 			map.wrapS = THREE.RepeatWrapping;
 			map.wrapT = THREE.RepeatWrapping;
@@ -315,7 +341,7 @@
 		objects.push( nWall );
 		
 		// South
-		sWall = new Physijs.BoxMesh(
+		/* sWall = new Physijs.BoxMesh(
 				new THREE.BoxGeometry( 500, 100, 1 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
@@ -325,7 +351,7 @@
 		sWall.position.z = 249.5;
 		sWall.name = "남쪽 벽";
 		scene.add( sWall );
-		objects.push( sWall );
+		objects.push( sWall ); */
 		
 		// East
 		eWall = new Physijs.BoxMesh( 
@@ -354,22 +380,50 @@
 		objects.push( wWall );
 		
 		// 문 부착
-		/* 
-		loader.load('resources/json/wall_door.json', function(geomerty, mat){
-	        var faceMaterial = new THREE.MeshPhongMaterial( mat[0] );
-	        mesh_door = new THREE.Mesh(geomerty,faceMaterial);
-	        mesh_door.scale.set(1,1,1);
-	        mesh_door.position.set(1, 1, 1);
-	        camera.add(mesh_door);
-		});
-		*/
+		
 		
 		window.addEventListener( 'resize', onResize, false );
 	}; // end init
 	
 	// ??
 	function onResourcesLoaded() {
-	
+		var loader = new THREE.JSONLoader();
+		loader.load('resources/json/mainDoor/wall_door.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(28,25,50);
+			mesh_door.position.set(1,-5,255);
+			mesh_door.rotation.x -= 0.01;
+			scene.add(mesh_door);
+		});
+		
+		loader.load('resources/json/book/books.json', function(geomerty, mat){
+			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
+			mesh_door = new THREE.Mesh(geomerty,faceMaterial);
+			mesh_door.scale.set(10,10,10);
+			mesh_door.position.set(0,0,0);
+			scene.add(mesh_door);
+		});
+		
+		loader.load('resources/json/rug/PersianRug.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(1,1,1);
+			mesh_door.position.set(0,5,3);
+			scene.add(mesh_door); 
+		});
+		
+		loader.load('resources/json/safe/safe_close.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(0.7, 0.7, 0.7);
+			mesh_door.position.set(100,0,-250);
+			scene.add(mesh_door); 
+		});
+		
+		loader.load('resources/json/open_leftdoor_wardrobe.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(50, 50, 40);
+			mesh_door.position.set(150,0,-200);
+			scene.add(mesh_door);   
+		});
 	}
 	
 	// 자동 리사이즈
