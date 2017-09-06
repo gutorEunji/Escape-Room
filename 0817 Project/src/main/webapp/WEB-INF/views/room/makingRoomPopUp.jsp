@@ -49,6 +49,7 @@ function gotoWatingRoom() {
 		method: "post",
 		data: sendData,
 		success: function(resp) {
+			alert("ajax makingRoomPopUp : ${loginUser.id}");
 			if(resp != -1) {
 				$(opener.location).attr("href","waitingRoom?room_no=" + resp + "&id=${loginUser.id}");
 				window.close();
@@ -70,11 +71,9 @@ function gotoWatingRoom() {
 			
 		</div>
 		<div class="da-text-container">
-			<form action = "makingRoom" method = "POST">
-				<input type ="text" id="title" name="title" class="da-form-booking-item" placeholder = "Title*">
-				<input type ="checkbox" id="checkPW" name = "pwCheck"><input type ="password" name="room_pw" id="room_pw" class="da-form-booking-item" placeholder = "Password*" disabled="disabled">
-				<button id = "makingRoomBtn" class="da-btn da-form-booking-button hvr-sweep-to-right">Make Room</button>
-			</form>
+			<input type ="text" id="title" name="title" class="da-form-booking-item" placeholder = "Title*">
+			<input type ="checkbox" id="checkPW" name = "pwCheck"><input type ="password" name="room_pw" id="room_pw" class="da-form-booking-item" placeholder = "Password*" disabled="disabled">
+			<button id = "makingRoomBtn" class="da-btn da-form-booking-button hvr-sweep-to-right">Make Room</button>
 		</div>
 	</div>
 </div>

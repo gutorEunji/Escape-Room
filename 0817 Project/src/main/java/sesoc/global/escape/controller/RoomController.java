@@ -50,7 +50,6 @@ public class RoomController {
 		List<SocketData> userList = new ArrayList<>();
 
 		for (WebsocketVO rList : result) {
-			System.out.println("rList's Room number : " + rList.getRoomNum() + ", roomNum : " + roomNum);
 			if(rList.getRoomNum().equals(roomNum)){
 				userList.add(new SocketData(rList.getRoomNum(), rList.getLoginUser(), rList.getWebSocketId()));
 			}//if
@@ -69,7 +68,6 @@ public class RoomController {
 	public int makingRoom(Room room, String id) {
 		int room_no = room_repo.selectNextRoomNo();
 		room.setNo(room_no);
-		
 		room.setMaster_id(id);
 		int result = room_repo.insertRoom(room);
 		if(result == 1) {

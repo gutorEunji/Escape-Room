@@ -16,19 +16,16 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		System.out.println("registerWebSocketHandlers");
 		registry.addHandler(echoHandler(), "/echo");
 	}//registerWebSocketHandlers
 	
 	@Bean
 	public WebSocketHandler echoHandler(){
-		System.out.println("echoHandler");
 		return new WebSocketHandler();
 	}//WebSocketHandler
 	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		System.out.println("configureDefaultServletHandling");
 		configurer.enable();
 	}//configureDefaultServletHandling
 }//class
