@@ -30,14 +30,15 @@ public class RoomController {
 	RoomRepository room_repo;
 
 	@RequestMapping(value = "waitingRoom", method = RequestMethod.GET)
-	public String waitingRoom(String num, String nickname, Model model) {
+	public String waitingRoom(String room_no, String id, Model model) {
+		
 		System.out.println("Waiting Room");
 		
 		Users user = new Users();
-		user.setNickname(nickname);
+		user.setId(id);
 		Users selectedUser = user_repo.selectId(user);
 		model.addAttribute("user", selectedUser);
-		model.addAttribute("roomNum", num);
+		model.addAttribute("room_no", room_no);
 		return "room/waitingRoom";
 	}// waitingRoom
 
@@ -65,13 +66,16 @@ public class RoomController {
 	
 	@ResponseBody
 	@RequestMapping(value = "makingRoom", method = RequestMethod.POST)
-	public boolean makingRoom(Room room, HttpSession session) {
-		room.setMaster_id(((Users)session.getAttribute("loginUser")).getId());
+	public int makingRoom(Room room, String id) {
+		int room_no = room_repo.selectNextRoomNo();
+		room.setNo(room_no);
+		
+		room.setMaster_id(id);
 		int result = room_repo.insertRoom(room);
 		if(result == 1) {
-			return true;
+			return room_no;
 		}
-		return false;
+		return -1;
 	}
 	
 	@RequestMapping(value = "roomList", method = RequestMethod.GET)

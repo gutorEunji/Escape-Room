@@ -13,6 +13,11 @@ public class RoomRepository {
 	@Autowired
 	SqlSession sqlSession;
 	
+	public int selectNextRoomNo() {
+		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
+		return dao.selectNextRoomNo();
+	}
+	
 	public int insertRoom(Room room) {
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
 		return dao.insertRoom(room);

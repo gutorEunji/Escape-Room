@@ -67,6 +67,7 @@ footer {
 
 </head>
 <body>
+<input type="hidden" id="room_no" name="no" value="">
 	<header>
 		<div class="container-fluid">
 			<div class="row">

@@ -43,15 +43,14 @@ function gotoWatingRoom() {
 	var title = $("#title").val();
 	var room_pw = $("#room_pw").val();
 	
-	var sendData = {"title" : title, "room_pw" : room_pw};
-	
+	var sendData = {"title" : title, "room_pw" : room_pw, "id" : "${loginUser.id}"};
 	$.ajax({
 		url: "makingRoom",
 		method: "post",
 		data: sendData,
 		success: function(resp) {
-			if(resp = true) {
-				$(opener.location).attr("href","watingRoom");
+			if(resp != -1) {
+				$(opener.location).attr("href","waitingRoom?room_no=" + resp + "&id=${loginUser.id}");
 				window.close();
 			}
 			else {

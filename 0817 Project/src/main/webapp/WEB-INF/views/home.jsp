@@ -29,6 +29,17 @@
 body{
 	background-image: url("resources/images/main-img-bg3.jpg");
 }
+.pt-page-moveToTop {
+	-webkit-animation: moveToTop .6s ease both;
+	animation: moveToTop .6s ease both;
+}
+.pt-page-scaleUp {
+	-webkit-animation: scaleUp .7s ease both;
+	animation: scaleUp .7s ease both;
+}
+.pt-page-ontop {
+	z-index: 999;
+}
 </style>
 <script>
 function login() {
