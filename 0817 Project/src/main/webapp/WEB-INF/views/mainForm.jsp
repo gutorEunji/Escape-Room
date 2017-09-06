@@ -19,14 +19,14 @@
 <script src="resources/js/slick.min.js"></script>
 <script src="resources/js/script.js"></script>
 <script src="resources/js/counter.js"></script>
+<script src="resources/js/jquery.lightbox_me.js"></script>
 
 <style type="text/css">
 .cd-user-modal {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s, visibility 0.3s;
-}
- 
+} 
 .cd-user-modal.is-visible {
   visibility: visible;
   opacity: 1;
@@ -50,8 +50,26 @@ footer {
 #playListDiv {
 	padding-bottom: 300px;
 }
+.col-sm-3{
+	width: 50%;
+}
+#loginForm{
+	/* background-image: url("resources/images/main-img-bg3.jpg"); */
+	background-color: rgba(255,0,0,0.3);
+	width: 600px;
+	height: 800px;
+}
 </style>
 <script>
+	$(function() {
+		$('#loginForm').lightbox_me({
+	        centered: true, 
+	        onLoad: function() { 
+	            $('#loginForm').find('input:first').focus()
+	            }
+	        });
+	    /* e.preventDefault(); */
+	});
 	function logout() {
 		location.href = "logout";
 	}
@@ -67,6 +85,16 @@ footer {
 
 </head>
 <body>
+<div id="loginForm">
+	<div class="col-sm-3">
+		<form class="da-form-container da-margin-top-15" action="login" method="post" id="loginForm">
+			<input class="da-padding-left-15" type="text" name="id" id="id" placeholder="ID">
+			<input class="da-padding-left-15" type="password" name="pw" id="pw" placeholder="PW">
+		</form>
+		<button type="button" class="da-btn hvr-sweep-to-right" onclick="login()">Login</button>
+		<button type="button" class="da-btn hvr-sweep-to-right" onclick="join()">Join</button>
+	</div>
+</div>
 <input type="hidden" id="room_no" name="no" value="">
 	<header>
 		<div class="container-fluid">

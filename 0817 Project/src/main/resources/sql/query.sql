@@ -1,5 +1,4 @@
-﻿drop table waiting_users;
-drop table room;
+﻿drop table room;
 drop table playrecord;
 drop table map;
 drop table users;
@@ -41,6 +40,8 @@ CREATE TABLE PLAYRECORD
 , CONSTRAINT PLAYRECORD_mapno_FK FOREIGN KEY(map_no) references map(no)
 );
 
+drop table room;
+
 CREATE TABLE ROOM 
 (
   NO NUMBER primary key
@@ -55,14 +56,14 @@ CREATE TABLE ROOM
 create sequence room_seq;
 
 
-
+drop table waiting_users;
 
 create table waiting_users
 (
   no number primary key,
-  map_no number,
+  room_no number,
   user_id varchar2(30),
-  constraint waiting_users_map_no_FK foreign key(map_no) references map(no),
+  constraint waiting_users_room_no_FK foreign key(room_no) references room(no),
   constraint waiting_users_userid_FK foreign key(user_id) references users(id)
 );
 

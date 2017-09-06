@@ -29,6 +29,11 @@ public class UserController {
    
    @Autowired
    MailServiceDao mailserviceDao;
+   
+   @RequestMapping(value="loginForm", method=RequestMethod.GET)
+   public String loginForm() {
+	   return "user/loginForm";
+   }
 
    @RequestMapping(value="findForm", method=RequestMethod.GET)
    public String findForm() {
