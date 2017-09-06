@@ -34,6 +34,10 @@ body{
 function login() {
 	$("#loginForm").submit();
 }
+
+function join() {
+	location.href = "joinForm";
+}
 </script>
 <body>
 <div class="container">
@@ -43,6 +47,7 @@ function login() {
 			<input class="da-padding-left-15" type="password" name="pw" id="pw" placeholder="PW">
 		</form>
 		<button type="button" class="da-btn hvr-sweep-to-right" onclick="login()">Login</button>
+		<button type="button" class="da-btn hvr-sweep-to-right" onclick="join()">Join</button>
 	</div>
 </div>
 </body>
