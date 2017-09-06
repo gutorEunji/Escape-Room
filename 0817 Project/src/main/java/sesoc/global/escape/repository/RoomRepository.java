@@ -1,11 +1,14 @@
 package sesoc.global.escape.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import sesoc.global.escape.dao.RoomDAO;
 import sesoc.global.escape.vo.Room;
+import sesoc.global.escape.vo.WaitingUsers;
 
 @Repository
 public class RoomRepository {
@@ -28,13 +31,18 @@ public class RoomRepository {
 		return dao.deleteRoom(room);
 	}
 	
-	public int insertWatingUser(Room room) {
+	public int insertWatingUser(WaitingUsers watingUser) {
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
-		return dao.insertWaitingUser(room);
+		return dao.insertWaitingUser(watingUser);
 	}
 	
-	public int deleteWatingUser(Room room) {
+	public List<WaitingUsers> selectWaitingUser(Room room) {
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
-		return dao.deleteWaitingUser(room);
+		return dao.selectWaitingUser(room);
+	}
+	
+	public int deleteWatingUser(WaitingUsers watingUser) {
+		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
+		return dao.deleteWaitingUser(watingUser);
 	}
 }

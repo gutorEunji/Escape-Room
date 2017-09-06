@@ -25,12 +25,17 @@
 	where no = #{no}
 	</delete>
 	
-	<insert id="insertWaitingUser" parameterType="WatingUser">
+	<insert id="insertWaitingUser" parameterType="WaitingUser">
 	insert into wating_users
-	values(wating_users_seq.nextval, #{map_no}, #{user_id})
+	values(wating_users_seq.nextval, #{room_no}, #{user_id})
 	</insert>
 	
-	<delete id="deleteWaitingUser" parameterType="WatingUser">
+	<select id="selectWaitingUser" resultType="WaitingUser" parameterType="Room">
+	select * from wating_users
+	where room_no = ${room_no}
+	</select>
+	
+	<delete id="deleteWaitingUser" parameterType="WaitingUser">
 	delete from wating_users
 	where no = #{no}
 	</delete>
