@@ -59,22 +59,19 @@ public class UserController {
    @RequestMapping(value="logout", method=RequestMethod.GET) 
    public String logout(HttpSession session) {
       session.invalidate();
-      return "home";
+      return "mainForm";
    }
    
    @RequestMapping(value="login", method=RequestMethod.POST)
    public String login(Users user, Model model, HttpSession session) {
       Users selectedUser = repo.selectId(user);
-      String result = "mainForm";
       
-      if(selectedUser == null) {
-         return "home";
+      if(selectedUser != null) {
+    	  model.addAttribute("profile", selectedUser.getProfile());
+    	  session.setAttribute("loginUser", selectedUser);
       }
       
-      model.addAttribute("profile", selectedUser.getProfile());
-      session.setAttribute("loginUser", selectedUser);
-      
-      return result;
+      return "mainForm";
    }
    
    @ResponseBody
