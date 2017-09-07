@@ -14,8 +14,12 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import sesoc.global.escape.dao.RoomDAO;
+import sesoc.global.escape.repository.RoomRepository;
 import sesoc.global.escape.repository.UserRepository;
+import sesoc.global.escape.vo.Room;
 import sesoc.global.escape.vo.Users;
+import sesoc.global.escape.vo.WaitingUsers;
 import sesoc.global.escape.vo.WebsocketVO;
 
 public class WebSocketHandler extends TextWebSocketHandler {
@@ -25,12 +29,21 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	private String roomNum;
 	
 	@Autowired
-	private Provider<UserRepository> provider;
+	private Provider<RoomRepository> provider;
 	
-	//일반 클래스에서 @Autowired 쓰기 위해 필요한 메소드  # Provider를 써야함.
-	public Users getUserInfo(Users user){
-		UserRepository repo = provider.get();
-		return repo.selectId(user);
+	public int insertWaitingUser(WaitingUsers waitingUser){
+		RoomRepository repo = provider.get();
+		return repo.insertWaitingUser(waitingUser);
+	}//getuserInfo
+	
+	public int deleteRoom(Room room){
+		RoomRepository repo = provider.get();
+		return repo.deleteRoom(room);
+	}//getuserInfo
+	
+	public WaitingUsers selectBySessionId(WaitingUsers waitinguser){
+		RoomRepository repo = provider.get();
+		return repo.selectBySessionId(waitinguser);
 	}//getuserInfo
 	
 	 @Override
@@ -48,15 +61,15 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		 if (message.getPayload().toString().contains("|roomNum|") && message.getPayload().toString().contains("|userId|") && message.getPayload().toString().contains("|userPw|")) {
 				roomNum = message.getPayload().toString().replaceAll("|roomNum|", "");
 				int aIndex = roomNum.indexOf("|roomNum|");
-				String rNo = roomNum.substring(0, aIndex);
+				int rNo = Integer.parseInt(roomNum.substring(0, aIndex));
 				int bIndex = roomNum.indexOf("|userId|");
 				String userId = roomNum.substring(aIndex, bIndex).replace("|roomNum|", "");
-				int cIndex = roomNum.indexOf("|userPw|");
-				String userPw = roomNum.substring(bIndex, cIndex).replace("|userId|", "");
 				
 				
-				WebsocketVO vo = new WebsocketVO(rNo, session, getUserInfo(new Users(userId, userPw)), session.getId());
-				sessionList.add(vo);
+//				WebsocketVO vo = new WebsocketVO(rNo, session, getUserInfo(new Users(userId, userPw)), session.getId());
+//				sessionList.add(vo);
+				System.out.println(session.getId() + " : sessionId");
+				insertWaitingUser(new WaitingUsers(rNo, userId, session.getId()));
 				
 				afterConnectionEstablished(session);
 				return;
@@ -85,16 +98,22 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	 @Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		 System.out.println("afterConnectionClosed");
-		 whenExit(session, session.getId());
+		 whenExit(session);
 	}//afterConnectionClosed
 	 
-	 public void whenExit(WebSocketSession session, String sessionId) throws Exception{
-		for (WebsocketVO websocketVO : sessionList) {
-			if(websocketVO.getWebSocketId().equals(sessionId)){
-				sessionList.remove(websocketVO);
-				break;
-			}//if
-		}//for
+	 public void whenExit(WebSocketSession session) throws Exception{
+		 WaitingUsers user = selectBySessionId(new WaitingUsers(0, null, session.getId()));
+		 if(user != null){
+			 System.out.println("delete room IN : " + user.getRoom_no());
+			 deleteRoom(new Room(user.getRoom_no(), 0, null, null, null));
+			 System.out.println("delete room OUT");
+		 }//if
+//		for (WebsocketVO websocketVO : sessionList) {
+//			if(websocketVO.getWebSocketId().equals(sessionId)){
+//				sessionList.remove(websocketVO);
+//				break;
+//			}//if
+//		}//for
 		afterConnectionEstablished(session);
 	 }//class
 	 

@@ -27,7 +27,7 @@
 	
 	<insert id="insertWaitingUser" parameterType="WaitingUser">
 	insert into waiting_users
-	values(waiting_users_seq.nextval, #{room_no}, #{user_id})
+	values(waiting_users_seq.nextval, #{room_no}, #{user_id}, #{session_id})
 	</insert>
 	
 	<select id="selectWaitingUser" resultType="WaitingUser" parameterType="Room">
@@ -39,4 +39,12 @@
 	delete from waiting_users
 	where no = #{no}
 	</delete>
+	
+	<select id="selectAllRoom" resultType="Room">
+		select * from room
+	</select>
+	
+	<select id="selectBySessionId" parameterType="WaitingUser" resultType="WaitingUser">
+		select * from waiting_users where session_id = #{session_id}
+	</select>
 </mapper>

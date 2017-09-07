@@ -57,7 +57,7 @@
 			});//textSend
 		});//ready
 	
-		var roomNum = '${roomNum}';
+		var roomNum = '${room_no}';
 		var nickname = '${user.nickname}';
 		var userId = '${user.id}';
 		var userPw = '${user.pw}';

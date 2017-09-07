@@ -22,6 +22,7 @@ public class UserRepository {
 	
 	public Users selectNickName(Users user) {
 		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+		System.out.println("selectNickName L : " + user);
 		return dao.selectNickName(user);
 	}
 	

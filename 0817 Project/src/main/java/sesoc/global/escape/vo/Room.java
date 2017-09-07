@@ -10,6 +10,15 @@ public class Room {
 	public Room() {
 
 	}
+	
+	public Room(int no, int map_no, String master_id, String title, String room_pw) {
+		super();
+		this.no = no;
+		this.map_no = map_no;
+		this.master_id = master_id;
+		this.title = title;
+		this.room_pw = room_pw;
+	}
 
 	public int getNo() {
 		return no;

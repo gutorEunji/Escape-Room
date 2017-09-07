@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,8 +63,8 @@ div#wrapper {
 	$(function(){
 		
 		$('.da-booking-date').on('click', function(){
-			var roomNum = $(this).attr('data-roomNum');
-			location.href = "/escape/waitingRoom?num="+roomNum+"&nickname=${nickname}";
+			var room_no = $(this).attr('data-roomNum');
+			location.href = "/escape/waitingRoom?room_no="+room_no+"&nickname=${nickname}";
 		});//da-btn da-booking-btn hvr-sweep-to-right-inverse
 	});//main
 </script>
@@ -79,41 +80,13 @@ div#wrapper {
 		
 		<!--   <div class="da-booking-date da-not-availabe-day"> 방 꽉 찼을 때 더이상 못들어오게 막음  -->
 		
-			<div class="da-booking-date" data-roomNum="1">
-				<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
-				<div class="da-availabe-date">Availabe: 3</div>
-				<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
-			</div>
-			<div class="da-booking-date" data-roomNum="2">
-				<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
-				<div class="da-availabe-date">Availabe: 3</div>
-				<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
-			</div>
-			<div class="da-booking-date" data-roomNum="3">
-				<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
-				<div class="da-availabe-date">Availabe: 3</div>
-				<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
-			</div>
-			<div class="da-booking-date" data-roomNum="4">
-				<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
-				<div class="da-availabe-date">Availabe: 3</div>
-				<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
-			</div>
-			<div class="da-booking-date" data-roomNum="5">
-				<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
-				<div class="da-availabe-date">Availabe: 3</div>
-				<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
-			</div>
-			<div class="da-booking-date" data-roomNum="6">
-				<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
-				<div class="da-availabe-date">Availabe: 3</div>
-				<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
-			</div>
-			<div class="da-booking-date" data-roomNum="7">
-				<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
-				<div class="da-availabe-date">Availabe: 3</div>
-				<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
-			</div>
+			<c:forEach var="item" items="${roomList}">
+				<div class="da-booking-date" data-roomNum="${item.no}">
+					<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
+					<div class="da-availabe-date">Availabe: 3</div>
+					<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 </body>
