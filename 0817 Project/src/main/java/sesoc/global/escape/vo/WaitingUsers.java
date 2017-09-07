@@ -4,9 +4,25 @@ public class WaitingUsers {
 	private int no;
 	private int room_no;
 	private String user_id;
+	private String session_id;
 	
 	public WaitingUsers() {
 		
+	}
+	
+	public WaitingUsers(int room_no, String user_id, String session_id) {
+		super();
+		this.room_no = room_no;
+		this.user_id = user_id;
+		this.session_id = session_id;
+	}
+
+	public String getSession_id() {
+		return session_id;
+	}
+
+	public void setSession_id(String session_id) {
+		this.session_id = session_id;
 	}
 
 	public int getNo() {

@@ -49,7 +49,6 @@ function gotoWatingRoom() {
 		method: "post",
 		data: sendData,
 		success: function(resp) {
-			alert("ajax makingRoomPopUp : ${loginUser.id}");
 			if(resp != -1) {
 				$(opener.location).attr("href","waitingRoom?room_no=" + resp + "&id=${loginUser.id}");
 				window.close();

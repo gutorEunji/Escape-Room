@@ -30,13 +30,20 @@ public class RoomController {
 	RoomRepository room_repo;
 
 	@RequestMapping(value = "waitingRoom", method = RequestMethod.GET)
-	public String waitingRoom(String room_no, String id, Model model) {
-		
+	public String waitingRoom(String room_no, Users user, Model model) {
+		System.out.println("wating room : "+ user.getNickname() + ", " + room_no);
 		System.out.println("Waiting Room");
 		
-		Users user = new Users();
-		user.setId(id);
-		Users selectedUser = user_repo.selectId(user);
+//		Users user = new Users();
+//		user.setNickname(nickname);
+		
+		Users selectedUser = null;
+		if(user.getNickname() != null){
+			selectedUser = user_repo.selectNickName(user);
+		}else{
+			selectedUser = user_repo.selectId(user);
+		}
+		
 		model.addAttribute("user", selectedUser);
 		model.addAttribute("room_no", room_no);
 		return "room/waitingRoom";
@@ -78,6 +85,7 @@ public class RoomController {
 	
 	@RequestMapping(value = "roomList", method = RequestMethod.GET)
 	public String roomList(String nickname, Model model) {
+		model.addAttribute("roomList", room_repo.selectAllRoom());
 		model.addAttribute("nickname", nickname);
 		return "room/roomList";
 	}// waitingRoom

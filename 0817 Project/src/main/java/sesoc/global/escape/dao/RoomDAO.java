@@ -12,4 +12,6 @@ public interface RoomDAO {
 	public int insertWaitingUser(WaitingUsers waitingUser);
 	public List<WaitingUsers> selectWaitingUser(Room room);
 	public int deleteWaitingUser(WaitingUsers waitingUser);
+	public List<Room> selectAllRoom();
+	public WaitingUsers selectBySessionId(WaitingUsers waitinguser);
 }

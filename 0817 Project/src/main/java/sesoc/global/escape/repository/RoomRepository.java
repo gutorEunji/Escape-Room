@@ -27,11 +27,12 @@ public class RoomRepository {
 	}
 	
 	public int deleteRoom(Room room) {
+		System.out.println("deleteRoom : " + room);
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
 		return dao.deleteRoom(room);
 	}
 	
-	public int insertWatingUser(WaitingUsers watingUser) {
+	public int insertWaitingUser(WaitingUsers watingUser) {
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
 		return dao.insertWaitingUser(watingUser);
 	}
@@ -44,5 +45,15 @@ public class RoomRepository {
 	public int deleteWatingUser(WaitingUsers watingUser) {
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
 		return dao.deleteWaitingUser(watingUser);
+	}
+
+	public List<Room> selectAllRoom() {
+		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
+		return dao.selectAllRoom();
+	}
+
+	public WaitingUsers selectBySessionId(WaitingUsers waitinguser) {
+		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
+		return dao.selectBySessionId(waitinguser);
 	}
 }

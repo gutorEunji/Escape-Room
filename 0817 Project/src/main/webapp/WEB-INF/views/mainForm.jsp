@@ -61,15 +61,15 @@ footer {
 }
 </style>
 <script>
+
 	$(function() {
-		$('#loginForm').lightbox_me({
-	        centered: true, 
-	        onLoad: function() { 
-	            $('#loginForm').find('input:first').focus()
-	            }
-	        });
-	    /* e.preventDefault(); */
+        $("#login").lightbox_me({centered: true, preventScroll: true, onLoad: function() {
+			$("#login").find("input:first").focus();
+		}});
+		
+        //e.preventDefault();
 	});
+
 	function logout() {
 		location.href = "logout";
 	}
@@ -81,11 +81,20 @@ footer {
 	function makingRoomPopUp() {
 		window.open("makingRoomPopUp", "Room Making Setting", 'width=400, height=600');
 	}
+	
+	function login() {
+		$("#loginForm").submit();
+	}
+	
+	function join() {
+		location.href = "joinForm";
+	}
 </script>
 
 </head>
 <body>
-<div id="loginForm">
+<c:if test="${loginUser == null}">
+<div id="login">
 	<div class="col-sm-3">
 		<form class="da-form-container da-margin-top-15" action="login" method="post" id="loginForm">
 			<input class="da-padding-left-15" type="text" name="id" id="id" placeholder="ID">
@@ -95,6 +104,7 @@ footer {
 		<button type="button" class="da-btn hvr-sweep-to-right" onclick="join()">Join</button>
 	</div>
 </div>
+</c:if>
 <input type="hidden" id="room_no" name="no" value="">
 	<header>
 		<div class="container-fluid">
