@@ -1,7 +1,6 @@
 package sesoc.global.escape.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -16,10 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sesoc.global.escape.repository.UserRepository;
 import sesoc.global.escape.util.MailServiceDao;
-import sesoc.global.escape.vo.SocketData;
 import sesoc.global.escape.vo.Users;
-import sesoc.global.escape.vo.WebsocketVO;
-import sesoc.global.escape.webSocket.WebSocketHandler;
 
 @Controller
 public class UserController {
@@ -114,18 +110,19 @@ public class UserController {
       if(selectedUser == null) {
          String title = "Creative Room Escape : 이메일 인증 안내";
          
-         UUID uuid = UUID.randomUUID();
-         String uuidString = uuid.toString();
+        /* UUID uuid = UUID.randomUUID();
+         String uuidString = uuid.toString();*/
+         int ran = new Random().nextInt(100000) + 10000; 
          
-         session.setAttribute("certifiedNum", uuidString);
+         session.setAttribute("certifiedNum", Integer.toString(ran));
+         StringBuffer text = new StringBuffer();
+         text.append("일상생활에서의 탈출! 언제나 당신께 즐거움을 드리는 Creative Room Escape 입니다.");
+         text.append("<br>이메일 인증 번호를 보내드리니 확인 후 팝업 창에 정확히 입력 바랍니다.<br>");
+         text.append("인증 번호 : " + ran);
+         text.append("<br>언제나 저희 서비스를 이용해주셔서 감사드리며, 앞으로도 저희 서비스를 즐겁게 이용해주시기 바랍니다.");
+         text.append("<br>감사합니다.");
          
-         String text = "일상생활에서의 탈출! 언제나 당신께 즐거움을 드리는 Creative Room Escape 입니다."
-                + "<br>이메일 인증 번호를 보내드리니 확인 후 팝업 창에 정확히 입력 바랍니다."
-                + "<br>"
-                + "인증 번호 : " + uuid
-                + "<br>언제나 저희 서비스를 이용해주셔서 감사드리며, 앞으로도 저희 서비스를 즐겁게 이용해주시기 바랍니다."
-                + "<br>감사합니다.";
-         mailserviceDao.send(title, text, "tngus@gmail.com", user.getEmail(), null);
+         mailserviceDao.send(title, text.toString(), "tngus@gmail.com", user.getEmail(), null);
          return true;
       }
       
