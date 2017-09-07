@@ -232,7 +232,7 @@
 		mainLight.castShadow = true;
 		mainLight.shadow.mapSize.width = 1024;
 		mainLight.shadow.mapSize.height= 1024;
-		mainLight.angle = Math.PI/2.5;
+		mainLight.angle = Math.PI/2.35;
 		scene.add( mainLight );
 		
 		subLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.04);
@@ -422,6 +422,13 @@
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(50, 50, 40);
 			mesh_door.position.set(150,0,-200);
+			scene.add(mesh_door);   
+		});
+		
+		loader.load('resources/json/desk1_closed.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(50, 50, 40);
+			mesh_door.position.set(100,0,-100);
 			scene.add(mesh_door);   
 		});
 	}
