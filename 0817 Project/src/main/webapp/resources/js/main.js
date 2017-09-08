@@ -31,17 +31,17 @@ jQuery(document).ready(function($){
     	
     	if( MQ == 'desktop' && bool) {   		
     		//bind the animation to the window scroll event, arrows click and keyboard
-			//if( hijacking == 'on' ) {
-				//initHijacking();
-				//$(window).on('DOMMouseScroll mousewheel', scrollHijacking);
-			/*} else {
+			if( hijacking == 'on' ) {
+				initHijacking();
+				$(window).on('DOMMouseScroll mousewheel', scrollHijacking);
+			} else {
 				scrollAnimation();
 				$(window).on('scroll', scrollAnimation);
-			}*/
+			}
 			prevArrow.on('click', prevSection);
     		nextArrow.on('click', nextSection);
     		
-    		/*$(document).on('keydown', function(event){
+    		$(document).on('keydown', function(event){
 				if( event.which=='40' && !nextArrow.hasClass('inactive') ) {
 					event.preventDefault();
 					nextSection();
@@ -49,17 +49,17 @@ jQuery(document).ready(function($){
 					event.preventDefault();
 					prevSection();
 				}
-			});*/
+			});
 			//set navigation arrows visibility
 			checkNavigation();
 		} else if( MQ == 'mobile' ) {
 			//reset and unbind
 			resetSectionStyle();
-			//$(window).off('DOMMouseScroll mousewheel', scrollHijacking);
-			//$(window).off('scroll', scrollAnimation);
+			$(window).off('DOMMouseScroll mousewheel', scrollHijacking);
+			$(window).off('scroll', scrollAnimation);
 			prevArrow.off('click', prevSection);
     		nextArrow.off('click', nextSection);
-    		//$(document).off('keydown');
+    		$(document).off('keydown');
 		}
     }
 
@@ -134,48 +134,48 @@ jQuery(document).ready(function($){
     	//go to previous section
     	typeof event !== 'undefined' && event.preventDefault();
     	
-    	var visibleSection = sectionsAvailable.filter('.visible');
-    		//middleScroll = ( hijacking == 'off' && $(window).scrollTop() != visibleSection.offset().top) ? true : false;
-    	//visibleSection = middleScroll ? visibleSection.next('.cd-section') : visibleSection;
+    	var visibleSection = sectionsAvailable.filter('.visible'),
+    		middleScroll = ( hijacking == 'off' && $(window).scrollTop() != visibleSection.offset().top) ? true : false;
+    	visibleSection = middleScroll ? visibleSection.next('.cd-section') : visibleSection;
 
     	var animationParams = selectAnimation(animationType, middleScroll, 'prev');
-    	//unbindScroll(visibleSection.prev('.cd-section'), animationParams[3]);
+    	unbindScroll(visibleSection.prev('.cd-section'), animationParams[3]);
 
         if( !animating && !visibleSection.is(":first-child") ) {
         	animating = true;
             visibleSection.removeClass('visible').children('div').velocity(animationParams[2], animationParams[3], animationParams[4])
             .end().prev('.cd-section').addClass('visible').children('div').velocity(animationParams[0] , animationParams[3], animationParams[4], function(){
             	animating = false;
-            	//if( hijacking == 'off') $(window).on('scroll', scrollAnimation);
+            	if( hijacking == 'off') $(window).on('scroll', scrollAnimation);
             });
             
             actual = actual - 1;
         }
 
-        //resetScroll();
+        resetScroll();
     }
 
     function nextSection(event) {
     	//go to next section
     	typeof event !== 'undefined' && event.preventDefault();
 
-        var visibleSection = sectionsAvailable.filter('.visible');
-    		//middleScroll = ( hijacking == 'off' && $(window).scrollTop() != visibleSection.offset().top) ? true : false;
+        var visibleSection = sectionsAvailable.filter('.visible'),
+    		middleScroll = ( hijacking == 'off' && $(window).scrollTop() != visibleSection.offset().top) ? true : false;
 
     	var animationParams = selectAnimation(animationType, middleScroll, 'next');
-    	//unbindScroll(visibleSection.next('.cd-section'), animationParams[3]);
+    	unbindScroll(visibleSection.next('.cd-section'), animationParams[3]);
 
         if(!animating && !visibleSection.is(":last-of-type") ) {
             animating = true;
             visibleSection.removeClass('visible').children('div').velocity(animationParams[1], animationParams[3], animationParams[4] )
             .end().next('.cd-section').addClass('visible').children('div').velocity(animationParams[0], animationParams[3], animationParams[4], function(){
             	animating = false;
-            	//if( hijacking == 'off') $(window).on('scroll', scrollAnimation);
+            	if( hijacking == 'off') $(window).on('scroll', scrollAnimation);
             });
 
             actual = actual +1;
         }
-        //resetScroll();
+        resetScroll();
     }
 
     function unbindScroll(section, time) {
