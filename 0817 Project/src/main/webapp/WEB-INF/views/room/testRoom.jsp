@@ -271,23 +271,24 @@
 		} */
 		var loader = new THREE.TextureLoader(LOADING_MANAGER);	
 		
-		
+		// 바닥
 		ground = new Physijs.BoxMesh(
-				new THREE.BoxGeometry( 500, 1, 500 ),
+				new THREE.BoxGeometry( 350, 1, 350 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
 		);
 		ground.receiveShadow = true;
 		scene.add( ground );
 		
-		 var texture1 = loader.load("resources/T_Sandstone.png");
-		 ground.material.map = texture1;
-		 texture1.repeat.set(4, 4);
-		 texture1.wrapS = THREE.RepeatWrapping;
-		 texture1.wrapT = THREE.RepeatWrapping;
+		var texture1 = loader.load("resources/T_Sandstone.png");
+		ground.material.map = texture1;
+		texture1.repeat.set(4, 4);
+		texture1.wrapS = THREE.RepeatWrapping;
+		texture1.wrapT = THREE.RepeatWrapping;
+		
 		// 천장 생성
 		ceiling = new Physijs.BoxMesh (
-					new THREE.BoxGeometry( 500, 1, 500 ),
+					new THREE.BoxGeometry( 350, 1, 350 ),
 					new THREE.MeshLambertMaterial( { color: 0xFF0000 } ),
 					0
 		);
@@ -297,8 +298,8 @@
 		
 		// 임시 오브젝트(큐브)
 		var cubecube = new Physijs.BoxMesh( new THREE.BoxGeometry( 10, 10, 10 ),
-																				new THREE.MeshLambertMaterial( { color: 0x00FF00 } ),
-																				1 );
+											new THREE.MeshLambertMaterial( { color: 0x00FF00 } ),
+											1 );
 		cubecube.position.set ( 20, 10, 20 );
 		cubecube.castShadow = true;
 		scene.add( cubecube );
@@ -308,18 +309,16 @@
 		// 벽생성
 		// North
 		nWall = new Physijs.BoxMesh( 
-			new THREE.BoxGeometry( 500, 100, 1 ),
+			new THREE.BoxGeometry( 350, 100, 1 ),
 			new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 			0
 		);
 		nWall.receiveShadow = true;
 		nWall.position.y = 50;
-		nWall.position.z = -249.5;
+		nWall.position.z = -174.5;
 		nWall.name = "북쪽 벽";
 		scene.add( nWall );
 		objects.push( nWall );
-		
-
 		
 		// South
 		/* sWall = new Physijs.BoxMesh(
@@ -336,53 +335,53 @@
 		
 		// East
 		eWall = new Physijs.BoxMesh( 
-				new THREE.BoxGeometry( 1, 100, 500 ),
+				new THREE.BoxGeometry( 1, 100, 350 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
 		);
 		eWall.castShadow = true;
 		eWall.position.y = 50;
-		eWall.position.x = 249.5;
+		eWall.position.x = 174.5;
 		eWall.name = "동쪽 벽";
 		scene.add( eWall );
 		objects.push( eWall );
 		
 		// West
 		wWall = new Physijs.BoxMesh(
-				new THREE.BoxGeometry( 1, 100, 500 ),
+				new THREE.BoxGeometry( 1, 100, 350 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
 		);
 		wWall.castShadow = true;
 		wWall.position.y = 50;
-		wWall.position.x = -249.5;
+		wWall.position.x = -174.5;
 		wWall.name = "서쪽 벽";
 		scene.add( wWall );
 		objects.push( wWall );
 		
 		// 문 부착
-		
-		 var texture = loader.load("resources/horror1.jpg");
-		 nWall.material.map = texture;
-		 wWall.material.map = texture;
-		 eWall.material.map = texture;
-		 ceiling.material.map = texture;
-		 //texture.repeat.set(4, 4);
-		 //texture.wrapS = THREE.RepeatWrapping;
-		 //texture.wrapT = THREE.RepeatWrapping; 
+		var texture = loader.load("resources/horror1.jpg");
+		nWall.material.map = texture;
+		wWall.material.map = texture;
+		eWall.material.map = texture;
+		ceiling.material.map = texture;
+		//texture.repeat.set(4, 4);
+		//texture.wrapS = THREE.RepeatWrapping;
+		//texture.wrapT = THREE.RepeatWrapping; 
 		
 		window.addEventListener( 'resize', onResize, false );
 	}; // end init
 	
-	// ??
+	// 각종 오브젝트 로드
 	function objectLoad() {
 		var loader = new THREE.JSONLoader();
 		loader.load('resources/json/mainDoor/wall_door.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(28,25,50);
-			mesh_door.position.set(1,-5,255);
+			mesh_door.position.set(1,-5, 174.5);
 			mesh_door.rotation.x -= 0.01;
 			scene.add(mesh_door);
+			objects.add ( mesh_door );
 		});
 		
 		loader.load('resources/json/book/books.json', function(geomerty, mat){
@@ -393,42 +392,43 @@
 			scene.add(mesh_door);
 		});
 		
-			loader.load('resources/json/gas-tank.json', function(geomerty, mat){
-					var gap = 10;
-				for (var i = 0; i < 3; i++) {
-					if (gap == 10) {
-						mesh_door = new THREE.Mesh(geomerty,mat[0]);
-						mesh_door.scale.set(3,3,3);
-						mesh_door.position.set(50+gap,5,-10);
-						mesh_door.rotation.z -= 1.6;
-						mesh_door.rotation.y += 0.6;
-						scene.add(mesh_door); 
-					}
+		loader.load('resources/json/gas-tank.json', function(geomerty, mat){
+			var gap = 10;
+			for (var i = 0; i < 3; i++) {
+				if (gap == 10) {
 					mesh_door = new THREE.Mesh(geomerty,mat[0]);
 					mesh_door.scale.set(3,3,3);
-					mesh_door.position.set(50+gap,5,3);
+					mesh_door.position.set(50+gap,5,-10);
+					mesh_door.rotation.z -= 1.6;
+					mesh_door.rotation.y += 0.6;
 					scene.add(mesh_door); 
-					gap += 10;
 				}
-			});
+				mesh_door = new THREE.Mesh(geomerty,mat[0]);
+				mesh_door.scale.set(3,3,3);
+				mesh_door.position.set(50+gap,5,3);
+				scene.add(mesh_door); 
+				gap += 10;
+			}
+		});
 		
 		loader.load('resources/json/safe/safe_close.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(0.7, 0.7, 0.7);
-			mesh_door.position.set(100,0,-250);
+			mesh_door.position.set(0,0,-160);
 			scene.add(mesh_door); 
 		});
+
 		loader.load('resources/json/open_leftdoor_wardrobe.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(50, 50, 40);
-			mesh_door.position.set(150,0,-200);
+			mesh_door.position.set(-50, 0, -160);
 			scene.add(mesh_door);   
 		});
 		
 		loader.load('resources/json/desk1_closed.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(50, 50, 40);
-			mesh_door.position.set(100,0,-100);
+			mesh_door.position.set(-120, 0, -140);
 			scene.add(mesh_door);   
 		});
 	}		
@@ -499,9 +499,6 @@
 				controls.getObject().position.z = forward_intersections[0].point.z + 20;
 				if ( forward_intersections[0].object.name ) {
 					console.log( forward_intersections[0].object.name );
-				} else {
-					context.clearRect(0,0,300,300);
-					texture.needsUpdate = true;
 				}
 			}
 		}
@@ -537,6 +534,7 @@
 	pointerLockControls();
 	init();
 	render();
+
 	</script>
 </body>
 </html>
