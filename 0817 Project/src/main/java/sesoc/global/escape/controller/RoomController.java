@@ -89,4 +89,12 @@ public class RoomController {
 		model.addAttribute("nickname", nickname);
 		return "room/roomList";
 	}// waitingRoom
+	
+	@ResponseBody
+	@RequestMapping(value="roomListRenew", method=RequestMethod.GET)
+	public List<Room> roomListRenew() {
+		return room_repo.selectAllRoom();
+	}// waitingRoom
+	
+	
 }

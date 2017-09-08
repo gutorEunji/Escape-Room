@@ -66,6 +66,27 @@ div#wrapper {
 			var room_no = $(this).attr('data-roomNum');
 			location.href = "/escape/waitingRoom?room_no="+room_no+"&nickname=${nickname}";
 		});//da-btn da-booking-btn hvr-sweep-to-right-inverse
+		
+		setInterval(function() {
+			$.ajax({
+				url : "roomListRenew"
+				, method : "GET"
+				, dataType : 'json'
+				, success : function(resp){
+					$('.da-booking-date-container').html('');
+					$.each(resp, function(i, elt) {
+						var room = '<div class="da-booking-date" data-roomNum="'+elt.no+'">';
+						room += '<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>';
+						room += '<div class="da-availabe-date">Availabe: 3</div>';
+						room += '<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>';
+						room += '</div>';
+						
+						$('.da-booking-date-container').append(room);
+					});//each
+				}//success
+			});//ajax
+		}, 1000);
+		
 	});//main
 </script>
 </head>
@@ -76,18 +97,18 @@ div#wrapper {
 	</div>
 	
 	<div class="da-calendar-block da-margin-top-30">
-		<div class="da-booking-date-container">
+		<div class="da-booking-date-container" />
 		
 		<!--   <div class="da-booking-date da-not-availabe-day"> 방 꽉 찼을 때 더이상 못들어오게 막음  -->
 		
-			<c:forEach var="item" items="${roomList}">
+			<%-- <c:forEach var="item" items="${roomList}">
 				<div class="da-booking-date" data-roomNum="${item.no}">
 					<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
 					<div class="da-availabe-date">Availabe: 3</div>
 					<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
 				</div>
 			</c:forEach>
-		</div>
+		</div> --%>
 	</div>
 </body>
 </html>
