@@ -7,7 +7,6 @@
 	<script type="text/javascript" src="resources/js/three.min.js"></script>
 	<script type="text/javascript" src="resources/js/physi.js"></script>
 	<script type="text/javascript" src="resources/js/PointerLockControls.js"></script>
-	
 	<style type="text/css">
 		body {
 			margin: 0;
@@ -17,9 +16,9 @@
 		}
 		
 		* {
-	  margin: 0;
-	  padding: 0;
-	  border: 0;
+		margin: 0;
+		padding: 0;
+		border: 0;
 		}
 		
 		#instructions {
@@ -429,7 +428,7 @@
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(50, 50, 40);
 			mesh_door.position.set(-120, 0, -140);
-			scene.add(mesh_door);   
+			scene.add(mesh_door);
 		});
 	}		
 	
