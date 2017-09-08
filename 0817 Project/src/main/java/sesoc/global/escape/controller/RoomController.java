@@ -31,7 +31,6 @@ public class RoomController {
 
 	@RequestMapping(value = "waitingRoom", method = RequestMethod.GET)
 	public String waitingRoom(String room_no, Users user, Model model) {
-		System.out.println("wating room : "+ user.getNickname() + ", " + room_no);
 		System.out.println("Waiting Room");
 		
 //		Users user = new Users();
@@ -89,4 +88,12 @@ public class RoomController {
 		model.addAttribute("nickname", nickname);
 		return "room/roomList";
 	}// waitingRoom
+	
+	@ResponseBody
+	@RequestMapping(value="roomListRenew", method=RequestMethod.GET)
+	public List<Room> roomListRenew() {
+		return room_repo.selectAllRoom();
+	}// waitingRoom
+	
+	
 }

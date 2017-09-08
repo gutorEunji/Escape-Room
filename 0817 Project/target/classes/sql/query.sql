@@ -63,8 +63,8 @@ create table waiting_users
   room_no number,
   user_id varchar2(30),
   session_id varchar2(30),
-  constraint waiting_users_room_no_FK foreign key(room_no) references room(no),
-  constraint waiting_users_userid_FK foreign key(user_id) references users(id)
+  constraint waiting_users_room_no_FK foreign key(room_no) references room(no) on delete cascade,
+  constraint waiting_users_userid_FK foreign key(user_id) references users(id) on delete cascade
 );
 
 create sequence waiting_users_seq;
