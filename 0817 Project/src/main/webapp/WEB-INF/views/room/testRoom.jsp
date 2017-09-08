@@ -65,17 +65,17 @@
 	// Global
 	var scene, camera, renderer, subLight, mainLight, bulbGeometry, bulbMat,
 			lightHelper, shadowCameraHelper, ground, ceiling;
+	var camera2, scene2;
 	var nWall, wWall, sWall, eWall;
-	var controls,
-			time = performance.now();
+	var controls, time = performance.now();
 	var objects = [],
-			raycaster_right,
-			raycaster_left,
-			raycaster_forward,
-			raycaster_backward,
-			raycasterFromCamera;
+		raycaster_right,
+		raycaster_left,
+		raycaster_forward,
+		raycaster_backward,
+		raycasterFromCamera;
 	var block = document.getElementById( 'block' ),
-			instructions = document.getElementById( 'instructions' );
+		instructions = document.getElementById( 'instructions' );
 	
 	var mesh1, meshes, mesh_door;
 	var move_hand = 0.01;
@@ -171,6 +171,7 @@
 		// 씬 생성
 		scene = new Physijs.Scene;
 		scene.setGravity( new THREE.Vector3 ( 0, -30, 0 ) );
+		scene2 = new THREE.Scene();
 		
 		// 카메라 생성
 		camera = new THREE.PerspectiveCamera(
@@ -185,7 +186,57 @@
 		
 		controls = new THREE.PointerLockControls( camera );
 		scene.add( controls.getObject() );
+
+		camera2 = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 1, 10 );
+		camera2.position.z = 10;
 		
+		// 화면 중앙 마우스 포인터
+		var spriteMap = new THREE.TextureLoader().load( "resources/images/mousepointer.png", createHUDSprites );
+		var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, useScreenCoordinates: true } );
+		var sprite = new THREE.Sprite( spriteMaterial );
+		sprite.scale.set( 10, 10, 1 );
+		sprite.position.set( window.innerWidth/2, 50, 0 );
+		console.log ( sprite );
+		scene.add( sprite );
+
+		function createHUDSprites ( texture ) {
+				var material = new THREE.SpriteMaterial( { map: texture } );
+				var width = material.map.image.width;
+				var height = material.map.image.height;
+				spriteTL = new THREE.Sprite( material );
+				spriteTL.scale.set( width, height, 1 );
+				sceneOrtho.add( spriteTL );
+				spriteTR = new THREE.Sprite( material );
+				spriteTR.scale.set( width, height, 1 );
+				sceneOrtho.add( spriteTR );
+				spriteBL = new THREE.Sprite( material );
+				spriteBL.scale.set( width, height, 1 );
+				sceneOrtho.add( spriteBL );
+				spriteBR = new THREE.Sprite( material );
+				spriteBR.scale.set( width, height, 1 );
+				sceneOrtho.add( spriteBR );
+				spriteC = new THREE.Sprite( material );
+				spriteC.scale.set( width, height, 1 );
+				sceneOrtho.add( spriteC );
+				updateHUDSprites();
+		}
+		function updateHUDSprites() {
+			var width = window.innerWidth / 2;
+			var height = window.innerHeight / 2;
+			var material = spriteTL.material;
+			var imageWidth = material.map.image.width / 2;
+			var imageHeight = material.map.image.height / 2;
+			spriteTL.position.set( - width + imageWidth,   height - imageHeight, 1 ); // top left
+			spriteTR.position.set(   width - imageWidth,   height - imageHeight, 1 ); // top right
+			spriteBL.position.set( - width + imageWidth, - height + imageHeight, 1 ); // bottom left
+			spriteBR.position.set(   width - imageWidth, - height + imageHeight, 1 ); // bottom right
+			spriteC.position.set( 0, 0, 1 ); // center
+		}
+
+
+
+
+
 		// 레이캐스터
 		raycaster_forward = new THREE.Raycaster();
 		raycaster_forward.ray.direction.set( 0, 0, -1 );
@@ -379,8 +430,8 @@
 			mesh_door.scale.set(28,25,50);
 			mesh_door.position.set(1,-5, 174.5);
 			mesh_door.rotation.x -= 0.01;
-			scene.add(mesh_door);
-			objects.add ( mesh_door );
+			scene.add (mesh_door);
+			objects.push ( mesh_door );
 		});
 		
 		loader.load('resources/json/book/books.json', function(geomerty, mat){
