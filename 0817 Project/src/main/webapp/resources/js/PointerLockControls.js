@@ -140,11 +140,11 @@ THREE.PointerLockControls = function ( camera ) {
 		velocity.x -= velocity.x * 10.0 * delta;
 		velocity.z -= velocity.z * 10.0 * delta;
 
-		if ( moveForward ) velocity.z -= 4000 * delta;
-		if ( moveBackward ) velocity.z += 4000 * delta;
+		if ( moveForward ) velocity.z -= 1000 * delta;
+		if ( moveBackward ) velocity.z += 1000 * delta;
 
-		if ( moveLeft ) velocity.x -= 4000 * delta;
-		if ( moveRight ) velocity.x += 4000 * delta;
+		if ( moveLeft ) velocity.x -= 1000 * delta;
+		if ( moveRight ) velocity.x += 1000 * delta;
 
 		this.getObject().translateX( velocity.x * delta );
 		this.getObject().translateZ( velocity.z * delta );

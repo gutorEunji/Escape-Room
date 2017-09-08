@@ -66,6 +66,7 @@
 	var scene, camera, renderer, subLight, mainLight, bulbGeometry, bulbMat,
 			lightHelper, shadowCameraHelper, ground, ceiling;
 	var camera2, scene2;
+	var spriteC;
 	var nWall, wWall, sWall, eWall;
 	var controls, time = performance.now();
 	var objects = [],
@@ -73,6 +74,10 @@
 		raycaster_left,
 		raycaster_forward,
 		raycaster_backward,
+		raycaster_forwardRight,
+		raycaster_forwardLeft,
+		raycaster_backwardRight,
+		raycaster_backwardLeft,
 		raycasterFromCamera;
 	var block = document.getElementById( 'block' ),
 		instructions = document.getElementById( 'instructions' );
@@ -166,6 +171,7 @@
 		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( window.innerWidth, window.innerHeight );
 		renderer.shadowMap.enabled = true;
+		renderer.autoClear = false;
 		document.body.appendChild( renderer.domElement );
 		
 		// 씬 생성
@@ -187,55 +193,22 @@
 		controls = new THREE.PointerLockControls( camera );
 		scene.add( controls.getObject() );
 
-		camera2 = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 1, 10 );
+		camera2 = new THREE.OrthographicCamera( - window.innerWidth / 2, window.innerWidth / 2,
+												 window.innerHeight / 2, - window.innerHeight / 2, 1, 10 );
 		camera2.position.z = 10;
 		
 		// 화면 중앙 마우스 포인터
 		var spriteMap = new THREE.TextureLoader().load( "resources/images/mousepointer.png", createHUDSprites );
-		var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, useScreenCoordinates: true } );
-		var sprite = new THREE.Sprite( spriteMaterial );
-		sprite.scale.set( 10, 10, 1 );
-		sprite.position.set( window.innerWidth/2, 50, 0 );
-		console.log ( sprite );
-		scene.add( sprite );
-
 		function createHUDSprites ( texture ) {
 				var material = new THREE.SpriteMaterial( { map: texture } );
 				var width = material.map.image.width;
 				var height = material.map.image.height;
-				spriteTL = new THREE.Sprite( material );
-				spriteTL.scale.set( width, height, 1 );
-				sceneOrtho.add( spriteTL );
-				spriteTR = new THREE.Sprite( material );
-				spriteTR.scale.set( width, height, 1 );
-				sceneOrtho.add( spriteTR );
-				spriteBL = new THREE.Sprite( material );
-				spriteBL.scale.set( width, height, 1 );
-				sceneOrtho.add( spriteBL );
-				spriteBR = new THREE.Sprite( material );
-				spriteBR.scale.set( width, height, 1 );
-				sceneOrtho.add( spriteBR );
 				spriteC = new THREE.Sprite( material );
-				spriteC.scale.set( width, height, 1 );
-				sceneOrtho.add( spriteC );
-				updateHUDSprites();
+				spriteC.scale.set( width/5, height/5, 1 );
+				spriteC.position.set( 0, 0, 1 ); // center
+				scene2.add( spriteC );
 		}
-		function updateHUDSprites() {
-			var width = window.innerWidth / 2;
-			var height = window.innerHeight / 2;
-			var material = spriteTL.material;
-			var imageWidth = material.map.image.width / 2;
-			var imageHeight = material.map.image.height / 2;
-			spriteTL.position.set( - width + imageWidth,   height - imageHeight, 1 ); // top left
-			spriteTR.position.set(   width - imageWidth,   height - imageHeight, 1 ); // top right
-			spriteBL.position.set( - width + imageWidth, - height + imageHeight, 1 ); // bottom left
-			spriteBR.position.set(   width - imageWidth, - height + imageHeight, 1 ); // bottom right
-			spriteC.position.set( 0, 0, 1 ); // center
-		}
-
-
-
-
+		
 
 		// 레이캐스터
 		raycaster_forward = new THREE.Raycaster();
@@ -249,6 +222,18 @@
 		
 		raycaster_right = new THREE.Raycaster();
 		raycaster_right.ray.direction.set( 1, 0, 0 );
+
+		raycaster_forwardRight = new THREE.Raycaster();
+		raycaster_forwardRight.ray.direction.set( 1, 0, -1 );
+		
+		raycaster_forwardLeft = new THREE.Raycaster();
+		raycaster_forwardLeft.ray.direction.set( -1, 0, -1 );
+		
+		raycaster_backwardRight = new THREE.Raycaster();
+		raycaster_backwardRight.ray.direction.set( 1, 0, 1 );
+		
+		raycaster_backwardLeft = new THREE.Raycaster();
+		raycaster_backwardLeft.ray.direction.set( -1, 0, 1 );
 		
 		raycasterFromCamera = new THREE.Raycaster();
 		// raycasterFromCamera.ray.direction = camera.getWorldDirection().normalize();
@@ -301,7 +286,7 @@
 			camera.add(mesh1);
 		});
 			
-			objectLoad(LOADING_MANAGER);
+		objectLoad(LOADING_MANAGER);
 		/* loader.load('resources/json/wall_door.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(28,25,50);
@@ -496,7 +481,6 @@
 	
 	// 렌더
 	var render = function() {
-		
 		if (RESOURCES_LOADED == false) {
 			requestAnimationFrame(render);
 			loadingScreen.box.position.x -= 0.05;
@@ -533,13 +517,33 @@
 		raycaster_left.ray.origin.x -= 10;
 		raycaster_right.ray.origin.copy(controls.getObject().position);
 		raycaster_right.ray.origin.x += 10;
+
+		raycaster_forwardRight.ray.origin.copy( controls.getObject().position );
+		raycaster_forwardRight.ray.origin.z -= 10;
+		raycaster_forwardRight.ray.origin.x += 10;
 		
+		raycaster_forwardLeft.ray.origin.copy( controls.getObject().position );
+		raycaster_forwardLeft.ray.origin.z -= 10;
+		raycaster_forwardLeft.ray.origin.x -= 10;
+		
+		raycaster_backwardRight.ray.origin.copy( controls.getObject().position );
+		raycaster_backwardRight.ray.origin.z += 10;
+		raycaster_backwardRight.ray.origin.x += 10;
+
+		raycaster_backwardLeft.ray.origin.copy( controls.getObject().position );
+		raycaster_backwardLeft.ray.origin.z += 10;
+		raycaster_backwardLeft.ray.origin.x -= 10;
+
 		raycasterFromCamera.ray.origin.copy( controls.getObject().position );
 		
 		var forward_intersections = raycaster_forward.intersectObjects( objects );
 		var backward_intersections = raycaster_backward.intersectObjects( objects );
 		var left_intersections = raycaster_left.intersectObjects( objects );
 		var right_intersections = raycaster_right.intersectObjects( objects );
+		var forwardRight_intersections = raycaster_forwardRight.intersectObjects( objects );
+		var forwardLeft_intersections = raycaster_forwardLeft.intersectObjects( objects );
+		var backwardRight_intersections = raycaster_backwardRight.intersectObjects( objects );
+		var backwardLeft_intersections =  raycaster_backwardLeft.intersectObjects( objects );
 		// var cameraIntersections = raycasterFromCamera.intersectObjects( objects );
 				
 		// 인터섹션이 있는경우
@@ -573,12 +577,47 @@
 				controls.getObject().position.x = right_intersections[0].point.x - 20;
 			}
 		}
+
+		if ( forwardRight_intersections.length > 0 ) {
+			var distance = forwardRight_intersections[0].distance;
+			if ( distance > 0 && distance < 10 ) {
+				controls.getObject().position.x = forwardRight_intersections[0].point.x - 20;
+				controls.getObject().position.z = forwardRight_intersections[0].point.z + 20;
+			}
+		}
+
+		if ( forwardLeft_intersections.length > 0 ) {
+			var distance = forwardLeft_intersections[0].distance;
+			if ( distance > 0 && distance < 10 ) {
+				controls.getObject().position.x = forwardLeft_intersections[0].point.x + 20;
+				controls.getObject().position.z = forwardLeft_intersections[0].point.z + 20;
+			}
+		}
+
+		if ( backwardRight_intersections.length > 0 ) {
+			var distance = backwardRight_intersections[0].distance;
+			if ( distance > 0 && distance < 10 ) {
+				controls.getObject().position.x = backwardRight_intersections[0].point.x - 20;
+				controls.getObject().position.z = backwardRight_intersections[0].point.z - 20;
+			}
+		}
+
+		if ( backwardLeft_intersections.length > 0 ) {
+			var distance = backwardLeft_intersections[0].distance;
+			if ( distance > 0 && distance < 10 ) {
+				controls.getObject().position.x = backwardLeft_intersections[0].point.x + 20;
+				controls.getObject().position.z = backwardLeft_intersections[0].point.z - 20;
+			}
+		}
 		
 		scene.simulate();
 		controls.update( performance.now() - time );
 		time = performance.now();
 		
-		renderer.render( scene, camera ); 
+		renderer.clear();
+		renderer.render( scene, camera );
+		renderer.clearDepth();
+		renderer.render( scene2, camera2 ); 
 	}; // end render
 
 	pointerLockControls();
