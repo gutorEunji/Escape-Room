@@ -62,16 +62,18 @@ public class UserController {
       return "mainForm";
    }
    
+   @ResponseBody
    @RequestMapping(value="login", method=RequestMethod.POST)
-   public String login(Users user, Model model, HttpSession session) {
+   public boolean login(Users user, Model model, HttpSession session) {
       Users selectedUser = repo.selectId(user);
       
       if(selectedUser != null) {
     	  model.addAttribute("profile", selectedUser.getProfile());
     	  session.setAttribute("loginUser", selectedUser);
+    	  return true;
       }
       
-      return "mainForm";
+      return false;
    }
    
    @ResponseBody
