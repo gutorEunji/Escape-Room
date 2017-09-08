@@ -76,7 +76,7 @@
                Hide parent if parent specified (parentLightbox should be jquery reference to any parent lightbox)
             ---------------------------------------------------- */
             if (opts.parentLightbox) {
-                opts.parentLightbox.fadeOut(200);
+                opts.parentLightbox.fadeOut(500);
             }
 
 
