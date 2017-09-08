@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="resources/js/three.min.js"></script>
 	<script type="text/javascript" src="resources/js/physi.js"></script>
 	<script type="text/javascript" src="resources/js/PointerLockControls.js"></script>
+	
 	<style type="text/css">
 		body {
 			margin: 0;
@@ -16,9 +17,9 @@
 		}
 		
 		* {
-		margin: 0;
-		padding: 0;
-		border: 0;
+	  margin: 0;
+	  padding: 0;
+	  border: 0;
 		}
 		
 		#instructions {
@@ -65,22 +66,17 @@
 	// Global
 	var scene, camera, renderer, subLight, mainLight, bulbGeometry, bulbMat,
 			lightHelper, shadowCameraHelper, ground, ceiling;
-	var camera2, scene2;
-	var spriteC;
 	var nWall, wWall, sWall, eWall;
-	var controls, time = performance.now();
+	var controls,
+			time = performance.now();
 	var objects = [],
-		raycaster_right,
-		raycaster_left,
-		raycaster_forward,
-		raycaster_backward,
-		raycaster_forwardRight,
-		raycaster_forwardLeft,
-		raycaster_backwardRight,
-		raycaster_backwardLeft,
-		raycasterFromCamera;
+			raycaster_right,
+			raycaster_left,
+			raycaster_forward,
+			raycaster_backward,
+			raycasterFromCamera;
 	var block = document.getElementById( 'block' ),
-		instructions = document.getElementById( 'instructions' );
+			instructions = document.getElementById( 'instructions' );
 	
 	var mesh1, meshes, mesh_door;
 	var move_hand = 0.01;
@@ -171,13 +167,11 @@
 		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( window.innerWidth, window.innerHeight );
 		renderer.shadowMap.enabled = true;
-		renderer.autoClear = false;
 		document.body.appendChild( renderer.domElement );
 		
 		// 씬 생성
 		scene = new Physijs.Scene;
 		scene.setGravity( new THREE.Vector3 ( 0, -30, 0 ) );
-		scene2 = new THREE.Scene();
 		
 		// 카메라 생성
 		camera = new THREE.PerspectiveCamera(
@@ -192,24 +186,7 @@
 		
 		controls = new THREE.PointerLockControls( camera );
 		scene.add( controls.getObject() );
-
-		camera2 = new THREE.OrthographicCamera( - window.innerWidth / 2, window.innerWidth / 2,
-												 window.innerHeight / 2, - window.innerHeight / 2, 1, 10 );
-		camera2.position.z = 10;
 		
-		// 화면 중앙 마우스 포인터
-		var spriteMap = new THREE.TextureLoader().load( "resources/images/mousepointer.png", createHUDSprites );
-		function createHUDSprites ( texture ) {
-				var material = new THREE.SpriteMaterial( { map: texture } );
-				var width = material.map.image.width;
-				var height = material.map.image.height;
-				spriteC = new THREE.Sprite( material );
-				spriteC.scale.set( width/5, height/5, 1 );
-				spriteC.position.set( 0, 0, 1 ); // center
-				scene2.add( spriteC );
-		}
-		
-
 		// 레이캐스터
 		raycaster_forward = new THREE.Raycaster();
 		raycaster_forward.ray.direction.set( 0, 0, -1 );
@@ -222,18 +199,6 @@
 		
 		raycaster_right = new THREE.Raycaster();
 		raycaster_right.ray.direction.set( 1, 0, 0 );
-
-		raycaster_forwardRight = new THREE.Raycaster();
-		raycaster_forwardRight.ray.direction.set( 1, 0, -1 );
-		
-		raycaster_forwardLeft = new THREE.Raycaster();
-		raycaster_forwardLeft.ray.direction.set( -1, 0, -1 );
-		
-		raycaster_backwardRight = new THREE.Raycaster();
-		raycaster_backwardRight.ray.direction.set( 1, 0, 1 );
-		
-		raycaster_backwardLeft = new THREE.Raycaster();
-		raycaster_backwardLeft.ray.direction.set( -1, 0, 1 );
 		
 		raycasterFromCamera = new THREE.Raycaster();
 		// raycasterFromCamera.ray.direction = camera.getWorldDirection().normalize();
@@ -264,11 +229,11 @@
 		});
 		mainLight = new THREE.SpotLight ( 0xffee88, 25, 2500 );
 		mainLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
-		mainLight.position.set( 0, 100, 0 );
+		mainLight.position.set( 0, 150, 0 );
 		mainLight.castShadow = true;
 		mainLight.shadow.mapSize.width = 1024;
 		mainLight.shadow.mapSize.height= 1024;
-		mainLight.angle = Math.PI/2.35;
+		mainLight.angle = Math.PI/2.2;
 		scene.add( mainLight );
 		
 		subLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.04);
@@ -286,7 +251,7 @@
 			camera.add(mesh1);
 		});
 			
-		objectLoad(LOADING_MANAGER);
+			objectLoad(LOADING_MANAGER);
 		/* loader.load('resources/json/wall_door.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(28,25,50);
@@ -306,24 +271,23 @@
 		} */
 		var loader = new THREE.TextureLoader(LOADING_MANAGER);	
 		
-		// 바닥
+		
 		ground = new Physijs.BoxMesh(
-				new THREE.BoxGeometry( 350, 1, 350 ),
+				new THREE.BoxGeometry( 500, 1, 500 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
 		);
 		ground.receiveShadow = true;
 		scene.add( ground );
 		
-		var texture1 = loader.load("resources/T_Sandstone.png");
-		ground.material.map = texture1;
-		texture1.repeat.set(4, 4);
-		texture1.wrapS = THREE.RepeatWrapping;
-		texture1.wrapT = THREE.RepeatWrapping;
-		
+		 var texture1 = loader.load("resources/T_Sandstone.png");
+		 ground.material.map = texture1;
+		 texture1.repeat.set(4, 4);
+		 texture1.wrapS = THREE.RepeatWrapping;
+		 texture1.wrapT = THREE.RepeatWrapping;
 		// 천장 생성
 		ceiling = new Physijs.BoxMesh (
-					new THREE.BoxGeometry( 350, 1, 350 ),
+					new THREE.BoxGeometry( 500, 1, 500 ),
 					new THREE.MeshLambertMaterial( { color: 0xFF0000 } ),
 					0
 		);
@@ -332,31 +296,33 @@
 		scene.add( ceiling );
 		
 		// 임시 오브젝트(큐브)
-		var cubecube = new Physijs.BoxMesh( new THREE.BoxGeometry( 10, 10, 10 ),
-											new THREE.MeshLambertMaterial( { color: 0x00FF00 } ),
-											1 );
+		/* var cubecube = new Physijs.BoxMesh( new THREE.BoxGeometry( 10, 10, 10 ),
+																				new THREE.MeshLambertMaterial( { color: 0x00FF00 } ),
+																				1 );
 		cubecube.position.set ( 20, 10, 20 );
 		cubecube.castShadow = true;
 		scene.add( cubecube );
-		objects.push( cubecube );
+		objects.push( cubecube ); */
 
 		
 		// 벽생성
 		// North
 		nWall = new Physijs.BoxMesh( 
-			new THREE.BoxGeometry( 350, 100, 1 ),
+			new THREE.BoxGeometry( 500, 100, 1 ),
 			new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 			0
 		);
 		nWall.receiveShadow = true;
 		nWall.position.y = 50;
-		nWall.position.z = -174.5;
+		nWall.position.z = -249.5;
 		nWall.name = "북쪽 벽";
 		scene.add( nWall );
 		objects.push( nWall );
 		
+
+		
 		// South
-		/* sWall = new Physijs.BoxMesh(
+		sWall = new Physijs.BoxMesh(
 				new THREE.BoxGeometry( 500, 100, 1 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
@@ -366,58 +332,60 @@
 		sWall.position.z = 249.5;
 		sWall.name = "남쪽 벽";
 		scene.add( sWall );
-		objects.push( sWall ); */
+		objects.push( sWall );
 		
 		// East
 		eWall = new Physijs.BoxMesh( 
-				new THREE.BoxGeometry( 1, 100, 350 ),
+				new THREE.BoxGeometry( 1, 100, 500 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
 		);
 		eWall.castShadow = true;
 		eWall.position.y = 50;
-		eWall.position.x = 174.5;
+		eWall.position.x = 249.5;
 		eWall.name = "동쪽 벽";
 		scene.add( eWall );
 		objects.push( eWall );
 		
 		// West
 		wWall = new Physijs.BoxMesh(
-				new THREE.BoxGeometry( 1, 100, 350 ),
+				new THREE.BoxGeometry( 1, 100, 500 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
 				0
 		);
 		wWall.castShadow = true;
 		wWall.position.y = 50;
-		wWall.position.x = -174.5;
+		wWall.position.x = -249.5;
 		wWall.name = "서쪽 벽";
 		scene.add( wWall );
 		objects.push( wWall );
 		
 		// 문 부착
-		var texture = loader.load("resources/horror1.jpg");
-		nWall.material.map = texture;
-		wWall.material.map = texture;
-		eWall.material.map = texture;
-		ceiling.material.map = texture;
-		//texture.repeat.set(4, 4);
-		//texture.wrapS = THREE.RepeatWrapping;
-		//texture.wrapT = THREE.RepeatWrapping; 
+		
+		 var texture = loader.load("resources/pietrac.png");
+		 nWall.material.map = texture;
+		 wWall.material.map = texture;
+		 eWall.material.map = texture;
+		 sWall.material.map = texture;
+		 //ceiling.material.map = texture;
+		 texture.repeat.set(4, 4); 
+		 texture.wrapS = THREE.RepeatWrapping;
+		 texture.wrapT = THREE.RepeatWrapping; 
 		
 		window.addEventListener( 'resize', onResize, false );
 	}; // end init
 	
-	// 각종 오브젝트 로드
+	// ??
 	function objectLoad() {
 		var loader = new THREE.JSONLoader();
-		loader.load('resources/json/mainDoor/wall_door.json', function(geomerty, mat){
-			mesh_door = new THREE.Mesh(geomerty,mat[0]);
-			mesh_door.scale.set(28,25,50);
-			mesh_door.position.set(1,-5, 174.5);
-			mesh_door.rotation.x -= 0.01;
-			scene.add (mesh_door);
-			objects.push ( mesh_door );
-		});
+			loader.load('resources/json/mainDoor/only_door.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty, mat[0]);
+			mesh_door.scale.set(35,35,35);
+			mesh_door.position.set(1,0,255);
+			mesh_door.rotation.y += Math.PI;
+			scene.add(mesh_door);
+			
+		}); 
 		
 		loader.load('resources/json/book/books.json', function(geomerty, mat){
 			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
@@ -427,44 +395,76 @@
 			scene.add(mesh_door);
 		});
 		
-		loader.load('resources/json/gas-tank.json', function(geomerty, mat){
-			var gap = 10;
-			for (var i = 0; i < 3; i++) {
-				if (gap == 10) {
+			loader.load('resources/json/gas-tank/gas-tank.json', function(geomerty, mat){
+					var gap = 10;
+				for (var i = 0; i < 3; i++) {
+					if (gap == 10) {
+						mesh_door = new THREE.Mesh(geomerty,mat[0]);
+						mesh_door.scale.set(3,3,3);
+						mesh_door.position.set(-200+gap,5,-100);
+						mesh_door.rotation.z -= 1.6;
+						mesh_door.rotation.y += 0.6;
+						scene.add(mesh_door); 
+					}
 					mesh_door = new THREE.Mesh(geomerty,mat[0]);
 					mesh_door.scale.set(3,3,3);
-					mesh_door.position.set(50+gap,5,-10);
-					mesh_door.rotation.z -= 1.6;
-					mesh_door.rotation.y += 0.6;
+					mesh_door.position.set(-200+gap,5,-120);
 					scene.add(mesh_door); 
+					gap += 10;
 				}
-				mesh_door = new THREE.Mesh(geomerty,mat[0]);
-				mesh_door.scale.set(3,3,3);
-				mesh_door.position.set(50+gap,5,3);
-				scene.add(mesh_door); 
-				gap += 10;
-			}
-		});
+			});
 		
 		loader.load('resources/json/safe/safe_close.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(0.7, 0.7, 0.7);
-			mesh_door.position.set(0,0,-160);
+			mesh_door.position.set(100,0,-250);
 			scene.add(mesh_door); 
 		});
-
 		loader.load('resources/json/open_leftdoor_wardrobe.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(50, 50, 40);
-			mesh_door.position.set(-50, 0, -160);
+			mesh_door.position.set(150,0,-200);
 			scene.add(mesh_door);   
 		});
 		
 		loader.load('resources/json/desk1_closed.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(50, 50, 40);
-			mesh_door.position.set(-120, 0, -140);
-			scene.add(mesh_door);
+			mesh_door.position.set(100,0,-100);
+			scene.add(mesh_door);   
+		});
+		
+		loader.load('resources/json/logs/wood.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(10, 10, 10);
+			mesh_door.position.set(-200,0,-150);
+			scene.add(mesh_door);    
+		});
+		
+		loader.load('resources/json/bed/bed.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(20, 20, 20);  
+			mesh_door.position.set(-200,0,-80);
+			mesh_door.rotation.y += Math.PI/3;
+			scene.add(mesh_door);    
+		});
+		
+	/* 	loader.load('resources/json/meuble1.json', function(geomerty, mat){
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
+			mesh_door.scale.set(0.01, 0.01, 0.01);  
+			mesh_door.position.set(0,0,0);
+			scene.add(mesh_door);    
+		}); */
+		
+		loader.load('resources/json/milkTank/milk tank.json', function(geomerty, mat){
+			var gap = 10;
+			for (var i = 0; i < 3; i++) {
+				mesh_door = new THREE.Mesh(geomerty,mat[0]);
+				mesh_door.scale.set(30, 30, 30);
+				mesh_door.position.set(-220+gap,0,-230);
+				scene.add(mesh_door);  
+				gap += 30;
+			}
 		});
 	}		
 	
@@ -481,6 +481,7 @@
 	
 	// 렌더
 	var render = function() {
+		
 		if (RESOURCES_LOADED == false) {
 			requestAnimationFrame(render);
 			loadingScreen.box.position.x -= 0.05;
@@ -517,33 +518,13 @@
 		raycaster_left.ray.origin.x -= 10;
 		raycaster_right.ray.origin.copy(controls.getObject().position);
 		raycaster_right.ray.origin.x += 10;
-
-		raycaster_forwardRight.ray.origin.copy( controls.getObject().position );
-		raycaster_forwardRight.ray.origin.z -= 10;
-		raycaster_forwardRight.ray.origin.x += 10;
 		
-		raycaster_forwardLeft.ray.origin.copy( controls.getObject().position );
-		raycaster_forwardLeft.ray.origin.z -= 10;
-		raycaster_forwardLeft.ray.origin.x -= 10;
-		
-		raycaster_backwardRight.ray.origin.copy( controls.getObject().position );
-		raycaster_backwardRight.ray.origin.z += 10;
-		raycaster_backwardRight.ray.origin.x += 10;
-
-		raycaster_backwardLeft.ray.origin.copy( controls.getObject().position );
-		raycaster_backwardLeft.ray.origin.z += 10;
-		raycaster_backwardLeft.ray.origin.x -= 10;
-
 		raycasterFromCamera.ray.origin.copy( controls.getObject().position );
 		
 		var forward_intersections = raycaster_forward.intersectObjects( objects );
 		var backward_intersections = raycaster_backward.intersectObjects( objects );
 		var left_intersections = raycaster_left.intersectObjects( objects );
 		var right_intersections = raycaster_right.intersectObjects( objects );
-		var forwardRight_intersections = raycaster_forwardRight.intersectObjects( objects );
-		var forwardLeft_intersections = raycaster_forwardLeft.intersectObjects( objects );
-		var backwardRight_intersections = raycaster_backwardRight.intersectObjects( objects );
-		var backwardLeft_intersections =  raycaster_backwardLeft.intersectObjects( objects );
 		// var cameraIntersections = raycasterFromCamera.intersectObjects( objects );
 				
 		// 인터섹션이 있는경우
@@ -553,6 +534,9 @@
 				controls.getObject().position.z = forward_intersections[0].point.z + 20;
 				if ( forward_intersections[0].object.name ) {
 					console.log( forward_intersections[0].object.name );
+				} else {
+					context.clearRect(0,0,300,300);
+					texture.needsUpdate = true;
 				}
 			}
 		}
@@ -577,53 +561,17 @@
 				controls.getObject().position.x = right_intersections[0].point.x - 20;
 			}
 		}
-
-		if ( forwardRight_intersections.length > 0 ) {
-			var distance = forwardRight_intersections[0].distance;
-			if ( distance > 0 && distance < 10 ) {
-				controls.getObject().position.x = forwardRight_intersections[0].point.x - 20;
-				controls.getObject().position.z = forwardRight_intersections[0].point.z + 20;
-			}
-		}
-
-		if ( forwardLeft_intersections.length > 0 ) {
-			var distance = forwardLeft_intersections[0].distance;
-			if ( distance > 0 && distance < 10 ) {
-				controls.getObject().position.x = forwardLeft_intersections[0].point.x + 20;
-				controls.getObject().position.z = forwardLeft_intersections[0].point.z + 20;
-			}
-		}
-
-		if ( backwardRight_intersections.length > 0 ) {
-			var distance = backwardRight_intersections[0].distance;
-			if ( distance > 0 && distance < 10 ) {
-				controls.getObject().position.x = backwardRight_intersections[0].point.x - 20;
-				controls.getObject().position.z = backwardRight_intersections[0].point.z - 20;
-			}
-		}
-
-		if ( backwardLeft_intersections.length > 0 ) {
-			var distance = backwardLeft_intersections[0].distance;
-			if ( distance > 0 && distance < 10 ) {
-				controls.getObject().position.x = backwardLeft_intersections[0].point.x + 20;
-				controls.getObject().position.z = backwardLeft_intersections[0].point.z - 20;
-			}
-		}
 		
 		scene.simulate();
 		controls.update( performance.now() - time );
 		time = performance.now();
 		
-		renderer.clear();
-		renderer.render( scene, camera );
-		renderer.clearDepth();
-		renderer.render( scene2, camera2 ); 
+		renderer.render( scene, camera ); 
 	}; // end render
 
 	pointerLockControls();
 	init();
 	render();
-
 	</script>
 </body>
 </html>
