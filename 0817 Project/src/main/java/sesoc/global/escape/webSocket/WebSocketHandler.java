@@ -34,46 +34,72 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	@Autowired
 	private Provider<UserRepository> provider_user;
 	
+	/**
+	 * @param waitingUser
+	 * @return INSERT 성공여부
+	 * 대기방에 입장한 유저들의 정보를 DB에 추가
+	 */
 	public int insertWaitingUser(WaitingUsers waitingUser){
 		RoomRepository repo = provider_room.get();
 		return repo.insertWaitingUser(waitingUser);
 	}//getuserInfo
 	
+	/**
+	 * @param room
+	 * @return
+	 * 방장이 방을 나갔을 때 방에 대한 모든 DB가 삭제
+	 */
 	public int deleteRoom(Room room){
 		RoomRepository repo = provider_room.get();
 		return repo.deleteRoom(room);
 	}//deleteRoom
 	
+	/**
+	 * @param waitinguser
+	 * @return DB에 있는 방장 정보 반환
+	 * DB에 있는 방장 정보만 불러온다
+	 */
 	public WaitingUsers selectBySessionId(WaitingUsers waitinguser){
 		RoomRepository repo = provider_room.get();
 		return repo.selectBySessionId(waitinguser);
 	}//selectBySessionId
 	
+	/**
+	 * @param waitinguser
+	 * @return DB에 있는 일반 유저에 대한 정보 반환
+	 * DB에 있는 일반 유저에 대한 정보만 불러온다
+	 */
 	public WaitingUsers findUser(WaitingUsers waitinguser){
 		UserRepository repo = provider_user.get();
 		return repo.findUser(waitinguser);
 	}//selectBySessionId
 	
+	/**
+	 * @param room
+	 * @return 해당 방에 대한 모든 유저들의 정보를 반환
+	 * 특정한 방에 접속에 있는 유저들의 대한 정보를 List로 반환한다
+	 */
 	public List<WaitingUsers> selectAll(Room room){
 		UserRepository repo = provider_user.get();
 		return repo.selectWaitingUser(room);
 	}//selectAll
 	
+	/**
+	 * @param sessionId
+	 * @return 
+	 * 방장이 아닌 일반 유저가 방에서 퇴장시에 DB에서 삭제
+	 */
 	public int deleteNormalUser(String sessionId){
 		UserRepository repo = provider_user.get();
 		return repo.deleteNormalUser(sessionId);
 	}//deleteNormalUser
 	
-	 @Override
+	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		 System.out.println("afterConnectionEstablished");
-		 
-		 for (WebsocketVO data : sessionList) {
-			data.getSession().sendMessage(new TextMessage("|Enter|"));
-		 } // for
 	}//afterConnectionEstablished
 	 
-	 @Override
+	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 		 //다른 사용자 로그인시 갱신에 필요한 메소드
 		 if (message.getPayload().toString().contains("|roomNum|") && message.getPayload().toString().contains("|userId|") && message.getPayload().toString().contains("|userPw|")) {
@@ -135,24 +161,51 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	}//afterConnectionClosed
 	 
 	 /**
-	  * 유저 퇴장시 호출
-	  * */
+	  * @param session
+	  * @throws Exception
+	  * 유저가 방에서 퇴장했을 때에 대한 로직처리
+	  */
 	 public void whenExit(WebSocketSession session) throws Exception{
+		 
 		 WaitingUsers user = selectBySessionId(new WaitingUsers(0, 0, null, session.getId(), null, null));
+		 
 		 if(user != null){
-			 System.out.println("whenExit 방장");
+			 List<WaitingUsers> deleting_list = selectAll(new Room(user.getRoom_no(), 0, null, null, null));
 			 deleteRoom(new Room(user.getRoom_no(), 0, null, null, null));
-		 }//if
+			 for (WaitingUsers waitingUsers : deleting_list) {
+				 for (WebsocketVO websocketVO : sessionList) {
+					 
+					 /*if(websocketVO.getSession().getId().equals(session.getId())){
+						 sessionList.remove(websocketVO);
+						 continue;
+					 }else */
+					 if(websocketVO.getSession().getId().equals(waitingUsers.getSession_id())){
+						 if(!(websocketVO.getSession().getId().equals(session.getId()))){
+							 websocketVO.getSession().sendMessage(new TextMessage("|room_deleted|"));
+						 }//inner if
+						 sessionList.remove(websocketVO);
+						 break;
+					 }//if-else
+					 
+				 }//inner for
+			}//outer for
+			 
+		 }else{
+			 deleteNormalUser(session.getId());
+			 
+			 for (WebsocketVO websocketVO : sessionList) {
+				 if(websocketVO.getSession().getId().equals(session.getId())){
+					 sessionList.remove(websocketVO);
+					 break;
+				 }//if
+			 }//for
+			 
+			 for (WebsocketVO data : sessionList) {
+				 data.getSession().sendMessage(new TextMessage("|Enter|"));
+			 } // for
+		 }//else if
 		 
-		 deleteNormalUser(session.getId());
-		 
-		for (WebsocketVO websocketVO : sessionList) {
-			if(websocketVO.getSession().getId().equals(session.getId())){
-				sessionList.remove(websocketVO);
-				break;
-			}//if
-		}//for
-		afterConnectionEstablished(session);
+//		afterConnectionEstablished(session);
 	 }//class
 	 
 }//class

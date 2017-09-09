@@ -107,6 +107,8 @@
 
 		function onMessage(evt) {
 			var data = evt.data;
+			
+			// USER 입장 시
 			if(data === '|Enter|'){
 				$(function(){
 					$.ajax({
@@ -122,6 +124,14 @@
 				});//main
 				return;
 			}//if
+			
+			// ROOM 삭제 시
+			if(data === '|room_deleted|'){
+				alert('방장이 퇴장했습니다.');
+				history.back();
+			}//if
+			
+			
 			$("#chattingScreen").append(data + "<br/>");
 		}//onMessage
 	
