@@ -34,9 +34,6 @@ public class RoomController {
 		System.out.println("wating room : "+ user.getNickname() + ", " + room_no);
 		System.out.println("Waiting Room");
 		
-//		Users user = new Users();
-//		user.setNickname(nickname);
-		
 		Users selectedUser = null;
 		if(user.getNickname() != null){
 			selectedUser = user_repo.selectNickName(user);
@@ -66,7 +63,9 @@ public class RoomController {
 	}// waitingRoom
 	
 	@RequestMapping(value = "makingRoomPopUp", method = RequestMethod.GET)
-	public String makingRoomPopUp() {
+	public String makingRoomPopUp(String id, Model model) {
+		System.out.println("makingRoomPopUp id : " + id);
+		model.addAttribute("user_id", id);
 		return "room/makingRoomPopUp";
 	}
 	

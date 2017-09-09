@@ -129,10 +129,12 @@ footer {
 		location.href = "updateForm";
 	}
 	
+	var user_id = null;
 	function makingRoomPopUp() {
-		window.open("makingRoomPopUp", "Room Making Setting", 'width=400, height=600');
+		window.open("makingRoomPopUp?id="+user_id, "Room Making Setting", 'width=400, height=600');
 	}
 	
+	var sw = true;
 	function login() {
 		$.showLoading();
 		var id = $("#id").val();
@@ -143,13 +145,17 @@ footer {
 			method: "post",
 			data: sendData,
 			success: function(resp) {
-				if(resp == true) {
+				if(resp != null) {
 					/* closeLightbox(); */
 					//$ele.lightbox_me();
 					//$ele.trigger('close');
 					//nextSection();
 					$("#loginBtn").addClass("close sprited");
-					$('#loginBtn').trigger("click");
+					if(sw){
+						$('#loginBtn').trigger("click");
+						sw = false;
+					}//if
+					user_id = resp.id;
 					$.hideLoading();
 					$('#next').trigger("click");
 				}
@@ -261,7 +267,7 @@ footer {
 					<div class="col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 col-xs-12 da-margin-top-30 da-right-animated-block">
 						<div class="da-step-container">
 							<p class="da-step-title da-font-montserrat"><span class="da-red-text da-padding-right-15">04</span>
-							<a href="#" onclick="makingRoomPopUp()">Make Game Room</a></p>
+							<a href="#" onclick="makingRoomPopUp()" id="makeRoomBtn">Make Game Room</a></p>
 							<p>This is an unforgettable adventure in the exciting world of mystery. Only positive emotions and vivid feeling for the entire company.</p>
 						</div>
 					</div>

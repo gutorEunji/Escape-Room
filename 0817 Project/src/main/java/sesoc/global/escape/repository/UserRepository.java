@@ -33,6 +33,7 @@ public class UserRepository {
 	
 	public Users selectId(Users user) {
 		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+		System.out.println("selectId : " + dao.selectId(user));
 		return dao.selectId(user);
 	}
 	

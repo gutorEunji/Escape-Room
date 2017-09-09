@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,16 +65,16 @@ public class UserController {
    
    @ResponseBody
    @RequestMapping(value="login", method=RequestMethod.POST)
-   public boolean login(Users user, Model model, HttpSession session) {
+   public Users login(Users user, Model model, HttpSession session) {
       Users selectedUser = repo.selectId(user);
-      
+      System.out.println("login selectedUser : " + selectedUser);
       if(selectedUser != null) {
-    	  model.addAttribute("profile", selectedUser.getProfile());
+//    	  model.addAttribute("profile", selectedUser.getProfile()); 내생각엔 이거 안 먹음..... by 근택
     	  session.setAttribute("loginUser", selectedUser);
-    	  return true;
+    	  return selectedUser;
       }
       
-      return false;
+      return selectedUser;
    }
    
    @ResponseBody
