@@ -76,9 +76,9 @@
             /*----------------------------------------------------
                Hide parent if parent specified (parentLightbox should be jquery reference to any parent lightbox)
             ---------------------------------------------------- */
-            if (opts.parentLightbox) {
+            /*if (opts.parentLightbox) {
                 opts.parentLightbox.fadeOut(200);
-            }
+            }*/
 
 
             /*----------------------------------------------------
@@ -120,9 +120,9 @@
                 }
 
                 //show the hidden parent lightbox
-                /*if (opts.parentLightbox) {
+                if (opts.parentLightbox) {
                     opts.parentLightbox.fadeIn(200);
-                }*/
+                }
                 if (opts.preventScroll) {
                     $('body').css('overflow', '');
                 }
