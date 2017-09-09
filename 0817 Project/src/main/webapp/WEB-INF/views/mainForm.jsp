@@ -98,7 +98,7 @@ footer {
     font-size: 1.2em;
     line-height: 31px;
 }
-.cd-section {
+.mainImage {
 	background-image: url("resources/images/main-img-bg3.jpg");
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -106,19 +106,23 @@ footer {
 </style>
 <script>
 
-	$(function() {
+	$(function(e) {
 		/* $("body").data("hijacking", 'on');
 		$("body").data("animation", 'gallery'); */
 		if("${empty loginUser}") {
 	        $("#login").lightbox_me({centered: true, preventScroll: true, onLoad: function() {
 				$("#login").find("input:first").focus();
 			}});
+	        e.preventDefault();
 		}
 		else {
 			$('#next').trigger("click");
 		}
 		
-        //e.preventDefault();
+		$(".mainImage").on('mousedown', function(event) {
+			event.preventDefault();
+		});
+		
 	});
 
 	function logout() {
@@ -158,6 +162,7 @@ footer {
 					user_id = resp.id;
 					$.hideLoading();
 					$('#next').trigger("click");
+					resp = false;
 				}
 				else {
 					$.hideLoading();
@@ -180,19 +185,18 @@ footer {
 
 	<section class="cd-section visible" id="mainImage">
 		<div class="mainImage">
-			
-		</div>
-		<div>
-			<div id="login">
-	    	<h2>Login</h2>
-		    <form class="da-form-container da-margin-top-15" action="login" method="post" id="loginForm">
-		        <label><strong>ID:</strong> <input class="da-padding-left-15" type="text" name="id" id="id" placeholder="ID"/></label>
-		        <label><strong>PW:</strong> <input class="da-padding-left-15" type="password" name="pw" id="pw" placeholder="PW"/></label>
-		        <div id="actions">
-		        </div>
-		    </form>
-		    <button type="button" id="loginBtn" class="da-btn hvr-sweep-to-right" onclick="login()">Login</button>
-			<button type="button" class="da-btn hvr-sweep-to-right" onclick="join()">Join</button>
+			<div>
+				<div id="login">
+		    	<h2>Login</h2>
+			    <form class="da-form-container da-margin-top-15" action="login" method="post" id="loginForm">
+			        <label><strong>ID:</strong> <input class="da-padding-left-15" type="text" name="id" id="id" placeholder="ID"/></label>
+			        <label><strong>PW:</strong> <input class="da-padding-left-15" type="password" name="pw" id="pw" placeholder="PW"/></label>
+			        <div id="actions">
+			        </div>
+			    </form>
+			    <button type="button" id="loginBtn" class="da-btn hvr-sweep-to-right" onclick="login()">Login</button>
+				<button type="button" class="da-btn hvr-sweep-to-right" onclick="join()">Join</button>
+			</div>
 		</div>
 		</div>
 	</section>
