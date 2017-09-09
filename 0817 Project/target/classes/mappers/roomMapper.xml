@@ -45,6 +45,9 @@
 	</select>
 	
 	<select id="selectBySessionId" parameterType="WaitingUser" resultType="WaitingUser">
-		select * from waiting_users where session_id = #{session_id}
+		select r.no as room_no, r.MASTER_ID as user_id from waiting_users w, ROOM r
+		where
+		w.USER_ID = r.MASTER_ID
+		AND w.session_id = #{session_id}
 	</select>
 </mapper>

@@ -17,6 +17,7 @@ import sesoc.global.escape.repository.UserRepository;
 import sesoc.global.escape.vo.Room;
 import sesoc.global.escape.vo.SocketData;
 import sesoc.global.escape.vo.Users;
+import sesoc.global.escape.vo.WaitingUsers;
 import sesoc.global.escape.vo.WebsocketVO;
 import sesoc.global.escape.webSocket.WebSocketHandler;
 
@@ -31,8 +32,6 @@ public class RoomController {
 
 	@RequestMapping(value = "waitingRoom", method = RequestMethod.GET)
 	public String waitingRoom(String room_no, Users user, Model model) {
-		System.out.println("wating room : "+ user.getNickname() + ", " + room_no);
-		System.out.println("Waiting Room");
 		
 		Users selectedUser = null;
 		if(user.getNickname() != null){
@@ -40,7 +39,6 @@ public class RoomController {
 		}else{
 			selectedUser = user_repo.selectId(user);
 		}
-		
 		model.addAttribute("user", selectedUser);
 		model.addAttribute("room_no", room_no);
 		return "room/waitingRoom";
@@ -48,23 +46,12 @@ public class RoomController {
 
 	@ResponseBody
 	@RequestMapping(value = "renew", method = RequestMethod.GET)
-	public List<SocketData> renew(String userId, String userPw, String roomNum) {
-
-		List<WebsocketVO> result = (ArrayList<WebsocketVO>) WebSocketHandler.sessionList;
-		List<SocketData> userList = new ArrayList<>();
-
-		for (WebsocketVO rList : result) {
-			if(rList.getRoomNum().equals(roomNum)){
-				userList.add(new SocketData(rList.getRoomNum(), rList.getLoginUser(), rList.getWebSocketId()));
-			}//if
-		} // for
-		return userList;
-
+	public List<WaitingUsers> renew(String userId, String userPw, String roomNum) {
+		return user_repo.selectWaitingUser(new Room(Integer.parseInt(roomNum), 0, null, null, null));
 	}// waitingRoom
 	
 	@RequestMapping(value = "makingRoomPopUp", method = RequestMethod.GET)
 	public String makingRoomPopUp(String id, Model model) {
-		System.out.println("makingRoomPopUp id : " + id);
 		model.addAttribute("user_id", id);
 		return "room/makingRoomPopUp";
 	}

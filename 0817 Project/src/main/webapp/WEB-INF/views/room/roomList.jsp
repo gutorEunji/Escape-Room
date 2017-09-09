@@ -82,6 +82,11 @@ div#wrapper {
 						room += '</div>';
 						
 						$('.da-booking-date-container').append(room);
+						
+						$('.da-booking-date').on('click', function(){
+							var room_no = $(this).attr('data-roomNum');
+							location.href = "/escape/waitingRoom?room_no="+room_no+"&nickname=${nickname}";
+						});//da-booking-date
 					});//each
 				}//success
 			});//ajax
@@ -98,17 +103,6 @@ div#wrapper {
 	
 	<div class="da-calendar-block da-margin-top-30">
 		<div class="da-booking-date-container" />
-		
-		<!--   <div class="da-booking-date da-not-availabe-day"> 방 꽉 찼을 때 더이상 못들어오게 막음  -->
-		
-			<%-- <c:forEach var="item" items="${roomList}">
-				<div class="da-booking-date" data-roomNum="${item.no}">
-					<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>
-					<div class="da-availabe-date">Availabe: 3</div>
-					<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>
-				</div>
-			</c:forEach>
-		</div> --%>
 	</div>
 </body>
 </html>

@@ -29,22 +29,40 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	private String roomNum;
 	
 	@Autowired
-	private Provider<RoomRepository> provider;
+	private Provider<RoomRepository> provider_room;
+	
+	@Autowired
+	private Provider<UserRepository> provider_user;
 	
 	public int insertWaitingUser(WaitingUsers waitingUser){
-		RoomRepository repo = provider.get();
+		RoomRepository repo = provider_room.get();
 		return repo.insertWaitingUser(waitingUser);
 	}//getuserInfo
 	
 	public int deleteRoom(Room room){
-		RoomRepository repo = provider.get();
+		RoomRepository repo = provider_room.get();
 		return repo.deleteRoom(room);
-	}//getuserInfo
+	}//deleteRoom
 	
 	public WaitingUsers selectBySessionId(WaitingUsers waitinguser){
-		RoomRepository repo = provider.get();
+		RoomRepository repo = provider_room.get();
 		return repo.selectBySessionId(waitinguser);
-	}//getuserInfo
+	}//selectBySessionId
+	
+	public WaitingUsers findUser(WaitingUsers waitinguser){
+		UserRepository repo = provider_user.get();
+		return repo.findUser(waitinguser);
+	}//selectBySessionId
+	
+	public List<WaitingUsers> selectAll(Room room){
+		UserRepository repo = provider_user.get();
+		return repo.selectWaitingUser(room);
+	}//selectAll
+	
+	public int deleteNormalUser(String sessionId){
+		UserRepository repo = provider_user.get();
+		return repo.deleteNormalUser(sessionId);
+	}//deleteNormalUser
 	
 	 @Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -57,7 +75,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	 
 	 @Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-		 
+		 //다른 사용자 로그인시 갱신에 필요한 메소드
 		 if (message.getPayload().toString().contains("|roomNum|") && message.getPayload().toString().contains("|userId|") && message.getPayload().toString().contains("|userPw|")) {
 				roomNum = message.getPayload().toString().replaceAll("|roomNum|", "");
 				int aIndex = roomNum.indexOf("|roomNum|");
@@ -65,32 +83,47 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				int bIndex = roomNum.indexOf("|userId|");
 				String userId = roomNum.substring(aIndex, bIndex).replace("|roomNum|", "");
 				
+				// websocket 등록
+				insertWaitingUser(new WaitingUsers(0, rNo, userId, session.getId(), null, null));
+				sessionList.add(new WebsocketVO(null, session, null, null));
 				
-//				WebsocketVO vo = new WebsocketVO(rNo, session, getUserInfo(new Users(userId, userPw)), session.getId());
-//				sessionList.add(vo);
-				System.out.println(session.getId() + " : sessionId");
-				insertWaitingUser(new WaitingUsers(rNo, userId, session.getId()));
+				List<WaitingUsers> list = selectAll(new Room(rNo, 0, null, null, null));
+				for (WaitingUsers waitingUsers : list) {
+					for (WebsocketVO socket : sessionList) {
+						if(socket.getSession().getId().equals(waitingUsers.getSession_id())){
+							socket.getSession().sendMessage(new TextMessage("|Enter|"));
+						}//if
+					}//inner for
+				}//for
 				
 				afterConnectionEstablished(session);
 				return;
 			} // if
-			
+		 
+			//메세지 전송 준비
 			for (WebsocketVO data : sessionList) {
 				String msg = message.getPayload().toString();
 				int index = msg.indexOf("*");
-				
 				String roomNo = message.getPayload().toString().substring(0, index);
 				
 				String nickname = "";
+				WaitingUsers user = null;
 				for (WebsocketVO webVO : sessionList) {
-					if(webVO.getWebSocketId().equals(session.getId())){
-						nickname = webVO.getLoginUser().getNickname();
+					if(webVO.getSession().getId().equals(session.getId())){
+						user = findUser(new WaitingUsers(0, 0, null, webVO.getSession().getId(), null, null));
+						nickname = user.getNickname();
 					}//if
 				}//inner for
 				
-				if (data.getRoomNum().equals(roomNo)) {
-					data.getSession().sendMessage(new TextMessage(nickname + " : " + msg.substring(index+1)));
-				} // if
+				//메세지 전송
+				List<WaitingUsers> userList = selectAll(new Room(Integer.parseInt(roomNo), 0, null, null, null));
+				for (WaitingUsers waitingUsers : userList) {
+					if(waitingUsers.getSession_id().equals(data.getSession().getId())){
+						data.getSession().sendMessage(new TextMessage(nickname + " : " + msg.substring(index+1)));
+					}//if
+				}//outer fore
+				
+				
 			} // for
 		 
 	}//handleMessage
@@ -101,19 +134,24 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		 whenExit(session);
 	}//afterConnectionClosed
 	 
+	 /**
+	  * 유저 퇴장시 호출
+	  * */
 	 public void whenExit(WebSocketSession session) throws Exception{
-		 WaitingUsers user = selectBySessionId(new WaitingUsers(0, null, session.getId()));
+		 WaitingUsers user = selectBySessionId(new WaitingUsers(0, 0, null, session.getId(), null, null));
 		 if(user != null){
-			 System.out.println("delete room IN : " + user.getRoom_no());
+			 System.out.println("whenExit 방장");
 			 deleteRoom(new Room(user.getRoom_no(), 0, null, null, null));
-			 System.out.println("delete room OUT");
 		 }//if
-//		for (WebsocketVO websocketVO : sessionList) {
-//			if(websocketVO.getWebSocketId().equals(sessionId)){
-//				sessionList.remove(websocketVO);
-//				break;
-//			}//if
-//		}//for
+		 
+		 deleteNormalUser(session.getId());
+		 
+		for (WebsocketVO websocketVO : sessionList) {
+			if(websocketVO.getSession().getId().equals(session.getId())){
+				sessionList.remove(websocketVO);
+				break;
+			}//if
+		}//for
 		afterConnectionEstablished(session);
 	 }//class
 	 

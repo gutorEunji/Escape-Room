@@ -53,4 +53,20 @@
 	</if>
 	where id = #{id}
 	</update>
+	
+	<select id="selectWaitingUser" resultType="WaitingUser" parameterType="Room">
+	select w.*, u.profile, u.nickname from waiting_users w, users u
+	where w.USER_ID = u.ID AND w.room_no = #{no}
+	</select>
+	
+	<delete id="deleteNormalUser" parameterType="string">
+		delete from waiting_users where session_id = #{sessionId}
+	</delete>
+	
+	<select id="findUser" parameterType="WaitingUser" resultType="WaitingUser">
+		select w.*, u.NICKNAME from waiting_users w, users u
+		where
+		w.USER_ID = u.ID
+		AND session_id = #{session_id}
+	</select>
 </mapper>

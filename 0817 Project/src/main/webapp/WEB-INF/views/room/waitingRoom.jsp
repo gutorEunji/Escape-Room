@@ -69,25 +69,18 @@
 			$('#user2').html('User');
 			$('#user3').html('User');
 			
+			$.each(resp, function(i, elt) {
+				if(i == 0){
+					$('#user0').html('<img src="resources/images/'+elt.profile+'.png"><br />'+elt.nickname);
+				}else if(i == 1){
+					$('#user1').html('<img src="resources/images/'+elt.profile+'.png"><br />'+elt.nickname);
+				}else if(i == 2){
+					$('#user2').html('<img src="resources/images/'+elt.profile+'.png"><br />'+elt.nickname);
+				}else if(i == 3){
+					$('#user3').html('<img src="resources/images/'+elt.profile+'.png"><br />'+elt.nickname);
+				}//inner else if
+			});//each
 			
-			if(resp.length == 0){
-				$('#user0').html('<img src="resources/images/${user.profile}.png"><br />${user.nickname}');
-				return;
-			}//if
-	
-			for(var i=0; i<resp.length; i++){
-				var profile = resp[i].loginUser.profile;
-				var otherPlayer = resp[i].loginUser.nickname;
-					if(i == 0){
-						$('#user0').html('<img src="resources/images/'+profile+'.png"><br />'+otherPlayer);
-					}else if(i == 1){
-						$('#user1').html('<img src="resources/images/'+profile+'.png"><br />'+otherPlayer);
-					}else if(i == 2){
-						$('#user2').html('<img src="resources/images/'+profile+'.png"><br />'+otherPlayer);
-					}else if(i == 3){
-						$('#user3').html('<img src="resources/images/'+profile+'.png"><br />'+otherPlayer);
-					}//inner else if
-			}//for
 		}//enterUser
 		
 		var ws = new WebSocket("ws://" + window.location.host + "/escape/echo");
@@ -116,7 +109,6 @@
 			var data = evt.data;
 			if(data === '|Enter|'){
 				$(function(){
-					
 					$.ajax({
 						url : "renew"
 						, method : "GET"
@@ -127,7 +119,6 @@
 							alert('ERROR');
 						}//error
 					});//ajax
-					
 				});//main
 				return;
 			}//if

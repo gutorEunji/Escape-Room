@@ -124,6 +124,8 @@ footer {
 		});
 		
 	});
+	var user_id = null;
+	var user_nickname = null;
 
 	function logout() {
 		location.href = "logout";
@@ -133,10 +135,15 @@ footer {
 		location.href = "updateForm";
 	}
 	
-	var user_id = null;
 	function makingRoomPopUp() {
 		window.open("makingRoomPopUp?id="+user_id, "Room Making Setting", 'width=400, height=600');
 	}
+	
+	function goToRoomList(){
+		location.href = "/escape/roomList?nickname="+user_nickname;		
+	}
+	
+	
 	
 	var sw = true;
 	function login() {
@@ -160,6 +167,7 @@ footer {
 						sw = false;
 					}//if
 					user_id = resp.id;
+					user_nickname = resp.nickname;
 					$.hideLoading();
 					$('#next').trigger("click");
 					resp = false;
@@ -254,7 +262,7 @@ footer {
 					<div class="col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 col-xs-12 da-margin-top-30 da-right-animated-block">
 						<div class="da-step-container">
 							<p class="da-step-title da-font-montserrat"><span class="da-red-text da-padding-right-15">02</span>
-							<a href="/escape/roomList?nickname=${loginUser.nickname}">Game Room List</a></p>
+							<a href="#" onclick="goToRoomList()">Game Room List</a></p>
 							<p>Exactly 1 hour to find a way out and get out of the quest of the room, thinking all the fun and interesting puzzles on your heroic journey.</p>
 						</div>
 					</div>

@@ -27,7 +27,6 @@ public class RoomRepository {
 	}
 	
 	public int deleteRoom(Room room) {
-		System.out.println("deleteRoom : " + room);
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
 		return dao.deleteRoom(room);
 	}

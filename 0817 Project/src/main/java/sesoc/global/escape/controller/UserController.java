@@ -67,13 +67,11 @@ public class UserController {
    @RequestMapping(value="login", method=RequestMethod.POST)
    public Users login(Users user, Model model, HttpSession session) {
       Users selectedUser = repo.selectId(user);
-      System.out.println("login selectedUser : " + selectedUser);
       if(selectedUser != null) {
 //    	  model.addAttribute("profile", selectedUser.getProfile()); 내생각엔 이거 안 먹음..... by 근택
     	  session.setAttribute("loginUser", selectedUser);
     	  return selectedUser;
       }
-      
       return selectedUser;
    }
    
