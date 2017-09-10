@@ -75,7 +75,7 @@ div#wrapper {
 				, success : function(resp){
 					$('.da-booking-date-container').html('');
 					$.each(resp, function(i, elt) {
-						var room = '<div class="da-booking-date" data-roomNum="'+elt.no+'">';
+						var room = '<div class="da-booking-date" data-roomNum="'+elt.no+'", data-roomPw="'+ elt.room_pw +'">';
 						room += '<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>';
 						room += '<div class="da-availabe-date">title: '+ elt.title + '<br />'
 						room += 'Availabe: '+ elt.numberOfUsers +'</div>';
@@ -86,13 +86,26 @@ div#wrapper {
 						
 						$('.da-booking-date').on('click', function(){
 							
+							// 방에 비밀번호 여부 확인 후 비밀번호 요청
+							var room_pw = $(this).attr('data-roomPw');
+							if(room_pw != null){
+								var password = prompt('Password here!');
+								if(room_pw != password){
+									alert('Wrong password!!');
+									return;
+								}//inner if
+							}//outer if
+							
+							// 방 인원 4명초과 시 입장 제한
 							if(elt.numberOfUsers == 4){
 								alert('방 인원 제한 초과!');
 								return;
 							}//if
 							
+							// 방에 입장
 							var room_no = $(this).attr('data-roomNum');
 							location.href = "/escape/waitingRoom?room_no="+room_no+"&nickname=${nickname}";
+							
 						});//da-booking-date
 					});//each
 				}//success
