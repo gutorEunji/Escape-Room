@@ -1,7 +1,9 @@
 package sesoc.global.escape.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -71,15 +73,19 @@ public class RoomController {
 	
 	@RequestMapping(value = "roomList", method = RequestMethod.GET)
 	public String roomList(String nickname, Model model) {
-		model.addAttribute("roomList", room_repo.selectAllRoom());
+//		model.addAttribute("roomList", room_repo.selectAllRoom());
 		model.addAttribute("nickname", nickname);
 		return "room/roomList";
 	}// waitingRoom
 	
 	@ResponseBody
 	@RequestMapping(value="roomListRenew", method=RequestMethod.GET)
-	public List<Room> roomListRenew() {
-		return room_repo.selectAllRoom();
+	public List<Room> roomListRenew(String selectedWord, String searchWord) {
+		Map<String, String> map = new HashMap<>();
+		map.put("selectedWord", selectedWord);
+		map.put("searchWord", searchWord);
+		
+		return room_repo.selectAllRoom(map);
 	}// waitingRoom
 	
 	

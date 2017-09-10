@@ -40,7 +40,7 @@ div#wrapper {
 	text-align: right;
 }
 
-#searchWord{
+#searchWord, #selectedWord{
 	color: black;
 }
 
@@ -67,17 +67,27 @@ div#wrapper {
 			location.href = "/escape/waitingRoom?room_no="+room_no+"&nickname=${nickname}";
 		});//da-btn da-booking-btn hvr-sweep-to-right-inverse
 		
+		// 특정 방 검색
+		var selectedWord ="";
+		var searchWord="";
+		$('#searchBtn').on('click', function(){
+			selectedWord = $('#selectedWord option:selected').val();
+			searchWord = $('#searchWord').val();
+		});//searchBtn
+		
+		// roomList 목록 실시간 갱신
 		setInterval(function() {
 			$.ajax({
 				url : "roomListRenew"
 				, method : "GET"
+				, data : 'selectedWord='+ selectedWord + '&searchWord=' + searchWord
 				, dataType : 'json'
 				, success : function(resp){
 					$('.da-booking-date-container').html('');
 					$.each(resp, function(i, elt) {
 						var room = '<div class="da-booking-date" data-roomNum="'+elt.no+'", data-roomPw="'+ elt.room_pw +'">';
 						room += '<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>';
-						room += '<div class="da-availabe-date">title: '+ elt.title + '<br />'
+						room += '<div class="da-availabe-date">title: '+ elt.title + '<br /> room master : ' + elt.master_id + '<br />'
 						room += 'Availabe: '+ elt.numberOfUsers +'</div>';
 						room += '<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>';
 						room += '</div>';
@@ -110,7 +120,7 @@ div#wrapper {
 					});//each
 				}//success
 			});//ajax
-		}, 500);
+		}, 500);//setInterval
 		
 	});//main
 </script>
@@ -118,7 +128,11 @@ div#wrapper {
 <body>
 
 	<div id="search">
-		검색 <input type="text" id="searchWord"> <input type="button" value="검색" id="searchBtn">
+		<select id="selectedWord">
+			<option value="roomName" selected="selected">방이름</option>
+			<option value="roomMaster">방장</option>
+		</select>
+		<input type="text" id="searchWord"> <input type="button" value="검색" id="searchBtn">
 	</div>
 	
 	<div class="da-calendar-block da-margin-top-30">

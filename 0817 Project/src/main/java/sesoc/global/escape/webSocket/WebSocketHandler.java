@@ -122,7 +122,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					}//inner for
 				}//for
 				
-				afterConnectionEstablished(session);
+//				afterConnectionEstablished(session);
 				return;
 			} // if
 		 
@@ -175,10 +175,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			 for (WaitingUsers waitingUsers : deleting_list) {
 				 for (WebsocketVO websocketVO : sessionList) {
 					 
-					 /*if(websocketVO.getSession().getId().equals(session.getId())){
-						 sessionList.remove(websocketVO);
-						 continue;
-					 }else */
 					 if(websocketVO.getSession().getId().equals(waitingUsers.getSession_id())){
 						 if(!(websocketVO.getSession().getId().equals(session.getId()))){
 							 websocketVO.getSession().sendMessage(new TextMessage("|room_deleted|"));
@@ -205,7 +201,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			 } // for
 		 }//else if
 		 
-//		afterConnectionEstablished(session);
-	 }//class
+	 }//whenExit
 	 
 }//class

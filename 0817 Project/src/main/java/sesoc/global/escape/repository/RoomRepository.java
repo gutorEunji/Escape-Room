@@ -1,6 +1,7 @@
 package sesoc.global.escape.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,9 @@ public class RoomRepository {
 		return dao.deleteWaitingUser(watingUser);
 	}
 
-	public List<Room> selectAllRoom() {
+	public List<Room> selectAllRoom(Map<String, String> map) {
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
-		List<Room> result = dao.selectAllRoom();
+		List<Room> result = dao.selectAllRoom(map);
 		return result;
 //		return dao.selectAllRoom();
 	}
