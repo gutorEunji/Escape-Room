@@ -6,18 +6,28 @@ public class Room {
 	private String master_id;
 	private String title;
 	private String room_pw;
+	private int numberOfUsers;
 
 	public Room() {
 
 	}
 	
-	public Room(int no, int map_no, String master_id, String title, String room_pw) {
+	public Room(int no, int map_no, String master_id, String title, String room_pw, int numberOfUsers) {
 		super();
 		this.no = no;
 		this.map_no = map_no;
 		this.master_id = master_id;
 		this.title = title;
 		this.room_pw = room_pw;
+		this.numberOfUsers = numberOfUsers;
+	}
+
+	public int getNumberOfUsers() {
+		return numberOfUsers;
+	}
+
+	public void setNumberOfUsers(int numberOfUsers) {
+		this.numberOfUsers = numberOfUsers;
 	}
 
 	public int getNo() {
@@ -59,11 +69,11 @@ public class Room {
 	public void setRoom_pw(String room_pw) {
 		this.room_pw = room_pw;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Room [no=" + no + ", map_no=" + map_no + ", master_id=" + master_id + ", title=" + title + ", room_pw="
-				+ room_pw + "]";
+				+ room_pw + ", numberOfUsers=" + numberOfUsers + "]";
 	}
 
 }

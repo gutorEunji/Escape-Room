@@ -48,7 +48,9 @@ public class RoomRepository {
 
 	public List<Room> selectAllRoom() {
 		RoomDAO dao = sqlSession.getMapper(RoomDAO.class);
-		return dao.selectAllRoom();
+		List<Room> result = dao.selectAllRoom();
+		return result;
+//		return dao.selectAllRoom();
 	}
 
 	public WaitingUsers selectBySessionId(WaitingUsers waitinguser) {

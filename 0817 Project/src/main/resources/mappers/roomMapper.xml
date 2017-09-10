@@ -41,7 +41,10 @@
 	</delete>
 	
 	<select id="selectAllRoom" resultType="Room">
-		select * from room
+		select r.NO, r.MAP_NO, r.ROOM_PW, r.TITLE, count(r.no) as numberOfUsers
+		from ROOM r, WAITING_USERS w
+		where r.NO = w.ROOM_NO
+		group by r.NO, r.MAP_NO, r.ROOM_PW, r.TITLE
 	</select>
 	
 	<select id="selectBySessionId" parameterType="WaitingUser" resultType="WaitingUser">

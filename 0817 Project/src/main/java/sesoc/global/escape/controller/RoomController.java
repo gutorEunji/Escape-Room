@@ -47,7 +47,7 @@ public class RoomController {
 	@ResponseBody
 	@RequestMapping(value = "renew", method = RequestMethod.GET)
 	public List<WaitingUsers> renew(String userId, String userPw, String roomNum) {
-		return user_repo.selectWaitingUser(new Room(Integer.parseInt(roomNum), 0, null, null, null));
+		return user_repo.selectWaitingUser(new Room(Integer.parseInt(roomNum), 0, null, null, null, 0));
 	}// waitingRoom
 	
 	@RequestMapping(value = "makingRoomPopUp", method = RequestMethod.GET)

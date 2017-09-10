@@ -77,20 +77,27 @@ div#wrapper {
 					$.each(resp, function(i, elt) {
 						var room = '<div class="da-booking-date" data-roomNum="'+elt.no+'">';
 						room += '<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>';
-						room += '<div class="da-availabe-date">Availabe: 3</div>';
+						room += '<div class="da-availabe-date">title: '+ elt.title + '<br />'
+						room += 'Availabe: '+ elt.numberOfUsers +'</div>';
 						room += '<a href="#" class="da-btn da-booking-btn hvr-sweep-to-right-inverse">Enter Room</a>';
 						room += '</div>';
 						
 						$('.da-booking-date-container').append(room);
 						
 						$('.da-booking-date').on('click', function(){
+							
+							if(elt.numberOfUsers == 4){
+								alert('방 인원 제한 초과!');
+								return;
+							}//if
+							
 							var room_no = $(this).attr('data-roomNum');
 							location.href = "/escape/waitingRoom?room_no="+room_no+"&nickname=${nickname}";
 						});//da-booking-date
 					});//each
 				}//success
 			});//ajax
-		}, 1000);
+		}, 500);
 		
 	});//main
 </script>

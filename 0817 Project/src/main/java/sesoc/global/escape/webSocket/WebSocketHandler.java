@@ -113,7 +113,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				insertWaitingUser(new WaitingUsers(0, rNo, userId, session.getId(), null, null));
 				sessionList.add(new WebsocketVO(null, session, null, null));
 				
-				List<WaitingUsers> list = selectAll(new Room(rNo, 0, null, null, null));
+				List<WaitingUsers> list = selectAll(new Room(rNo, 0, null, null, null, 0));
 				for (WaitingUsers waitingUsers : list) {
 					for (WebsocketVO socket : sessionList) {
 						if(socket.getSession().getId().equals(waitingUsers.getSession_id())){
@@ -142,7 +142,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				}//inner for
 				
 				//메세지 전송
-				List<WaitingUsers> userList = selectAll(new Room(Integer.parseInt(roomNo), 0, null, null, null));
+				List<WaitingUsers> userList = selectAll(new Room(Integer.parseInt(roomNo), 0, null, null, null, 0));
 				for (WaitingUsers waitingUsers : userList) {
 					if(waitingUsers.getSession_id().equals(data.getSession().getId())){
 						data.getSession().sendMessage(new TextMessage(nickname + " : " + msg.substring(index+1)));
@@ -170,8 +170,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		 WaitingUsers user = selectBySessionId(new WaitingUsers(0, 0, null, session.getId(), null, null));
 		 
 		 if(user != null){
-			 List<WaitingUsers> deleting_list = selectAll(new Room(user.getRoom_no(), 0, null, null, null));
-			 deleteRoom(new Room(user.getRoom_no(), 0, null, null, null));
+			 List<WaitingUsers> deleting_list = selectAll(new Room(user.getRoom_no(), 0, null, null, null, 0));
+			 deleteRoom(new Room(user.getRoom_no(), 0, null, null, null, 0));
 			 for (WaitingUsers waitingUsers : deleting_list) {
 				 for (WebsocketVO websocketVO : sessionList) {
 					 
