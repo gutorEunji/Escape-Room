@@ -88,7 +88,7 @@ div#wrapper {
 							
 							// 방에 비밀번호 여부 확인 후 비밀번호 요청
 							var room_pw = $(this).attr('data-roomPw');
-							if(room_pw != null){
+							if(room_pw != 'null'){
 								var password = prompt('Password here!');
 								if(room_pw != password){
 									alert('Wrong password!!');
@@ -122,7 +122,7 @@ div#wrapper {
 	</div>
 	
 	<div class="da-calendar-block da-margin-top-30">
-		<div class="da-booking-date-container" />
+		<div class="da-booking-date-container"></div>
 	</div>
 </body>
 </html>
