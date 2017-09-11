@@ -59,7 +59,7 @@
 	
 	<script>
 	'use strict';
-	
+	//efefefefefefefefe
 	Physijs.scripts.worker = 'resources/js/physijs_worker.js';
 	Physijs.scripts.ammo = 'ammo.js';
 	
@@ -242,8 +242,7 @@
 		// 손 생성
 		var loader = new THREE.JSONLoader(LOADING_MANAGER);
 			loader.load('resources/json/hand/handd.json', function(geomerty, mat){
-			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
-			mesh1 = new THREE.Mesh(geomerty,faceMaterial);
+			mesh1 = new THREE.Mesh(geomerty,mat[0]);
 			mesh1.scale.set(0.7,0.7,0.7);
 			mesh1.position.set(controls.getObject().position.x + 3, controls.getObject().position.y - 14, controls.getObject().position.z-7);
 			mesh1.rotation.y -= 0.5;
@@ -389,8 +388,7 @@
 		}); 
 		//책
 		loader.load('resources/json/book/books.json', function(geomerty, mat){
-			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
-			mesh_door = new THREE.Mesh(geomerty,faceMaterial);
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(20,20,20);
 			mesh_door.position.set(150,0,150);
 			mesh_door.rotation.y += Math.PI+0.2;
@@ -398,8 +396,7 @@
 		});
 		//책장
 		loader.load('resources/json/bookcase/bookcase.json', function(geomerty, mat){
-			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
-			mesh_door = new THREE.Mesh(geomerty,faceMaterial);
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(12,10,12);
 			mesh_door.position.set(200,0,200);
 			mesh_door.rotation.y += 2*Math.PI/2.3;
@@ -410,8 +407,7 @@
 				var height = 0;
 				var left = 0;
 			for (var i = 0; i < 6; i++) {
-				var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
-				mesh_door = new THREE.Mesh(geomerty,faceMaterial);
+				mesh_door = new THREE.Mesh(geomerty,mat[0]);
 				mesh_door.scale.set(10,10,10);
 				mesh_door.position.set(200-left,0+height,-220);
 				scene.add(mesh_door);
@@ -426,8 +422,7 @@
 		
 		//tv
 		loader.load('resources/json/tv/TV Retro 01.json', function(geomerty, mat){
-			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
-			mesh_door = new THREE.Mesh(geomerty,faceMaterial);
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(30,30,30);
 			mesh_door.position.set(200,34,-55);
 			mesh_door.rotation.y -= (Math.PI)/6; 
