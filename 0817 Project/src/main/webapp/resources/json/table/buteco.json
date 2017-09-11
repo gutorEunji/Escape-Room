@@ -34,7 +34,7 @@
 					"DbgIndex": 0,
 					"DbgName": "Cadeira",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.5561160647290357, 0.4435479230217325],
+					
 					"colorDiffuse": [0.6400000190734865, 0.5561160647290357, 0.4435479230217325],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.07999999821186066, 0.05355372309192141, 0.043219326960608484],
@@ -49,7 +49,7 @@
 					"mapLightWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 40,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -58,7 +58,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Cadeira",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.5561160647290357, 0.4435479230217325],
+					
 					"colorDiffuse": [0.6400000190734865, 0.5561160647290357, 0.4435479230217325],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.07999999821186066, 0.05355372309192141, 0.043219326960608484],
@@ -73,7 +73,7 @@
 					"mapLightWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 40,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -82,7 +82,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Cadeira",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.5561160647290357, 0.4435479230217325],
+				
 					"colorDiffuse": [0.6400000190734865, 0.5561160647290357, 0.4435479230217325],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.07999999821186066, 0.05355372309192141, 0.043219326960608484],
@@ -97,7 +97,7 @@
 					"mapLightWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 40,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -106,7 +106,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Cadeira",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.5561160647290357, 0.4435479230217325],
+				
 					"colorDiffuse": [0.6400000190734865, 0.5561160647290357, 0.4435479230217325],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.07999999821186066, 0.05355372309192141, 0.043219326960608484],
@@ -121,7 +121,7 @@
 					"mapLightWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 40,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -130,7 +130,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Mesa",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.5547814928707702, 0.4147135319518078],
+					
 					"colorDiffuse": [0.6400000190734865, 0.5547814928707702, 0.4147135319518078],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.07999999821186066, 0.05268348099253739, 0.03917299183071421],
@@ -145,7 +145,7 @@
 					"mapLightWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 40,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				}
