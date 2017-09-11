@@ -545,7 +545,7 @@
 			}
 		});
 		
-		/* loader.load('resources/json/drum/drumset.json', function(geomerty, mat){
+		/* loader.load('resources/json/untitled.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(15, 15, 15);  
 			mesh_door.position.set(-30,0,-30);
