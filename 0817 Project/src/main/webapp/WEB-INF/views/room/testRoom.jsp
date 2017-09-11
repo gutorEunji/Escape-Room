@@ -518,6 +518,7 @@
 		var cameraIntersections = raycasterFromCamera.intersectObjects( objects );
 		
 		// 인터섹션이 있는경우
+		// 카메라가 보는방향으로 물체가 가까워졌을 경우(0~30)
 		if ( cameraIntersections.length > 0 ) {
 			var distance = cameraIntersections[0].distance;
 			var objectName = cameraIntersections[0].object.name;
@@ -526,6 +527,7 @@
 			}
 		}
 		
+		// 카메라 앞쪽
 		if ( forward_intersections.length > 0 ) {
 			var distance = forward_intersections[0].distance;
 			if ( distance > 0 && distance < 10 ) {
@@ -533,6 +535,7 @@
 			}
 		}
 
+		// 카메라 뒷쪽
 		if ( backward_intersections.length > 0 ) {
 			var distance = backward_intersections[0].distance;
 			if ( distance > 0 && distance < 10 ) {
@@ -540,13 +543,15 @@
 			}
 		}
 		
+		// 카메라 왼쪽
 		if ( left_intersections.length > 0 ) {
 			var distance = left_intersections[0].distance;
 			if ( distance > 0 && distance < 10 ) {
 				controls.getObject().position.x = left_intersections[0].point.x + 20;
 			}
 		}
-					
+
+		// 카메라 오른쪽		
 		if ( right_intersections.length > 0 ) {
 			var distance = right_intersections[0].distance;
 			if ( distance > 0 && distance < 10 ) {
