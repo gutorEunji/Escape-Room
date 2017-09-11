@@ -34,7 +34,7 @@
 					"DbgIndex": 0,
 					"DbgName": "Material.002",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -44,7 +44,7 @@
 					"mapDiffuseWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -53,7 +53,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Material.002",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -63,7 +63,7 @@
 					"mapDiffuseWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -72,7 +72,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Material.003",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -81,7 +81,7 @@
 
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -90,7 +90,7 @@
 					"DbgIndex": 2,
 					"DbgName": "Material.004",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -98,7 +98,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -107,7 +107,7 @@
 					"DbgIndex": 3,
 					"DbgName": "Material.005",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -115,7 +115,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -124,7 +124,7 @@
 					"DbgIndex": 3,
 					"DbgName": "Material.006",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -132,7 +132,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -141,7 +141,7 @@
 					"DbgIndex": 4,
 					"DbgName": "off",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -149,7 +149,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -158,7 +158,7 @@
 					"DbgIndex": 5,
 					"DbgName": "Material.003",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -166,7 +166,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -175,7 +175,7 @@
 					"DbgIndex": 3,
 					"DbgName": "Material.006",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -183,7 +183,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -192,7 +192,7 @@
 					"DbgIndex": 1,
 					"DbgName": "barres",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -200,7 +200,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -209,7 +209,7 @@
 					"DbgIndex": 1,
 					"DbgName": "barres",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -217,7 +217,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -226,7 +226,7 @@
 					"DbgIndex": 1,
 					"DbgName": "barres",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -234,7 +234,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -249,7 +249,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Material.002",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -257,7 +257,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -266,7 +266,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Material.002",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -274,7 +274,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -283,7 +283,7 @@
 					"DbgIndex": 1,
 					"DbgName": "barres",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -291,7 +291,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -300,7 +300,7 @@
 					"DbgIndex": 1,
 					"DbgName": "barres",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -308,7 +308,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -317,7 +317,7 @@
 					"DbgIndex": 1,
 					"DbgName": "barres",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -325,7 +325,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -334,7 +334,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Material.006",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -342,7 +342,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -351,7 +351,7 @@
 					"DbgIndex": 2,
 					"DbgName": "off",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -359,7 +359,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -368,7 +368,7 @@
 					"DbgIndex": 3,
 					"DbgName": "Material.003",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -376,7 +376,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -385,7 +385,7 @@
 					"DbgIndex": 3,
 					"DbgName": "Material.006",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -393,7 +393,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -402,7 +402,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Material.003",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -410,7 +410,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -419,7 +419,7 @@
 					"DbgIndex": 2,
 					"DbgName": "Material.004",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -427,7 +427,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -436,7 +436,7 @@
 					"DbgIndex": 3,
 					"DbgName": "Material.005",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -444,7 +444,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				}

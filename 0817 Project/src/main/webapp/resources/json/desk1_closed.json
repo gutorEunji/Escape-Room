@@ -34,7 +34,7 @@
 					"DbgIndex": 0,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -42,7 +42,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -51,7 +51,7 @@
 					"DbgIndex": 1,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -59,7 +59,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -68,7 +68,7 @@
 					"DbgIndex": 1,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -76,7 +76,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -85,7 +85,7 @@
 					"DbgIndex": 1,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -93,7 +93,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -102,7 +102,7 @@
 					"DbgIndex": 1,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -110,7 +110,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -127,7 +127,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -136,7 +136,7 @@
 					"DbgIndex": 2,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -144,7 +144,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -153,7 +153,7 @@
 					"DbgIndex": 3,
 					"DbgName": "bluewood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.3776779707920248, 0.32856255067233064],
+				
 					"colorDiffuse": [0.6400000190734865, 0.3776779707920248, 0.32856255067233064],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -161,7 +161,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -170,7 +170,7 @@
 					"DbgIndex": 2,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -178,7 +178,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -187,7 +187,7 @@
 					"DbgIndex": 3,
 					"DbgName": "bluewood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.3776779707920248, 0.32856255067233064],
+					
 					"colorDiffuse": [0.6400000190734865, 0.3776779707920248, 0.32856255067233064],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -195,7 +195,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -204,7 +204,7 @@
 					"DbgIndex": 2,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -212,7 +212,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -221,7 +221,7 @@
 					"DbgIndex": 1,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -229,7 +229,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -238,7 +238,7 @@
 					"DbgIndex": 1,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -246,7 +246,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -255,7 +255,7 @@
 					"DbgIndex": 1,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -263,7 +263,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -272,7 +272,7 @@
 					"DbgIndex": 1,
 					"DbgName": "wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -280,7 +280,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				}

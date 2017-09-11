@@ -34,7 +34,7 @@
 					"DbgIndex": 0,
 					"DbgName": "Door_Std_Wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.2378392254984263, 0.1391944429158336, 0.08344153886201289],
+					
 					"colorDiffuse": [0.2378392254984263, 0.1391944429158336, 0.08344153886201289],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -44,7 +44,7 @@
 					"mapDiffuseWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -53,7 +53,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Door_Std_Wood",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.2378392254984263, 0.1391944429158336, 0.08344153886201289],
+				
 					"colorDiffuse": [0.2378392254984263, 0.1391944429158336, 0.08344153886201289],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -61,7 +61,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -70,7 +70,7 @@
 					"DbgIndex": 2,
 					"DbgName": "Glass_Window",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -78,7 +78,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -87,7 +87,7 @@
 					"DbgIndex": 3,
 					"DbgName": "Door_Ent_Grip",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+		
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -95,7 +95,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -104,7 +104,7 @@
 					"DbgIndex": 4,
 					"DbgName": "Door_Std_Metal",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -112,7 +112,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -121,7 +121,7 @@
 					"DbgIndex": 4,
 					"DbgName": "Door_Std_Metal",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -129,7 +129,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -138,7 +138,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Door_Ent_Grip",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -146,7 +146,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -155,7 +155,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Door_Ent_Grip",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -163,7 +163,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -172,7 +172,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Door_Std_Metal",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -180,7 +180,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -189,7 +189,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Door_Std_Metal",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -197,7 +197,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				},
@@ -206,7 +206,7 @@
 					"DbgIndex": 1,
 					"DbgName": "Door_Std_Metal",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -214,7 +214,7 @@
 					"depthWrite": true,
 					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				}
