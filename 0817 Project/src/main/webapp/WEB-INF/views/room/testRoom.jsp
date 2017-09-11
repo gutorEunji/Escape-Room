@@ -59,7 +59,7 @@
 	
 	<script>
 	'use strict';
-	//efefefefef
+	
 	Physijs.scripts.worker = 'resources/js/physijs_worker.js';
 	Physijs.scripts.ammo = 'ammo.js';
 	
