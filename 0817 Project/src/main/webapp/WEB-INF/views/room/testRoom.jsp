@@ -294,16 +294,6 @@
 		ceiling.position.y = 101;
 		scene.add( ceiling );
 		
-		// 임시 오브젝트(큐브)
-		/* var cubecube = new Physijs.BoxMesh( new THREE.BoxGeometry( 10, 10, 10 ),
-																				new THREE.MeshLambertMaterial( { color: 0x00FF00 } ),
-																				1 );
-		cubecube.position.set ( 20, 10, 20 );
-		cubecube.castShadow = true;
-		scene.add( cubecube );
-		objects.push( cubecube ); */
-
-		
 		// 벽생성
 		// North
 		nWall = new Physijs.BoxMesh( 
@@ -317,8 +307,6 @@
 		nWall.name = "북쪽 벽";
 		scene.add( nWall );
 		objects.push( nWall );
-		
-
 		
 		// South
 		sWall = new Physijs.BoxMesh(
@@ -360,16 +348,15 @@
 		objects.push( wWall );
 		
 		// 문 부착
-		
-		 var texture = loader.load("resources/pietrac.png");
-		 nWall.material.map = texture;
-		 wWall.material.map = texture;
-		 eWall.material.map = texture;
-		 sWall.material.map = texture;
-		 //ceiling.material.map = texture;
-		 texture.repeat.set(4, 4); 
-		 texture.wrapS = THREE.RepeatWrapping;
-		 texture.wrapT = THREE.RepeatWrapping; 
+		var texture = loader.load("resources/pietrac.png");
+		nWall.material.map = texture;
+		wWall.material.map = texture;
+		eWall.material.map = texture;
+		sWall.material.map = texture;
+		//ceiling.material.map = texture;
+		texture.repeat.set(4, 4); 
+		texture.wrapS = THREE.RepeatWrapping;
+		texture.wrapT = THREE.RepeatWrapping; 
 		
 		window.addEventListener( 'resize', onResize, false );
 	}; // end init
@@ -599,26 +586,30 @@
 		raycaster_left.ray.origin.x -= 10;
 		raycaster_right.ray.origin.copy(controls.getObject().position);
 		raycaster_right.ray.origin.x += 10;
-		
+
+		raycasterFromCamera.ray.direction = camera.getWorldDirection().normalize();
 		raycasterFromCamera.ray.origin.copy( controls.getObject().position );
+		raycasterFromCamera.ray.origin.y += 10;
 		
 		var forward_intersections = raycaster_forward.intersectObjects( objects );
 		var backward_intersections = raycaster_backward.intersectObjects( objects );
 		var left_intersections = raycaster_left.intersectObjects( objects );
 		var right_intersections = raycaster_right.intersectObjects( objects );
-		// var cameraIntersections = raycasterFromCamera.intersectObjects( objects );
-				
+		var cameraIntersections = raycasterFromCamera.intersectObjects( objects );
+		
 		// 인터섹션이 있는경우
+		if ( cameraIntersections.length > 0 ) {
+			var distance = cameraIntersections[0].distance;
+			var objectName = cameraIntersections[0].object.name;
+			if ( distance > 0 && distance < 30 ) {
+				console.log( objectName );
+			}
+		}
+		
 		if ( forward_intersections.length > 0 ) {
 			var distance = forward_intersections[0].distance;
 			if ( distance > 0 && distance < 10 ) {
 				controls.getObject().position.z = forward_intersections[0].point.z + 20;
-				if ( forward_intersections[0].object.name ) {
-					console.log( forward_intersections[0].object.name );
-				} else {
-					context.clearRect(0,0,300,300);
-					texture.needsUpdate = true;
-				}
 			}
 		}
 
