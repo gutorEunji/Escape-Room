@@ -34,7 +34,7 @@
 					"DbgIndex": 0,
 					"DbgName": "cardboard",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.5810834646142311, 0.4789347032700668, 0.3332285185902357],
+					
 					"colorDiffuse": [0.5810834646142311, 0.4789347032700668, 0.3332285185902357],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.6456121206283569, 0.6456121206283569, 0.6456121206283569],
@@ -44,7 +44,7 @@
 "mapDiffuseWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 106,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				}
