@@ -34,7 +34,7 @@
 					"DbgIndex": 0,
 					"DbgName": "bed",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.3460204395044144, 0.3460204395044144, 0.3460204395044144],
+					
 					"colorDiffuse": [0.5882350206375122, 0.5882350206375122, 0.5882350206375122],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.0, 0.0, 0.0],
@@ -44,7 +44,7 @@
 					"mapDiffuseWrap": ["repeat", "repeat"],
 					"shading": "Lambert",
 					"specularCoef": 6,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				}

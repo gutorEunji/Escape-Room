@@ -34,7 +34,7 @@
 					"DbgIndex": 0,
 					"DbgName": "Hand Material",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.10000000149011612, 0.10000000149011612, 0.10000000149011612],
@@ -43,9 +43,9 @@
 					"mapDiffuse": "handtexture.jpg",
 					"mapDiffuseWrap": ["repeat", "repeat"],
 					
-					"shading": "Phong",
+					"shading": "Lambert",
 					"specularCoef": 20,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				}
