@@ -429,10 +429,9 @@
 			scene.add(mesh_door);
 		});
 		
-		//tv cabinet
+		//도끼
 		loader.load('resources/json/axe/axe.json', function(geomerty, mat){
-			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
-			mesh_door = new THREE.Mesh(geomerty,faceMaterial);
+			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(10,10,10);
 			mesh_door.position.set(210,0,-70);
 			scene.add(mesh_door);
@@ -514,12 +513,12 @@
 			scene.add(mesh_door);    
 		});
 		
-		/* loader.load('resources/json/pottery/pottery.json', function(geomerty, mat){
+		loader.load('resources/json/re/Orangesplosion_Soda_Machine.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(15, 15, 15);  
-			mesh_door.position.set(0,0,0);
+			mesh_door.position.set(0,0,240);
 			scene.add(mesh_door);    
-		}); */
+		});
 		//동상
 		loader.load('resources/json/statue/Melpomene.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);

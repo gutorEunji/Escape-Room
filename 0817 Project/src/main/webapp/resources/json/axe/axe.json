@@ -34,7 +34,7 @@
 					"DbgIndex": 0,
 					"DbgName": "Material",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+				
 					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],
@@ -45,9 +45,9 @@
 					"mapNormal": "axe_n.png",
 					"mapNormalFactor": 5.0,
 					"mapNormalWrap": ["repeat", "repeat"],
-					"shading": "Phong",
+					"shading": "Lambert",
 					"specularCoef": 50,
-					"transparency": 1.0,
+					"opacity": 1.0,
 					"transparent": false,
 					"vertexColors": false
 				}
