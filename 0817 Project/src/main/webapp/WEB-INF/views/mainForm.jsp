@@ -150,7 +150,7 @@ function makingRoomPopUp() {
 function goToRoomList(){
 	location.href = "/escape/roomList?nickname="+user_nickname;		
 }
-
+/*  */
 var sw = true;
 function login() {
 	$.showLoading();
