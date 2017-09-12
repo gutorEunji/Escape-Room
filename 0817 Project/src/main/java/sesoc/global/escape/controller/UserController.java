@@ -66,8 +66,11 @@ public class UserController {
    @RequestMapping(value="login", method=RequestMethod.POST)
    public String login(Users user, Model model, HttpSession session) {
       Users selectedUser = repo.selectId(user);
+      System.out.println(selectedUser);
       if(selectedUser != null) {
     	  session.setAttribute("loginUser", selectedUser);
+    	  model.addAttribute("user_id", selectedUser.getId());
+    	  model.addAttribute("user_nickname", selectedUser.getNickname());
     	  return "mainForm";
       }
       return "redirect:/";
