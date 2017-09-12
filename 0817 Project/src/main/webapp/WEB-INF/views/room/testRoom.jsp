@@ -371,6 +371,9 @@
 		objects.push( cubecube );
 		
 		window.addEventListener( 'resize', onResize, false );
+		window.addEventListener( 'keypress', function(e) {
+		    console.log( "키 누름" );
+		}, false );
 	}; // end init
 	
 	// ??
