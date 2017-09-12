@@ -60,20 +60,17 @@ public class UserController {
    @RequestMapping(value="logout", method=RequestMethod.GET) 
    public String logout(HttpSession session) {
       session.invalidate();
-      return "mainForm";
+      return "redirect:/";
    }
    
-   @ResponseBody
    @RequestMapping(value="login", method=RequestMethod.POST)
-   public Users login(Users user, Model model, HttpSession session) {
+   public String login(Users user, Model model, HttpSession session) {
       Users selectedUser = repo.selectId(user);
       if(selectedUser != null) {
-//    	  model.addAttribute("profile", selectedUser.getProfile()); 내생각엔 이거 안 먹음..... by 근택
     	  session.setAttribute("loginUser", selectedUser);
-    	  System.out.println(selectedUser);
-    	  return selectedUser;
+    	  return "mainForm";
       }
-      return selectedUser;
+      return "redirect:/";
    }
    
    @ResponseBody

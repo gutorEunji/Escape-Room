@@ -23,6 +23,11 @@
 <script src="resources/js/jquery.lightbox_me.js"></script>
 <script src="resources/js/jquery.loading.min.js"></script>
 
+<!-- animsition.css -->
+<link rel="stylesheet" href="resources/css/animsition.min.css">
+<!-- animsition.js -->
+<script src="resources/js/animsition.min.js"></script>
+
 <style type="text/css">
 .cd-user-modal {
   visibility: hidden;
@@ -61,50 +66,6 @@ footer {
 	width: 600px;
 	height: 800px;
 } */
-#login {
-	background-color:  rgba(0, 49, 44,0.6);
-    -moz-border-radius: 6px;
-    /* background: #eef2f7; */
-    -webkit-border-radius: 6px;
-    border: 1px solid #536376;
-   /*  -webkit-box-shadow: rgba(0, 49, 44,.6) 0px 2px 12px;
-    -moz-box-shadow:  rgba(0, 49, 44,.6) 0px 2px 12px;; */
-    padding: 14px 22px;
-    width: 400px;
-    position: relative;
-    display: none;
-}
-#login #loginForm {
-    margin-top: 13px;
-}
-#login label {
-    display: block;
-    margin-bottom: 10px; 
-    color: #536376;
-    font-size: .9em;
-}
-
-#login label input {
-    display: block;
-    width: 393px;
-    height: 31px;
-    background-position: -201px 0;
-    padding: 2px 8px;
-    font-size: 1.2em;
-    line-height: 31px;
-}
-.mainImage {
-	background-image: url("resources/images/main-img-bg3.jpg");
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-#loginH2 {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-#login label input {
-	width: 300px;
-}
 </style>
 
 <script>
@@ -127,9 +88,28 @@ $(function(e) {
 		event.preventDefault();
 	});
 	
-	//$("#loginBtn").on('click', login);
-	
-	//$("#logoutBtn").on('click', logout);
+	$(".animsition").animsition({
+	    inClass: 'fade-in-down-sm',
+	    outClass: 'fade-out-down-sm',
+	    inDuration: 1500,
+	    outDuration: 800,
+	    linkElement: '.animsition-link',
+	    // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+	    loading: true,
+	    loadingParentElement: 'body', //animsition wrapper element
+	    loadingClass: 'animsition-loading',
+	    loadingInner: '', // e.g '<img src="loading.svg" />'
+	    timeout: false,
+	    timeoutCountdown: 5000,
+	    onLoadEvent: true,
+	    browser: [ 'animation-duration', '-webkit-animation-duration'],
+	    // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+	    // The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+	    overlay : false,
+	    overlayClass : 'animsition-overlay-slide',
+	    overlayParentElement : 'body',
+	    transition: function(url){ window.location.href = url; }
+	});
 	
 });
 //var user_id = null;
@@ -151,65 +131,19 @@ function goToRoomList(){
 	location.href = "/escape/roomList?nickname="+user_nickname;		
 }
 /*  */
-var sw = true;
-function login() {
-	$.showLoading();
-	var id = $("#id").val();
-	var pw = $("#pw").val();
-	var sendData = {"id" : id, "pw" : pw};
-	$.ajax({
-		url: "login",
-		method: "post",
-		data: sendData,
-		success: function(resp) {
-			if(resp != null) {
-				/* closeLightbox(); */
-				//$ele.lightbox_me();
-				//$ele.trigger('close');
-				//nextSection();
-				/* if(sw){
-					$('#loginBtn').trigger("click");
-					sw = false;
-				}//if */
-				/* else {
-					sw = true;
-				} */
-				//$.fn.lightbox_me.closeLightbox();
-				$("loginId").text(resp.id);
-				$("loginProfile").attr("src", "resources/images/" + resp.profile + ".png");
-				$("loginNickname").text(resp.nickname);
-				$.hideLoading();
-			}
-			else {
-				$.hideLoading();
-			}
-		}
-	});
-}
 
-function join() {  
-	location.href = "joinForm";
-}
 
 </script>
 
 </head>
 <body>
-<div class="mainImage">
-	<div>
-		<div id="login">
-    	<h2 id="loginH2">Login</h2>
-    	<form class="da-form-container da-margin-top-15">
-	        <label><strong>ID:</strong> <input class="da-padding-left-15" type="text" name="id" id="id" placeholder="ID"/></label>
-	        <label><strong>PW:</strong> <input class="da-padding-left-15" type="password" name="pw" id="pw" placeholder="PW"/></label>
-	        <!-- <div id="actions"> -->
-			    <button type="button" id="loginBtn" class="da-btn hvr-sweep-to-right" onclick="login()">Login</button>
-				<button type="button" class="da-btn hvr-sweep-to-right" onclick="join()">Join</button>
-	        <!-- </div> -->
-	    </form>
-		</div>
-	</div>
-</div>
+<div 
+  class="animsition"
+  data-animsition-in-class="fade-in-down-sm"
+  data-animsition-in-duration="1000"
+  data-animsition-out-class="fade-out-down-sm"
+  data-animsition-out-duration="800">
+
 <header>
 	<div class="container-fluid">
 		<div class="row">
@@ -531,6 +465,6 @@ function join() {
 		<img data-lazy="resources/image/kuma.png" class="record">
 	</div>
 </div> --%>
-
+</div>
 </body>
 </html>
