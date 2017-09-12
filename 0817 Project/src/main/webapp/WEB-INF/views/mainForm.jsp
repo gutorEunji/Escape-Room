@@ -166,6 +166,7 @@ footer {
 						$('#loginBtn').trigger("click");
 						sw = false;
 					}//if
+					alert(resp.id);
 					user_id = resp.id;
 					user_nickname = resp.nickname;
 					$.hideLoading();

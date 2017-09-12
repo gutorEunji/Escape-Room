@@ -7,6 +7,7 @@ public class Users {
 	private String name;
 	private String nickname;
 	private String profile;
+	private String room_title;
 
 	public Users() {
 
@@ -64,11 +65,19 @@ public class Users {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	
+	public String getRoom_title() {
+		return room_title;
+	}
+
+	public void setRoom_title(String room_title) {
+		this.room_title = room_title;
+	}
 
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", pw=" + pw + ", email=" + email + ", name=" + name + ", nickname=" + nickname
-				+ ", profile=" + profile + "]";
+				+ ", profile=" + profile + ", room_title=" + room_title + "]";
 	}
 
 }

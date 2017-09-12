@@ -146,10 +146,10 @@
 	
 		<div id="left">
 			<div id="title">
-				<p>제목</p>
+				<p>${user.room_title}</p>
 			</div>
 			<div id="users">
-				<table id="userTable" border="1">
+				<table id="userTable">
 					<tr>
 						<td id="user0">
 						</td>

@@ -58,4 +58,5 @@ public class UserRepository {
 		UserDAO dao = sqlSession.getMapper(UserDAO.class);
 		return dao.selectWaitingUser(room);
 	}
+
 }

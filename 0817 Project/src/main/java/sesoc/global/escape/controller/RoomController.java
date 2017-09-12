@@ -33,7 +33,7 @@ public class RoomController {
 	RoomRepository room_repo;
 
 	@RequestMapping(value = "waitingRoom", method = RequestMethod.GET)
-	public String waitingRoom(String room_no, Users user, Model model) {
+	public String waitingRoom(String room_no, Users user, String roomTitle, Model model) {
 		
 		Users selectedUser = null;
 		if(user.getNickname() != null){
@@ -41,6 +41,7 @@ public class RoomController {
 		}else{
 			selectedUser = user_repo.selectId(user);
 		}
+		selectedUser.setRoom_title(roomTitle);
 		model.addAttribute("user", selectedUser);
 		model.addAttribute("room_no", room_no);
 		return "room/waitingRoom";
