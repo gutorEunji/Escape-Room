@@ -119,7 +119,7 @@
 					"DbgIndex": 2,
 					"DbgName": "plastic",
 					"blending": "NormalBlending",
-					"colorAmbient": [0.0, 0.0, 0.0],
+				
 					"colorDiffuse": [0.0, 0.0, 0.0],
 					"colorEmissive": [0.0, 0.0, 0.0],
 					"colorSpecular": [0.5, 0.5, 0.5],

@@ -250,7 +250,7 @@
 			camera.add(mesh1);
 		});
 			
-		objectLoad(LOADING_MANAGER);
+			objectLoad(LOADING_MANAGER);
 		/* loader.load('resources/json/wall_door.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(28,25,50);
@@ -268,10 +268,9 @@
 		           scene.add(meshes);
 			});
 		} */
-
 		var loader = new THREE.TextureLoader(LOADING_MANAGER);	
 		
-	    // 바닥 생성
+		
 		ground = new Physijs.BoxMesh(
 				new THREE.BoxGeometry( 500, 1, 500 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
@@ -280,12 +279,11 @@
 		ground.receiveShadow = true;
 		scene.add( ground );
 		
-		var texture1 = loader.load("resources/T_Sandstone.png");
-		ground.material.map = texture1;
-		texture1.repeat.set(4, 4);
-		texture1.wrapS = THREE.RepeatWrapping;
-		texture1.wrapT = THREE.RepeatWrapping;
-
+		 var texture1 = loader.load("resources/T_Sandstone.png");
+		 ground.material.map = texture1;
+		 texture1.repeat.set(4, 4);
+		 texture1.wrapS = THREE.RepeatWrapping;
+		 texture1.wrapT = THREE.RepeatWrapping;
 		// 천장 생성
 		ceiling = new Physijs.BoxMesh (
 					new THREE.BoxGeometry( 500, 1, 500 ),
@@ -295,6 +293,16 @@
 		ceiling.receiveShadow = true;
 		ceiling.position.y = 101;
 		scene.add( ceiling );
+		
+		// 임시 오브젝트(큐브)
+		/* var cubecube = new Physijs.BoxMesh( new THREE.BoxGeometry( 10, 10, 10 ),
+																				new THREE.MeshLambertMaterial( { color: 0x00FF00 } ),
+																				1 );
+		cubecube.position.set ( 20, 10, 20 );
+		cubecube.castShadow = true;
+		scene.add( cubecube );
+		objects.push( cubecube ); */
+
 		
 		// 벽생성
 		// North
@@ -309,6 +317,8 @@
 		nWall.name = "북쪽 벽";
 		scene.add( nWall );
 		objects.push( nWall );
+		
+
 		
 		// South
 		sWall = new Physijs.BoxMesh(
@@ -350,36 +360,24 @@
 		objects.push( wWall );
 		
 		// 문 부착
-		var texture = loader.load("resources/pietrac.png");
-		nWall.material.map = texture;
-		wWall.material.map = texture;
-		eWall.material.map = texture;
-		sWall.material.map = texture;
-		//ceiling.material.map = texture;
-		texture.repeat.set(4, 4); 
-		texture.wrapS = THREE.RepeatWrapping;
-		texture.wrapT = THREE.RepeatWrapping; 
-
-		// 임시 큐브
-		var cubecube = new Physijs.BoxMesh(
-			           new THREE.BoxGeometry( 30, 30, 30 ),
-					   new THREE.MeshLambertMaterial ( {color: 0xFF0000} )
-		)
-		cubecube.castShadow = true;
-		cubecube.position.set( 20, 20, 20 );
-		scene.add( cubecube );
-		objects.push( cubecube );
+		
+		 var texture = loader.load("resources/pietrac.png");
+		 nWall.material.map = texture;
+		 wWall.material.map = texture;
+		 eWall.material.map = texture;
+		 sWall.material.map = texture;
+		 //ceiling.material.map = texture;
+		 texture.repeat.set(4, 4); 
+		 texture.wrapS = THREE.RepeatWrapping;
+		 texture.wrapT = THREE.RepeatWrapping; 
 		
 		window.addEventListener( 'resize', onResize, false );
-		window.addEventListener( 'keypress', function(e) {
-		    console.log( "키 누름" );
-		}, false );
 	}; // end init
 	
 	// ??
 	function objectLoad() {
 		//문
-		var loader = new THREE.JSONLoader( LOADING_MANAGER );
+		var loader = new THREE.JSONLoader();
 			loader.load('resources/json/mainDoor/only_door.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty, mat[0]);
 			mesh_door.scale.set(35,35,35);
@@ -387,8 +385,7 @@
 			mesh_door.rotation.y += Math.PI;
 			scene.add(mesh_door);
 			
-		});
-
+		}); 
 		//책
 		loader.load('resources/json/book/books.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -397,7 +394,6 @@
 			mesh_door.rotation.y += Math.PI+0.2;
 			scene.add(mesh_door); 
 		});
-
 		//책장
 		loader.load('resources/json/bookcase/bookcase.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -406,7 +402,6 @@
 			mesh_door.rotation.y += 2*Math.PI/2.3;
 			scene.add(mesh_door);
 		});
-
 		//종이 박스
 		loader.load('resources/json/boxes/Box1_TotallyClosed.json', function(geomerty, mat){
 				var height = 0;
@@ -424,6 +419,7 @@
 			}
 		});
 		
+		
 		//tv
 		loader.load('resources/json/tv/TV Retro 01.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -432,36 +428,36 @@
 			mesh_door.rotation.y -= (Math.PI)/6; 
 			scene.add(mesh_door);
 		});
-		
 		//tv cabinet
-		loader.load('resources/json/axe/axe.json', function(geomerty, mat){
+		/* loader.load('resources/json/cabinet/untitled.json', function(geomerty, mat){
 			var faceMaterial = new THREE.MeshLambertMaterial( mat[0] );
 			mesh_door = new THREE.Mesh(geomerty,faceMaterial);
 			mesh_door.scale.set(10,10,10);
 			mesh_door.position.set(210,0,-70);
+			mesh_door.rotation.y += (2*Math.PI)/1.5;
 			scene.add(mesh_door);
-		});
+		}); */
+		
 		
 		//가스통 꾸러미
-		loader.load('resources/json/gas-tank/gas-tank.json', function(geomerty, mat){
-				var gap = 10;
-			for (var i = 0; i < 3; i++) {
-				if (gap == 10) {
+			loader.load('resources/json/gas-tank/gas-tank.json', function(geomerty, mat){
+					var gap = 10;
+				for (var i = 0; i < 3; i++) {
+					if (gap == 10) {
+						mesh_door = new THREE.Mesh(geomerty,mat[0]);
+						mesh_door.scale.set(3,3,3);
+						mesh_door.position.set(-200+gap,5,-100);
+						mesh_door.rotation.z -= 1.6;
+						mesh_door.rotation.y += 0.6;
+						scene.add(mesh_door); 
+					}
 					mesh_door = new THREE.Mesh(geomerty,mat[0]);
 					mesh_door.scale.set(3,3,3);
-					mesh_door.position.set(-200+gap,5,-100);
-					mesh_door.rotation.z -= 1.6;
-					mesh_door.rotation.y += 0.6;
+					mesh_door.position.set(-200+gap,5,-120);
 					scene.add(mesh_door); 
+					gap += 10;
 				}
-				mesh_door = new THREE.Mesh(geomerty,mat[0]);
-				mesh_door.scale.set(3,3,3);
-				mesh_door.position.set(-200+gap,5,-120);
-				scene.add(mesh_door); 
-				gap += 10;
-			}
-		});
-
+			});
 		//금고
 		loader.load('resources/json/safe/safe_close.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -469,7 +465,6 @@
 			mesh_door.position.set(100,0,-250);
 			scene.add(mesh_door); 
 		});
-
 		//우유 상자
 		loader.load('resources/json/milk box/milk-crate.json', function(geomerty, mat){
 			var height = 0;
@@ -488,7 +483,6 @@
 				}
 			}
 		});
-
 		//테이블
 		loader.load('resources/json/table/crashed_buteco.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -496,7 +490,6 @@
 			mesh_door.position.set(150,0,50);
 			scene.add(mesh_door);   
 		});
-
 		//침대
 		loader.load('resources/json/bed/old_bed.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -505,7 +498,6 @@
 			mesh_door.rotation.y += Math.PI/3;
 			scene.add(mesh_door);   
 		});
-
 		//통나무
 		loader.load('resources/json/logs/wood.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -513,7 +505,6 @@
 			mesh_door.position.set(-200,0,-150);
 			scene.add(mesh_door);    
 		});
-
 		//낡은 침대
 		loader.load('resources/json/bed/bed.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -529,7 +520,6 @@
 			mesh_door.position.set(0,0,0);
 			scene.add(mesh_door);    
 		}); */
-
 		//동상
 		loader.load('resources/json/statue/Melpomene.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -538,7 +528,6 @@
 			mesh_door.rotation.y += Math.PI/1.8;
 			scene.add(mesh_door);    
 		});
-
 		//우유탱크
 		loader.load('resources/json/milkTank/milk tank.json', function(geomerty, mat){
 			var gap = 10;
@@ -546,9 +535,7 @@
 				mesh_door = new THREE.Mesh(geomerty,mat[0]);
 				mesh_door.scale.set(30, 30, 30);
 				mesh_door.position.set(-220+gap,0,-230);
-				scene.add( mesh_door );
-				mesh_door.name = "우유탱크";
-				objects.push( mesh_door );
+				scene.add(mesh_door);  
 				gap += 30;
 			}
 		});
@@ -560,6 +547,7 @@
 			mesh_door.rotation.y += Math.PI/1.8;
 			scene.add(mesh_door);    
 		}); */
+		
 	}		
 	
 	function onResourcesLoaded() {
@@ -575,6 +563,7 @@
 	
 	// 렌더
 	var render = function() {
+		
 		if (RESOURCES_LOADED == false) {
 			requestAnimationFrame(render);
 			loadingScreen.box.position.x -= 0.05;
@@ -603,7 +592,6 @@
 			move_hand+=0.01;
 		}
 		
-		// RayCaster의 시작점 설정
 		raycaster_forward.ray.origin.copy(controls.getObject().position);
 		raycaster_forward.ray.origin.z -= 10;
 		raycaster_backward.ray.origin.copy(controls.getObject().position);
@@ -612,42 +600,26 @@
 		raycaster_left.ray.origin.x -= 10;
 		raycaster_right.ray.origin.copy(controls.getObject().position);
 		raycaster_right.ray.origin.x += 10;
-
-		raycasterFromCamera.ray.direction = camera.getWorldDirection().normalize();
+		
 		raycasterFromCamera.ray.origin.copy( controls.getObject().position );
-		raycasterFromCamera.ray.origin.y += 10;
 		
 		var forward_intersections = raycaster_forward.intersectObjects( objects );
 		var backward_intersections = raycaster_backward.intersectObjects( objects );
 		var left_intersections = raycaster_left.intersectObjects( objects );
 		var right_intersections = raycaster_right.intersectObjects( objects );
-		var cameraIntersections = raycasterFromCamera.intersectObjects( objects );
-		
+		// var cameraIntersections = raycasterFromCamera.intersectObjects( objects );
+				
 		// 인터섹션이 있는경우
-		if ( cameraIntersections.length > 0 ) {
-			var distance = cameraIntersections[0].distance;
-			var objectPosition = cameraIntersections[0].object.position;
-			if ( distance > 0 && distance < 30 ) {
-			
-				var outlineMaterial = new THREE.MeshBasicMaterial( { color: 0x00FF00, side: THREE.BackSide } );
-				var outlineMesh = new THREE.Mesh( cameraIntersections[0].object.geometry, outlineMaterial );
-				outlineMesh.position.x = objectPosition.x;
-				outlineMesh.position.y = objectPosition.y;
-				outlineMesh.position.z = objectPosition.z;
-				outlineMesh.scale.multiplyScalar( 1.1 );
-				scene.add( outlineMesh );
-
-				// cameraIntersections[0].object.material.opacity = 0.5;
-                console.log ( cameraIntersections[0].object );
-			} else {
-				// cameraIntersections[0].object.material.opacity = 1;
-			}
-		} 
-		
 		if ( forward_intersections.length > 0 ) {
 			var distance = forward_intersections[0].distance;
 			if ( distance > 0 && distance < 10 ) {
 				controls.getObject().position.z = forward_intersections[0].point.z + 20;
+				if ( forward_intersections[0].object.name ) {
+					console.log( forward_intersections[0].object.name );
+				} else {
+					context.clearRect(0,0,300,300);
+					texture.needsUpdate = true;
+				}
 			}
 		}
 
@@ -664,7 +636,7 @@
 				controls.getObject().position.x = left_intersections[0].point.x + 20;
 			}
 		}
-		
+					
 		if ( right_intersections.length > 0 ) {
 			var distance = right_intersections[0].distance;
 			if ( distance > 0 && distance < 10 ) {
