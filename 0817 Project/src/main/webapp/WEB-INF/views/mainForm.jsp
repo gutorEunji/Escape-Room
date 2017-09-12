@@ -62,7 +62,6 @@ footer {
 </style>
 
 <script>
-
 $(function(e) {
 	/* $("body").data("hijacking", 'on');
 	$("body").data("animation", 'gallery'); */
@@ -115,11 +114,11 @@ function updateForm() {
 }
 
 function makingRoomPopUp() {
-	window.open("makingRoomPopUp?id="+user_id, "Room Making Setting", 'width=400, height=600');
+	window.open("makingRoomPopUp?id=${user_id}", "Room Making Setting", 'width=400, height=600');
 }
 
 function goToRoomList(){
-	location.href = "/escape/roomList?nickname="+user_nickname;		
+	location.href = "/escape/roomList?nickname=${user_nickname}";		
 }
 </script>
 
@@ -177,7 +176,7 @@ function goToRoomList(){
 			<div class="col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 col-xs-12 da-margin-top-30 da-right-animated-block">
 				<div class="da-step-container">
 					<p class="da-step-title da-font-montserrat"><span class="da-red-text da-padding-right-15">02</span>
-					<a href="/escape/waitingRoom?num=1&nickname=${loginUser.nickname}">Game Room List</a></p>
+					<a href="#" onclick="goToRoomList()">Game Room List</a></p>
 					<p>Exactly 1 hour to find a way out and get out of the quest of the room, thinking all the fun and interesting puzzles on your heroic journey.</p>
 				</div>
 			</div>
@@ -192,7 +191,8 @@ function goToRoomList(){
 			</div>
 			<div class="col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 col-xs-12 da-margin-top-30 da-right-animated-block">
 				<div class="da-step-container">
-					<p class="da-step-title da-font-montserrat"><span class="da-red-text da-padding-right-15">04</span>Make Game Room</p>
+					<p class="da-step-title da-font-montserrat"><span class="da-red-text da-padding-right-15">04</span>
+					<a href="#" onclick="makingRoomPopUp()">Make Game Room</a></p>
 					<p>This is an unforgettable adventure in the exciting world of mystery. Only positive emotions and vivid feeling for the entire company.</p>
 				</div>
 			</div>
