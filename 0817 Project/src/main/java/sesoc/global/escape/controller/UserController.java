@@ -283,4 +283,9 @@ public class UserController {
       return "message";
    }
    
+   @RequestMapping(value = "/playListForm", method = RequestMethod.GET)
+   public String playListForm(){
+      return "user/playListForm";
+   }
+   
 }

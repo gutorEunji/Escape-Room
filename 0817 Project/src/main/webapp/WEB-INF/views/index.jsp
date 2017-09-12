@@ -116,6 +116,7 @@ $(document).ready(function() {
 
 //var sw = true;
 function login() {
+	$.showLoading(); 
 	$("#loginForm").submit();
 }
 
@@ -124,9 +125,11 @@ function join() {
 }
 
 function loginPop() {
+	$.showLoading(); 
 	$("#login").lightbox_me({centered: true, preventScroll: true, onLoad: function() {
 		$("#login").find("input:first").focus();
 	}});
+	$.hideLoading();
 }
 </script>
 </head>
@@ -139,25 +142,21 @@ function loginPop() {
 	        <label><strong>ID:</strong> <input class="da-padding-left-15" type="text" name="id" id="id" placeholder="ID"/></label>
 	        <label><strong>PW:</strong> <input class="da-padding-left-15" type="password" name="pw" id="pw" placeholder="PW"/></label>
 	    </form>
-	        <!-- <div id="actions"> -->
-			    <button type="button" id="loginBtn" class="da-btn hvr-sweep-to-right" onclick="login()">Login</button>
-				<button type="button" class="da-btn hvr-sweep-to-right" onclick="join()">Join</button>
-				<br><hr>
-				<div>
-					<a href="findForm" id="findLink">Forget your account? click here</a>
-				</div>
-	        <!-- </div> -->
+		    <button type="button" id="loginBtn" class="da-btn hvr-sweep-to-right" onclick="login()">Login</button>
+			<button type="button" class="da-btn hvr-sweep-to-right" onclick="join()">Join</button>
+			<br><hr>
+			<div>
+				<a href="findForm" id="findLink">Forget your account? click here</a>
+			</div>
 		</div>
 	</div>
 </div>
   <div
   class="animsition"
-  data-animsition-in-class="fade-in-down-sm"
   data-animsition-in-duration="1000"
-  data-animsition-out-class="fade-out-down-sm"
   data-animsition-out-duration="800"
   >
-  <a href="#" onclick="loginPop()"><h2>Escape Room</h2></a>
+  <h2><a href="#" onclick="loginPop()">Escape Room</a></h2>
 </div>
 </body>
 </html>
