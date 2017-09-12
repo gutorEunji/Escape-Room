@@ -100,7 +100,7 @@ function join() {
 		return false;
 	}
 	
-	$("#inputProfile").val($("#profile").attr("alt"));
+	$("#inputProfile").val($(".selected_Profile").attr("alt"));
 	
 	var form = $("#joinForm");
 	form.submit();
