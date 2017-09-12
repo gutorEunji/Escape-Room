@@ -85,7 +85,7 @@ div#wrapper {
 				, success : function(resp){
 					$('.da-booking-date-container').html('');
 					$.each(resp, function(i, elt) {
-						var room = '<div class="da-booking-date" data-roomNum="'+elt.no+'", data-roomPw="'+ elt.room_pw +'">';
+						var room = '<div class="da-booking-date" data-roomNum="'+elt.no+'", data-roomPw="'+ elt.room_pw +'", data-roomTitle="'+ elt.title +'"">';
 						room += '<p class="da-booking-date-number"><img src="resources/images/profile_01.png"></p>';
 						room += '<div class="da-availabe-date">title: '+ elt.title + '<br /> room master : ' + elt.master_id + '<br />'
 						room += 'Availabe: '+ elt.numberOfUsers +'</div>';
@@ -114,7 +114,8 @@ div#wrapper {
 							
 							// 방에 입장
 							var room_no = $(this).attr('data-roomNum');
-							location.href = "/escape/waitingRoom?room_no="+room_no+"&nickname=${nickname}";
+							var room_title = $(this).attr('data-roomTitle');
+							location.href = "/escape/waitingRoom?room_no="+room_no+"&nickname=${nickname}&roomTitle="+room_title;
 							
 						});//da-booking-date
 					});//each

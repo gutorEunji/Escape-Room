@@ -62,7 +62,7 @@
 	<delete id="deleteNormalUser" parameterType="string">
 		delete from waiting_users where session_id = #{sessionId}
 	</delete>
-	
+
 	<select id="findUser" parameterType="WaitingUser" resultType="WaitingUser">
 		select w.*, u.NICKNAME from waiting_users w, users u
 		where

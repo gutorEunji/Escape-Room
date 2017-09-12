@@ -49,7 +49,7 @@ function gotoWatingRoom() {
 		data: sendData,
 		success: function(resp) {
 			if(resp != -1) {
-				$(opener.location).attr("href","waitingRoom?room_no=" + resp + "&id=${user_id}");
+				$(opener.location).attr("href","waitingRoom?room_no=" + resp + "&id=${user_id}&roomTitle="+title);
 				window.close();
 			}
 			else {
