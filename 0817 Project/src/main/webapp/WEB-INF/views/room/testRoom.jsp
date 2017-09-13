@@ -4,6 +4,13 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+	<link rel="stylesheet" href="resources/css/slick-theme.css">
+	<link rel="stylesheet" href="resources/css/slick.css">
+	<link rel="stylesheet" href="resources/css/animate.css">
+	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/loading.min.css"> <!-- CSS reset -->
+	
 	<script type="text/javascript" src="resources/js/three.min.js"></script>
 	<script type="text/javascript" src="resources/js/physi.js"></script>
 	<script type="text/javascript" src="resources/js/PointerLockControls.js"></script>
@@ -53,7 +60,28 @@
 
 	<div id="block">
 		<div id="instructions">
-			<span style="font-size: 40px">시작하려면 클릭하세요</span>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-9 col-md-7 col-sm-7 col-xs-2 da-text-align-right">
+				<div class="da-menu-button">
+					<img src="resources/images/menu-icon.png" alt="Menu">
+				</div>
+				<nav>
+					<ul class="da-menu">
+						<li><span class="da-hover-menu-line">Inventory</span>
+							<!-- <a href="#" onclick="updateForm()"></a> -->
+						</li>
+						<li class="da-active-menu-link"><span class="da-hover-menu-line">Play</span>
+							<!-- <a href="#" onclick="logout()"></a> -->
+						</li>
+						<li class="da-active-menu-link"><span class="da-hover-menu-line">Escape</span>
+							<!-- <a href="#"></a> -->
+						</li>
+					</ul>
+				</nav>
+			</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	
