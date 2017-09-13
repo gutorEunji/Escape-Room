@@ -116,7 +116,10 @@ $(document).ready(function() {
 
 //var sw = true;
 function login() {
-	$.showLoading(); 
+	$.showLoading({
+		  name: 'circle-fade'
+	}); 
+
 	$("#loginForm").submit();
 }
 

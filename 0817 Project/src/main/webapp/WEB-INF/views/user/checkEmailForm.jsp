@@ -10,10 +10,14 @@
 	<link rel="stylesheet" href="resources/css/slick.css">
 	<link rel="stylesheet" href="resources/css/animate.css">
 	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/loading.min.css"> <!-- CSS reset -->
+	
 	<script src="resources/js/jquery-1.12.0.min.js"></script>
 	<script src="resources/js/map.js"></script>
 	<script src="resources/js/slick.min.js"></script>
 	<script src="resources/js/script.js"></script>
+	<script src="resources/js/jquery.loading.min.js"></script>
+	
 <style type="text/css">
 	#updateTable{
 		vertical-align: text-top;
@@ -51,6 +55,9 @@ function certifiedCheck(){
 }//pw_resetBtn
 
 function email() {
+	$.showLoading({
+		  name: 'circle-fade'
+	}); 
 	var email = $("#email").val();
 	$.ajax({
 		url : "checkEmail"
@@ -58,12 +65,14 @@ function email() {
 		, method : "get"
 		, success : function(resp) {
 			if(resp == true) {	// 중복 체크 통과
+				$.hideLoading();
 				alert("해당 이메일로 인증 번호가 전송 되었습니다. 인증번호를 정확하게 입력해주세요.");
 				$("#emailCheck").attr("disabled", "disabled");
 				$("#email").attr("readonly", "readonly");
 				
 			}				
 			else {
+				$.hideLoading();
 				alert("중복된 이메일 이거나, 이메일 전송에 문제가 생겼습니다. 다시 시도해주세요.");
 				$("#email").val("");
 			}

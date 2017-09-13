@@ -7,6 +7,7 @@ public class Users {
 	private String name;
 	private String nickname;
 	private String profile;
+	private String login_status;
 
 	public Users() {
 
@@ -65,10 +66,19 @@ public class Users {
 		this.profile = profile;
 	}
 
+	public String getLogin_status() {
+		return login_status;
+	}
+
+	public void setLogin_status(String login_status) {
+		this.login_status = login_status;
+	}
+
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", pw=" + pw + ", email=" + email + ", name=" + name + ", nickname=" + nickname
-				+ ", profile=" + profile + "]";
+				+ ", profile=" + profile + ", login_status=" + login_status + "]";
 	}
+
 
 }

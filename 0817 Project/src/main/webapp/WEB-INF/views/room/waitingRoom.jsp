@@ -6,6 +6,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/slick-theme.css">
+<link rel="stylesheet" href="resources/css/slick.css">
+<link rel="stylesheet" href="resources/css/animate.css">
+<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="resources/css/loading.min.css"> <!-- CSS reset -->
+
+<script src="resources/js/modernizr.js"></script>
+<script src="resources/js/jquery-1.12.0.min.js"></script>
+<script src="resources/js/map.js"></script>
+<script src="resources/js/slick.min.js"></script>
+<script src="resources/js/script.js"></script>
+<script src="resources/js/counter.js"></script>
+<script src="resources/js/jquery.lightbox_me.js"></script>
+<script src="resources/js/jquery.loading.min.js"></script>
+
 <style type="text/css">
 	#wrapper{
 		width: 800px;
@@ -45,8 +61,10 @@
 		width: 200px;
 		height: 150px;
 	}
+	h2{
+		margin-top: 35px;
+	}
 </style>
-<script type="text/javascript" src="resources/js/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 	
@@ -142,47 +160,49 @@
 </script>
 </head>
 <body>
-	<div id="wrapper">
-	
-		<div id="left">
-			<div id="title">
-				<p>제목</p>
+<div class="da-bg-white">
+		<div class="container">
+			<div id="title"><h2 class="da-underline-title da-margin-bottom-0">Title</h2></div>
+			<div class="row da-game-in-real">
+				<div class="col-sm-8" id="users">
+					<div class="row da-margin-top-75">
+						<div class="col-sm-6 col-xs-12">
+							<div class="da-game-container visible animated fadeInUp" id="user0">
+							</div>
+						</div>
+						<div class="col-sm-6 col-xs-12">
+							<div class="da-game-container visible animated fadeInUp">
+								<p class="da-before-step-block pe-7s-clock"></p>
+								<p class="da-game-step-title da-font-montserrat">time</p>
+								<p>Exactly 1 hour to find a way out and get out of the quest of the room , thinking all the fun and interesting puzzles on your heroic journey.</p>
+							</div>
+						</div>
+					</div>
+					<div class="row da-margin-top-30">
+						<div class="col-sm-6 col-xs-12">
+							<div class="da-game-container visible animated fadeInUp">
+								<p class="da-before-step-block pe-7s-users"></p>
+								<p class="da-game-step-title da-font-montserrat">Command</p>
+								<p>For the whole family and for your friends ! Your team - the key to a successful passing game . Trust and partner nayditie output.</p>
+							</div>
+						</div>
+						<div class="col-sm-6 col-xs-12">
+							<div class="da-game-container visible animated fadeInUp">
+								<p class="da-before-step-block pe-7s-smile"></p>
+								<p class="da-game-step-title da-font-montserrat">Impression</p>
+								<p>This is an unforgettable adventure in the exciting world of mystery. Only positive emotions and vivid feeling for the entire company.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="da-game-img visible animated fadeIn">
+						<img src="resources/images/game-in-reality-person.png" alt="alt">
+					</div>
+				</div>
 			</div>
-			<div id="users">
-				<table id="userTable" border="1">
-					<tr>
-						<td id="user0">
-						</td>
-						<td id="user1">
-							User
-						</td>
-					</tr>
-					<tr>
-						<td id="user2">
-							User
-						</td>
-						<td id="user3">
-							User
-						</td>
-					</tr>
-				</table>
-			</div>
-			<br />
-			<div id="chatting">
-				<p id="chattingScreen"></p>
-				<br />
-			</div>
-			<input type="text" id="text" class="chatting">
-			<input type="button" id="textSend" value="send" class="chatting">
 		</div>
-		<div id="right">
-			<input type="button" id="mapSelection" value="Map">
-			<br />
-			<textarea rows="10" cols="30" id="mapExplanation" readonly="readonly"></textarea>
-			<br />
-			<input type="button" id="startBtn" value="START">
-		</div>
-		
 	</div>
+	
 </body>
 </html>

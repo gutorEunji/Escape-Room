@@ -29,7 +29,7 @@ public class UserController {
    
    @RequestMapping(value="loginForm", method=RequestMethod.GET)
    public String loginForm() {
-	   return "user/loginForm";
+      return "user/loginForm";
    }
 
    @RequestMapping(value="findForm", method=RequestMethod.GET)
@@ -44,7 +44,7 @@ public class UserController {
 
    @RequestMapping(value="join", method=RequestMethod.POST)
    public String join(Users user, Model model) {
-      System.out.println(user.getProfile());
+	  user.setLogin_status("logouted");
       int result = repo.insertUser(user);
       
       if(result == 1) {
@@ -59,16 +59,24 @@ public class UserController {
    
    @RequestMapping(value="logout", method=RequestMethod.GET) 
    public String logout(HttpSession session) {
-      session.invalidate();
+	   Users user = (Users)session.getAttribute("loginUser");
+	   user.setLogin_status("logouted");
+	   repo.updateLoginStatus(user);
+	   session.invalidate();
+      
       return "redirect:/";
    }
    
    @RequestMapping(value="login", method=RequestMethod.POST)
    public String login(Users user, Model model, HttpSession session) {
       Users selectedUser = repo.selectId(user);
-      if(selectedUser != null) {
-    	  session.setAttribute("loginUser", selectedUser);
-    	  return "mainForm";
+      if(selectedUser != null && selectedUser.getLogin_status().equals("logouted")) {
+    	 selectedUser.setLogin_status("logined");
+    	 repo.updateLoginStatus(selectedUser);
+         session.setAttribute("loginUser", selectedUser);
+         model.addAttribute("user_id", selectedUser.getId());
+         model.addAttribute("user_nickname", selectedUser.getNickname());
+         return "mainForm";
       }
       return "redirect:/";
    }
@@ -267,7 +275,6 @@ public class UserController {
    @RequestMapping(value="update", method=RequestMethod.POST)
    public String update(Users user, HttpSession session, Model model) {
       user.setId(((Users)session.getAttribute("loginUser")).getId());
-      System.out.println(user);
       int result = repo.updateUser(user);
       String mapping = "";
       String message = "정상적으로 회원 정보가 수정되었습니다. 다시 로그인 해주세요";

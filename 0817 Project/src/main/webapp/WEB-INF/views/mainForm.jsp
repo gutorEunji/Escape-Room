@@ -122,10 +122,15 @@ function goToRoomList(){
 	alert("${user_nickname}");
 	location.href = "/escape/roomList?nickname=${user_nickname}";		
 }
+
+function closePage() {
+	var answer = confirm("Save data?")
+	alert(answer);
+}
 </script>
 
 </head>
-<body>
+<body onbeforeunload="closePage()">
 <div 
   class="animsition"
   data-animsition-in-class="fade-in-down-sm"
@@ -167,7 +172,7 @@ function goToRoomList(){
 </header>
 	<div class="da-bg-container da-padding-bottom-200">
 	<div class="container">
-		<h2 class="da-title-icon da-margin-bottom-0">Let the game begin</h2>
+		<h2 class="da-title-icon da-margin-bottom-200">Let the game begin</h2>
 		<div class="row da-game-row">
 			<div class="col-md-5 col-sm-5 col-xs-12 da-margin-top-30">
 				<div class="da-step-container da-text-align-right da-left-animated-block">

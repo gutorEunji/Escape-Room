@@ -15,4 +15,5 @@ public interface UserDAO {
 	public List<WaitingUsers> selectWaitingUser(Room room);
 	public int deleteNormalUser(String sessionId);
 	public WaitingUsers findUser(WaitingUsers waitinguser);
+	public int updateLoginStatus(Users user);
 }
