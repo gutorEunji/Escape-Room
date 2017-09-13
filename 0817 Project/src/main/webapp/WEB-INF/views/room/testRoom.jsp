@@ -15,13 +15,6 @@
 	<script type="text/javascript" src="resources/js/physi.js"></script>
 	<script type="text/javascript" src="resources/js/PointerLockControls.js"></script>
 	
-	<script type="text/javascript" src="resources/js/CopyShader.js"></script>
-    <script type="text/javascript" src="resources/js/FXAAShader.js"></script>
-    <script type="text/javascript" src="resources/js/EffectComposer.js"></script>
-    <script type="text/javascript" src="resources/js/RenderPass.js"></script>
-    <script type="text/javascript" src="resources/js/ShaderPass.js"></script>
-    <script type="text/javascript" src="resources/js/OutlinePass.js"></script>
-	
 	<style type="text/css">
 		body {
 			margin: 0;
