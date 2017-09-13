@@ -65,7 +65,7 @@
 	
 	// Global
 	var scene, camera, renderer, subLight, mainLight, bulbGeometry, bulbMat,
-			lightHelper, shadowCameraHelper, ground, ceiling;
+			lightHelper, shadowCameraHelper, ground, ceiling, analyser;
 	var nWall, wWall, sWall, eWall;
 	var controls,
 			time = performance.now();
@@ -155,6 +155,9 @@
 	
 	// 이니셜라이즈 - 씬 생성
 	var init = function() {
+		
+		var fftSize = 2048;
+		
 		console.log( "초기화시작" );
 		
 		// 렌더러 생성
@@ -218,6 +221,17 @@
 			RESOURCES_LOADED = true;
 			onResourcesLoaded(); // 리소스가 로드 되었을때의 트리거 함수를 생성
 		}
+		//사운드
+		var audioLoader = new THREE.AudioLoader(LOADING_MANAGER);
+		var listener = new THREE.AudioListener(LOADING_MANAGER);
+		camera.add( listener );
+		var audio = new THREE.Audio( listener );
+		audioLoader.load( 'resources/music/bell.mp3', function( buffer ) {
+			audio.setBuffer( buffer );
+			audio.setLoop( true );
+			audio.play();
+		});
+		analyser = new THREE.AudioAnalyser( audio, fftSize );
 		
 		
 		// 조명 생성
@@ -227,7 +241,7 @@
 			emissiveIntensity: 1,
 			color: 0x000000
 		});
-		mainLight = new THREE.SpotLight ( 0xFF6666, 25, 2500 ); // 붉은 조명 입힘
+		mainLight = new THREE.SpotLight ( 0x222222, 25, 2500 ); // 붉은 조명 입힘
 		mainLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
 		mainLight.position.set( 0, 150, 0 );
 		mainLight.castShadow = true;
@@ -236,7 +250,7 @@
 		mainLight.angle = Math.PI/2.2;
 		scene.add( mainLight );
 		
-		subLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.04);
+		subLight = new THREE.HemisphereLight(0x660033, 0x660033, 0.04);
 		scene.add( subLight );
 		
 		// 손 생성
@@ -251,13 +265,6 @@
 		});
 			
 			objectLoad(LOADING_MANAGER);
-		/* loader.load('resources/json/wall_door.json', function(geomerty, mat){
-			mesh_door = new THREE.Mesh(geomerty,mat[0]);
-			mesh_door.scale.set(28,25,50);
-			mesh_door.position.set(1,-5,255);
-			mesh_door.rotation.x -= 0.01;
-			scene.add(mesh_door);
-		});	 */
 		/* for (var i = 0; i < json_object.length; i++) {
 			alert(json_object_context[json_object[i]].name); 
 			 loader.load(json_object_context[json_object[i]].name, function(geomerty, mat){
@@ -270,7 +277,6 @@
 		} */
 		var loader = new THREE.TextureLoader(LOADING_MANAGER);	
 		
-		
 		ground = new Physijs.BoxMesh(
 				new THREE.BoxGeometry( 500, 1, 500 ),
 				new THREE.MeshLambertMaterial( {color: 0xA9A9A9} ),
@@ -279,11 +285,13 @@
 		ground.receiveShadow = true;
 		scene.add( ground );
 		
+		//바닥 texture
 		 var texture1 = loader.load("resources/T_Sandstone.png");
 		 ground.material.map = texture1;
 		 texture1.repeat.set(4, 4);
 		 texture1.wrapS = THREE.RepeatWrapping;
 		 texture1.wrapT = THREE.RepeatWrapping;
+		 
 		// 천장 생성
 		ceiling = new Physijs.BoxMesh (
 					new THREE.BoxGeometry( 500, 1, 500 ),
@@ -293,6 +301,12 @@
 		ceiling.receiveShadow = true;
 		ceiling.position.y = 101;
 		scene.add( ceiling );
+		
+		 var texture2 = loader.load("resources/blood.png");
+		 ceiling.material.map = texture2;
+		 texture2.repeat.set(8, 8);
+		 texture2.wrapS = THREE.RepeatWrapping;
+		 texture2.wrapT = THREE.RepeatWrapping;
 		
 		// 벽생성
 		// North
@@ -347,7 +361,7 @@
 		scene.add( wWall );
 		objects.push( wWall );
 		
-		// 문 부착
+		// 벽 texture
 		var texture = loader.load("resources/pietrac.png");
 		nWall.material.map = texture;
 		wWall.material.map = texture;
@@ -488,12 +502,6 @@
 			mesh_door.position.set(150,0,50);
 			scene.add(mesh_door);   
 		});
-		/* loader.load('resources/json/chess/ChessScene.json', function(geomerty, mat){
-			mesh_door = new THREE.Mesh(geomerty,mat[0]);
-			mesh_door.scale.set(1, 1, 1);
-			mesh_door.position.set(150,30,50);
-			scene.add(mesh_door);   
-		}); */
 		//캔 테이블 위
 		loader.load('resources/json/can/Cola_Pepsi_Redbull.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -550,12 +558,13 @@
 				gap += 30;
 			}
 		});
+		//돈
 		loader.load('resources/json/dollar/dollars.json', function(geomerty, mat){
 			var up = 0, right = 0, left = 0, down = 0;
 			for (var i = 0; i < 32; i++) {
 				mesh_door = new THREE.Mesh(geomerty,mat[0]);
 				mesh_door.scale.set(1, 1, 1);  
-				mesh_door.position.set(0+left-right,0,0+up-down);
+				mesh_door.position.set(0+left-right,2,0+up-down);
 				scene.add(mesh_door);
 				if (left != 80) {
 					left += 10;
@@ -568,10 +577,12 @@
 				}
 			}
 		});
+		
+		//양초
 		loader.load('resources/json/candle/MedievalWallSconce 1_1.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(3, 3, 3);  
-			mesh_door.position.set(0,0,0);
+			mesh_door.position.set(10,0,20);
 			scene.add(mesh_door);    
 		});
 		
