@@ -472,7 +472,7 @@
 		loader.load('resources/json/axe/axe.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(30,30,30);
-			mesh_door.position.set(170,5,-135);
+			mesh_door.position.set(170,3,-135);
 			//mesh_door.rotation.z -= Math.PI/2;
 			mesh_door.rotation.z += Math.PI/6;
 			scene.add(mesh_door);
