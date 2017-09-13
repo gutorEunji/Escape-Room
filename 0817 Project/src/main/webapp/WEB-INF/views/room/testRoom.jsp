@@ -256,7 +256,7 @@
 			camera.add(mesh1);
 		});
 			
-			objectLoad(LOADING_MANAGER);
+		objectLoad(LOADING_MANAGER);
 		/* loader.load('resources/json/wall_door.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
 			mesh_door.scale.set(28,25,50);
@@ -285,11 +285,12 @@
 		ground.receiveShadow = true;
 		scene.add( ground );
 		
-		 var texture1 = loader.load("resources/T_Sandstone.png");
-		 ground.material.map = texture1;
-		 texture1.repeat.set(4, 4);
-		 texture1.wrapS = THREE.RepeatWrapping;
-		 texture1.wrapT = THREE.RepeatWrapping;
+		var texture1 = loader.load("resources/T_Sandstone.png");
+		ground.material.map = texture1;
+		texture1.repeat.set(4, 4);
+		texture1.wrapS = THREE.RepeatWrapping;
+		texture1.wrapT = THREE.RepeatWrapping;
+		
 		// 천장 생성
 		ceiling = new Physijs.BoxMesh (
 					new THREE.BoxGeometry( 500, 1, 500 ),
@@ -431,7 +432,7 @@
 	// ??
 	function objectLoad() {
 		//문
-		var loader = new THREE.JSONLoader();
+		var loader = new THREE.JSONLoader( LOADING_MANAGER );
 			loader.load('resources/json/mainDoor/only_door.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty, mat[0]);
 			mesh_door.scale.set(35,35,35);
