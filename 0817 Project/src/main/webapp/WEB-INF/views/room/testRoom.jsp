@@ -7,7 +7,9 @@
 	<script type="text/javascript" src="resources/js/three.min.js"></script>
 	<script type="text/javascript" src="resources/js/physi.js"></script>
 	<script type="text/javascript" src="resources/js/PointerLockControls.js"></script>
+	
 	<script type="text/javascript" src="resources/js/CopyShader.js"></script>
+    <script type="text/javascript" src="resources/js/FXAAShader.js"></script>
     <script type="text/javascript" src="resources/js/EffectComposer.js"></script>
     <script type="text/javascript" src="resources/js/RenderPass.js"></script>
     <script type="text/javascript" src="resources/js/ShaderPass.js"></script>
@@ -82,7 +84,9 @@
 			raycasterFromCamera;
 	var block = document.getElementById( 'block' ),
 			instructions = document.getElementById( 'instructions' );
-	var outlinePass; // 아웃라인 변수
+	var outlinePass, // 아웃라인 변수
+	    composer,
+	    effectFXAA;
 	
 	var mesh1, meshes, mesh_door;
 	var move_hand = 0.01;
@@ -207,8 +211,7 @@
 		raycaster_right.ray.direction.set( 1, 0, 0 );
 		
 		raycasterFromCamera = new THREE.Raycaster();
-		// raycasterFromCamera.ray.direction = camera.getWorldDirection().normalize();
-		// console.log( raycasterFromCamera.ray.direction );
+		raycasterFromCamera.far = 30;
 		
 		// 로딩 스크린을 set up 시켜 놓는다.
 		loadingScreen.box.position.set(0,0,5);
@@ -293,9 +296,9 @@
 		
 		// 천장 생성
 		ceiling = new Physijs.BoxMesh (
-					new THREE.BoxGeometry( 500, 1, 500 ),
-					new THREE.MeshLambertMaterial( { color: 0xFF0000 } ),
-					0
+		          new THREE.BoxGeometry( 500, 1, 500 ),
+	              new THREE.MeshLambertMaterial( { color: 0xFF0000 } ),
+				  0
 		);
 		ceiling.receiveShadow = true;
 		ceiling.position.y = 101;
@@ -376,46 +379,18 @@
         objects.push( cubecube );
         
         // 외곽선 추가
-        var composer = new THREE.EffectComposer( renderer );
+        composer = new THREE.EffectComposer( renderer );
         var renderPass = new THREE.RenderPass( scene, camera );
         composer.addPass( renderPass );
-        outlinePass = new THREE.OutlinePass( new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera );
+        outlinePass = new THREE.OutlinePass( new THREE.Vector2 ( window.innerWidth, window.innerHeight ), scene, camera );
         composer.addPass( outlinePass );
-        /* 
-        window.addEventListener( 'mousemove', onTouchMove );
-        window.addEventListener( 'touchmove', onTouchMove );
-        function onTouchMove( event ) {
-            var x, y;
-            if ( event.changedTouches ) {
-                x = event.changedTouches[ 0 ].pageX;
-                y = event.changedTouches[ 0 ].pageY;
-            } else {
-                x = event.clientX;
-                y = event.clientY;
-            }
-            mouse.x = ( x / window.innerWidth ) * 2 - 1;
-            mouse.y = - ( y / window.innerHeight ) * 2 + 1;
-            checkIntersection();
-        }
         
-        function addSelectedObject(object) {
-            selectedObjects = [];
-            selectedObjects.push(object);
-        }
+        effectFXAA = new THREE.ShaderPass(THREE.FXAAShader);
+        effectFXAA.uniforms['resolution'].value.set( 1 / window.innerWidth,
+        		                                     1 / window.innerHeight );
+        effectFXAA.renderToScreen = true;
+        composer.addPass( effectFXAA );
         
-        function checkIntersection() {
-            raycaster.setFromCamera( mouse, camera );
-            var intersects = raycaster.intersectObjects( [ scene ], true );
-            if ( intersects.length > 0 ) {
-                var selectedObject = intersects[ 0 ].object;
-                addSelectedObject(selectedObject);
-                outlinePass.selectedObjects = selectedObjects;
-            }
-            else {
-                // outlinePass.selectedObjects = [];
-            }
-        }
-         */
 		window.addEventListener( 'keypress', function(e) {
             var keycode = event.keyCode;
             if ( keycode == 92 ) {
@@ -653,7 +628,10 @@
 	var onResize = function() {
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
-		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		composer.setSize( window.innerWidth, window.innerHeight );
+		effectFXAA.uniforms['resolution'].value.set(1 / window.innerWidth,
+                                                    1 / window.innerHeight );  
 	};
 	
 	// 렌더
@@ -708,10 +686,9 @@
 		
 		// 인터섹션이 있는경우
 		if ( cameraIntersections.length > 0 ) {
-            console.log ( cameraIntersections[0].object );
             var selectedObjects = [];
             selectedObjects.push ( cameraIntersections[0].object );
-            outlinePass.selectedObjects = selectedObjects;
+            outlinePass.selectedObjects = selectedObjects[0];
         } else {
 
         }
@@ -747,6 +724,7 @@
 		scene.simulate();
 		controls.update( performance.now() - time );
 		time = performance.now();
+		composer.render();
 		
 		renderer.render( scene, camera ); 
 	}; // end render
