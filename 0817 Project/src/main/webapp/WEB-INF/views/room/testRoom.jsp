@@ -7,6 +7,11 @@
 	<script type="text/javascript" src="resources/js/three.min.js"></script>
 	<script type="text/javascript" src="resources/js/physi.js"></script>
 	<script type="text/javascript" src="resources/js/PointerLockControls.js"></script>
+	<script type="text/javascript" src="resources/js/CopyShader.js"></script>
+    <script type="text/javascript" src="resources/js/EffectComposer.js"></script>
+    <script type="text/javascript" src="resources/js/RenderPass.js"></script>
+    <script type="text/javascript" src="resources/js/ShaderPass.js"></script>
+    <script type="text/javascript" src="resources/js/OutlinePass.js"></script>
 	
 	<style type="text/css">
 		body {
@@ -77,6 +82,7 @@
 			raycasterFromCamera;
 	var block = document.getElementById( 'block' ),
 			instructions = document.getElementById( 'instructions' );
+	var outlinePass; // 아웃라인 변수
 	
 	var mesh1, meshes, mesh_door;
 	var move_hand = 0.01;
@@ -356,8 +362,69 @@
 		//ceiling.material.map = texture;
 		texture.repeat.set(4, 4); 
 		texture.wrapS = THREE.RepeatWrapping;
-		texture.wrapT = THREE.RepeatWrapping; 
+		texture.wrapT = THREE.RepeatWrapping;
 		
+		// 임시 큐브
+        var cubecube = new Physijs.BoxMesh(
+                       new THREE.BoxGeometry( 30, 30, 30 ),
+                       new THREE.MeshLambertMaterial ( {color: 0xFF0000} )
+        );
+        cubecube.castShadow = true;
+        cubecube.position.set( 20, 20, 20 );
+        scene.add( cubecube );
+        objects.push( cubecube );
+        
+        // 외곽선 추가
+        var composer = new THREE.EffectComposer( renderer );
+        var renderPass = new THREE.RenderPass( scene, camera );
+        composer.addPass( renderPass );
+        outlinePass = new THREE.OutlinePass( new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera );
+        composer.addPass( outlinePass );
+        /* 
+        window.addEventListener( 'mousemove', onTouchMove );
+        window.addEventListener( 'touchmove', onTouchMove );
+        function onTouchMove( event ) {
+            var x, y;
+            if ( event.changedTouches ) {
+                x = event.changedTouches[ 0 ].pageX;
+                y = event.changedTouches[ 0 ].pageY;
+            } else {
+                x = event.clientX;
+                y = event.clientY;
+            }
+            mouse.x = ( x / window.innerWidth ) * 2 - 1;
+            mouse.y = - ( y / window.innerHeight ) * 2 + 1;
+            checkIntersection();
+        }
+        
+        function addSelectedObject(object) {
+            selectedObjects = [];
+            selectedObjects.push(object);
+        }
+        
+        function checkIntersection() {
+            raycaster.setFromCamera( mouse, camera );
+            var intersects = raycaster.intersectObjects( [ scene ], true );
+            if ( intersects.length > 0 ) {
+                var selectedObject = intersects[ 0 ].object;
+                addSelectedObject(selectedObject);
+                outlinePass.selectedObjects = selectedObjects;
+            }
+            else {
+                // outlinePass.selectedObjects = [];
+            }
+        }
+         */
+		window.addEventListener( 'keypress', function(e) {
+            var keycode = event.keyCode;
+            if ( keycode == 92 ) {
+                controls.getObject().position.x = 0; // 카메라 포지션 원위치
+                controls.getObject().position.z = 0;
+                console.log ( raycasterFromCamera );
+            }
+        }, false );
+        
+        
 		window.addEventListener( 'resize', onResize, false );
 	}; // end init
 	
@@ -371,7 +438,6 @@
 			mesh_door.position.set(1,0,255);
 			mesh_door.rotation.y += Math.PI;
 			scene.add(mesh_door);
-			
 		}); 
 		//책
 		loader.load('resources/json/book/books.json', function(geomerty, mat){
@@ -437,24 +503,24 @@
 		
 		
 		//가스통 꾸러미
-			loader.load('resources/json/gas-tank/gas-tank.json', function(geomerty, mat){
-					var gap = 10;
-				for (var i = 0; i < 3; i++) {
-					if (gap == 10) {
-						mesh_door = new THREE.Mesh(geomerty,mat[0]);
-						mesh_door.scale.set(3,3,3);
-						mesh_door.position.set(-200+gap,5,-100);
-						mesh_door.rotation.z -= 1.6;
-						mesh_door.rotation.y += 0.6;
-						scene.add(mesh_door); 
-					}
+		loader.load('resources/json/gas-tank/gas-tank.json', function(geomerty, mat){
+				var gap = 10;
+			for (var i = 0; i < 3; i++) {
+				if (gap == 10) {
 					mesh_door = new THREE.Mesh(geomerty,mat[0]);
 					mesh_door.scale.set(3,3,3);
-					mesh_door.position.set(-200+gap,5,-120);
+					mesh_door.position.set(-200+gap,5,-100);
+					mesh_door.rotation.z -= 1.6;
+					mesh_door.rotation.y += 0.6;
 					scene.add(mesh_door); 
-					gap += 10;
 				}
-			});
+				mesh_door = new THREE.Mesh(geomerty,mat[0]);
+				mesh_door.scale.set(3,3,3);
+				mesh_door.position.set(-200+gap,5,-120);
+				scene.add(mesh_door); 
+				gap += 10;
+			}
+		});
 		//금고
 		loader.load('resources/json/safe/safe_close.json', function(geomerty, mat){
 			mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -641,12 +707,13 @@
 		
 		// 인터섹션이 있는경우
 		if ( cameraIntersections.length > 0 ) {
-			var distance = cameraIntersections[0].distance;
-			var objectName = cameraIntersections[0].object.name;
-			if ( distance > 0 && distance < 30 ) {
-				console.log( objectName );
-			}
-		}
+            console.log ( cameraIntersections[0].object );
+            var selectedObjects = [];
+            selectedObjects.push ( cameraIntersections[0].object );
+            outlinePass.selectedObjects = selectedObjects;
+        } else {
+
+        }
 		
 		if ( forward_intersections.length > 0 ) {
 			var distance = forward_intersections[0].distance;
