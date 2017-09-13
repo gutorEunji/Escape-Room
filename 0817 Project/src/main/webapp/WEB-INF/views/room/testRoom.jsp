@@ -383,6 +383,7 @@
         var renderPass = new THREE.RenderPass( scene, camera );
         composer.addPass( renderPass );
         outlinePass = new THREE.OutlinePass( new THREE.Vector2 ( window.innerWidth, window.innerHeight ), scene, camera );
+        outlinePass.pulsePeriod = 2;
         composer.addPass( outlinePass );
         
         effectFXAA = new THREE.ShaderPass(THREE.FXAAShader);
@@ -688,9 +689,9 @@
 		if ( cameraIntersections.length > 0 ) {
             var selectedObjects = [];
             selectedObjects.push ( cameraIntersections[0].object );
-            outlinePass.selectedObjects = selectedObjects[0];
+            outlinePass.selectedObjects = selectedObjects;
         } else {
-
+        	outlinePass.selectedObjects = [];
         }
 		
 		if ( forward_intersections.length > 0 ) {
@@ -726,7 +727,7 @@
 		time = performance.now();
 		composer.render();
 		
-		renderer.render( scene, camera ); 
+		// renderer.render( scene, camera ); 
 	}; // end render
 
 	pointerLockControls();
