@@ -61,6 +61,7 @@ footer {
 }
 </style>
 
+
 <script>
 $(function(e) {
 	/* $("body").data("hijacking", 'on');
@@ -124,6 +125,7 @@ function goToRoomList(){
 
 </head>
 <body>
+
 <div 
   class="animsition"
   data-animsition-in-class="fade-in-down-sm"
@@ -205,5 +207,7 @@ function goToRoomList(){
 	</div>
   	</div> 	
 </div>
+<!-- <embed src="resources/music/24 - True.mp3" autostart="true" loop="true" volume="50" showcontrols='true' showtracker ='0'> -->
+<embed src="resources/music/24 - True.mp3" autostart="true" width="0" height="0">
 </body>
 </html>
