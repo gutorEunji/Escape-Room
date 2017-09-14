@@ -514,8 +514,8 @@ var MapEdit02 = {
 								for(var i in this.targetGroup){
 									if(this.targetGroup[i].name == this.movingGroup.name) this.targetGroup[i] = this.movingGroup;
 								}
-								
 								scene.add(this.movingGroup);
+								
 								for (var i in MapEdit02.movingGroup.children) {
 									MapEdit02.targetList.push(MapEdit02.movingGroup.children[i]);
 									console.log(MapEdit02.targetList);
@@ -529,11 +529,11 @@ var MapEdit02 = {
 								console.log(this.targetGroup);
 							}
 						} else {
-							//intersect[0].object.geom이 Object3d나 Mesh 인 경우]
+							//intersect[0].object.geom이 Object3d나 Mesh 인 경우
+							//부모그룹 찾기
 							parent = scene.children.find(function (item) {
-								return itme.name == intersects[0].object.name;
+								return item.name == intersects[0].object.name;
 							});
-
 							console.log(parent);
 
 							console.log(parent.children[0].name);
@@ -549,11 +549,22 @@ var MapEdit02 = {
 								if (tempMesh.parentGroupName) {
 									//선택한 그룹의 선택 매쉬안에 부모 그룹의 이름이 존재하면 오브잭트를 가져온것
 									console.log("object일 때");
-								} else {
-									//없을 경우 그룹을 가져온 것
-									console.log("Group일 때");
-								}
-
+									
+									scene.remove(this.movingGroup);
+									
+									//movingGroup안에 있는 오브젝트 복제 후  포지션 설정
+									obj = this.movingGroup.children[0].clone();
+									obj.position.set(position.x, position.y, position.z);
+									
+									//설정한 Obj넣어주기
+									parent.add(obj);
+									this.selectedGroup = null;
+									this.movingGroup = null;
+									this.isObjMove = false;
+									this.isObjSelected = false;
+									this.targetList.push(obj);
+									
+								}else console.log("가구와 벽은 같은 가구와 벽 오브젝트 위에 올릴 수 없습니다.");
 							}
 						}
 
@@ -833,17 +844,19 @@ var MapEdit02 = {
 		,
 	addMesh: function (obj) {
 			//선택에 사용할 임시 매쉬 만들기 : intersect에 잡힌 객체의 지오메트리 + 메테리얼 추가
-			var geom;
-			if (obj instanceof THREE.Group) {
-				geom = new THREE.Geometry();
+			var geom = new THREE.Geometry();
+			if (obj instanceof THREE.Mesh) {
+				console.log("Object일 때");
+				geom = obj.geometry;
+			} else {
+				console.log("Group일 때 : 통합 지오메트리 생성");
 				meshes = obj.children;
 				for (var i in meshes) {
 					console.log(meshes[i].geometry);
 					console.log(meshes[i].matrix);
 					geom.merge(meshes[i].geometry, meshes[i].matrix);
 				}
-			} else geom = obj.geometry;
-
+			}
 			mat1 = new THREE.MeshLambertMaterial({
 				color: 0x42f5ff,
 				opacity: 0.3,
@@ -861,9 +874,12 @@ var MapEdit02 = {
 
 			mesh.rotation.y = obj.rotation.y;
 
-			console.log(arguments[1]);
-			if (arguments[1]) mesh.position.set(arguments[1].x, arguments[1].y, arguments[1].z);
-			else mesh.position.set(0, 0, 0);
+//			console.log(arguments[1]);
+//			if (arguments[1]) mesh.position.set(arguments[1].x, arguments[1].y, arguments[1].z);
+//			else mesh.position.set(0, 0, 0);
+		
+			if(obj instanceof THREE.Mesh) mesh.position = obj.position;
+		
 			mesh.name = "temp"
 			//부모 객제가 있을 경우 부모 객체의 이름 정보를 넣어줌
 //			console.log(obj.parent.name);
