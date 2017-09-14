@@ -703,6 +703,8 @@
         raycaster_right.ray.origin.x += 10;
 
         raycasterFromCamera.ray.direction = camera.getWorldDirection().normalize();
+        raycasterFromCamera.ray.origin.copy( controls.getObject().position );
+        raycasterFromCamera.ray.origin.y += 10;
         
         var forward_intersections = raycaster_forward.intersectObjects( objects );
         var backward_intersections = raycaster_backward.intersectObjects( objects );
@@ -714,6 +716,7 @@
         if ( cameraIntersections.length > 0 ) {
             var selectedObjects = [];
             selectedObjects.push ( cameraIntersections[0].object );
+            console.log( cameraIntersections[0].object );
             outlinePass.selectedObjects = selectedObjects;
         } else {
             outlinePass.selectedObjects = [];
