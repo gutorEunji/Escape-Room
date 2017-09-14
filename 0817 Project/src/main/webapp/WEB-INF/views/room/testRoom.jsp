@@ -27,13 +27,13 @@
 			margin: 0;
 			overflow: hidden;
 			background: #efefef;
-		  font: 30px sans-serif;
+		    font: 30px sans-serif;
 		}
 		
 		* {
-	  margin: 0;
-	  padding: 0;
-	  border: 0;
+		    margin: 0;
+		    padding: 0;
+		    border: 0;
 		}
 		
 		#instructions {
@@ -686,10 +686,9 @@
             objects.push ( mesh_door );
             group.add( mesh_door );
         });
-    }       
+    }
     
     function onResourcesLoaded() {
-        
     }
     
     // 자동 리사이즈
@@ -699,7 +698,7 @@
         renderer.setSize( window.innerWidth, window.innerHeight );
         composer.setSize( window.innerWidth, window.innerHeight );
         effectFXAA.uniforms['resolution'].value.set(1 / window.innerWidth,
-                                                    1 / window.innerHeight );  
+                                                    1 / window.innerHeight );
     };
     
     // 렌더
