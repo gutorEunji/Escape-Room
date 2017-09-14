@@ -64,9 +64,9 @@
 	</style>
 </head>
 <body>
-
+	<canvas id="c"></canvas>
+	
 	<div id="block">
-		<div id="instructions">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-9 col-md-7 col-sm-7 col-xs-2 da-text-align-right">
@@ -75,21 +75,20 @@
 				</div>
 				<nav>
 					<ul class="da-menu">
-						<li><span class="da-hover-menu-line">Inventory</span>
-							<!-- <a href="#" onclick="updateForm()"></a> -->
+						<li><span class="da-hover-menu-line"></span>
+							<a href="#" onclick="InventoryTest()">Inventory</a>
 						</li>
-						<li class="da-active-menu-link"><span class="da-hover-menu-line">Play</span>
-							<!-- <a href="#" onclick="logout()"></a> -->
+						<li class="da-active-menu-link"><span class="da-hover-menu-line" ><a href="#" id="instructions">Play</span>
+							
 						</li>
-						<li class="da-active-menu-link"><span class="da-hover-menu-line">Escape</span>
-							<!-- <a href="#"></a> -->
+						<li><span class="da-hover-menu-line"></span>
+							<a href="#" onclick="logout()">Escape</a>
 						</li>
 					</ul>
 				</nav>
 			</div>
 				</div>
 			</div>
-		</div>
 	</div>
     
     <script>
@@ -680,6 +679,11 @@
         
     }
     
+    function InventoryTest()
+    {
+    	alert("ddd")
+    	
+    }
     // 자동 리사이즈
     var onResize = function() {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -788,6 +792,9 @@
     pointerLockControls();
     init();
     render();
+    
+    
+    
     </script>
 </body>
 </html>
