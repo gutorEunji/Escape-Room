@@ -50,7 +50,7 @@
 				
 				//sceneJSON 의 오브젝트 이름일 cube가 아니고 Object로 시작하지도 않을 때 사용자 설정 object를 로딩해서 설정해주기
 				var objLoader = new THREE.JSONLoader();
-				var objPath = "resources/asset/model/";
+				var objPath = "resources/json/model/";
 				var objs = sceneJSON.objects;
 				var keys = Object.keys(objs);
 //				console.log(sceneJSON);
@@ -80,7 +80,7 @@
 //							console.log(mesh);
 							scene.add(mesh);
 //							console.log(scene);
-						}, 'resources/asset/texture/');
+						}, 'resources/json/texture/');
 					}
 				}
 				
