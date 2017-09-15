@@ -1,6 +1,6 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html> -->
+<!DOCTYPE html> 
 <html>
 	<meta charset="UTF-8">
 <head>
@@ -14,6 +14,8 @@
 	}
 </style>
 <script src = "resources/js/jquery-1.12.0.min.js"></script>
+<script src = "resources/js/jquery-3.2.1.js"></script>
+<script src = "resources/js/jquery-ui.min.js"></script>
 <script src = "resources/js/threejs/three.js"></script>
 <script src = "resources/js/threejs/SceneExporter.js"></script>
 <script src = "resources/js/threejs/SceneLoader.js"></script>
