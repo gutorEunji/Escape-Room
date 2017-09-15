@@ -425,6 +425,7 @@
         );
         cubecube.castShadow = true;
         cubecube.position.set( 20, 20, 20 );
+        cubecube.name = "실험용 임시 큐브";
         scene.add( cubecube );
         objects.push( cubecube );
         
@@ -455,8 +456,12 @@
         window.addEventListener( 'resize', onResize, false );
         window.addEventListener( 'click', function () {
         	if ( selectedObjects.length > 0 ) {
-        	    console.log ( selectedObjects[0].name );
-        	}
+                console.log ( selectedObjects[0] );
+                if ( selectedObjects[0].parent = "Bc" ) {
+                    group.remove ( selectedObjects[0] );
+                }
+                scene.remove( selectedObjects[0] );
+            }
         }, false );
     }; // end init
     
@@ -554,13 +559,14 @@
                     mesh_door.position.set(-200+gap,5,-100);
                     mesh_door.rotation.z -= 1.6;
                     mesh_door.rotation.y += 0.6;
-                    mesh_door.name = "가스통";
+                    mesh_door.name = "가스통" + ( i + 1 );
                     //scene.add(mesh_door); 
                     group.add( mesh_door );
                 }
                 mesh_door = new THREE.Mesh(geomerty,mat[0]);
                 mesh_door.scale.set(3,3,3);
                 mesh_door.position.set(-200+gap,5,-120);
+                mesh_door.name = "가스통" + ( i + 1 );
                 //scene.add(mesh_door);
                 group.add( mesh_door );
                 objects.push ( mesh_door );
@@ -708,7 +714,7 @@
             mesh_door = new THREE.Mesh(geomerty,mat[0]);
             mesh_door.scale.set(3, 3, 3);  
             mesh_door.position.set(0,0,0);
-            mesh_door.name = "";
+            mesh_door.name = "양초";
             //scene.add(mesh_door);
             objects.push ( mesh_door );
             group.add( mesh_door );
