@@ -56,9 +56,6 @@ var MapEdit02 = {
 					objG = new THREE.Group();
 					objG.add(item.clone());
 					objG.name = item.name;
-					//아이템의 위치를 저장할 itemPosition 세팅
-					objG.itemPosition = item.position;
-					//				console.log(objG);
 					objectArr.push(objG);
 					MapEdit02.targetList.push(item);
 					MapEdit02.targetGroup.push(objG);
@@ -108,12 +105,10 @@ var MapEdit02 = {
 					else console.log("일치하는 그룹을 찾을 수 없습니다.");
 				}
 				if (group) {
-					tempMesh = group.children.find(function (item) {
-						return item.name == 'temp';
-					});
-					index = group.children.indexOf(tempMesh);
-
-					group.children.splice(index, 1);
+					//선택을 해제한다
+					tempMesh =this.findTempMesh(group.children);
+					group.remove(tempMesh);
+					
 					if (this.isGroupSelected) {
 						//그룹을 재설정 해줄 때
 						console.log("그룹을 재설정해주기");
@@ -248,7 +243,7 @@ var MapEdit02 = {
 				console.log(this.parentGroup);
 				
 				
-				mesh = this.addMesh(find, find.position);
+				mesh = this.addMesh(find);
 				tempGroup = new THREE.Group();
 				tempGroup.add(find);
 				tempGroup.add(mesh);
@@ -356,6 +351,11 @@ var MapEdit02 = {
 				parentName = tempMesh.parentGroupName;
 				//선택되어있는 오브젝트 객체를 움직일 그룹 안으로 넣어줌
 				MapEdit02.movingGroup = MapEdit02.selectedGroup;
+				
+				//넣어줄 오브젝트의 포지션을 0,0,0 으로 해준다
+				for(var i in this.movingGroup.children){
+					this.movingGroup.children[i].position.set(0,0,0);
+				}
 				console.log(MapEdit02.movingGroup);
 				//움직임 플래그 설정
 				MapEdit02.isObjMove = true;
@@ -365,21 +365,21 @@ var MapEdit02 = {
 					return item.name == MapEdit02.movingGroup.name;
 				});
 				index = MapEdit02.targetList.indexOf(find);
-				console.log(find);
-				console.log(index);
-				
 				MapEdit02.targetList.splice(index, 1);
 				console.log(this.targetList);
+				
+				console.log(MapEdit02.movingGroup.position.clone());
+				
 				//scene 안에 더해줌
 				scene.add(MapEdit02.movingGroup);
 				MapEdit02.deleteContextmenu();
 			} else {
 				console.log("그룹일 때");
 				scene.remove(MapEdit02.selectedGroup);
-				MapEdit02.movingGroup = MapEdit02.selectedGroup.clone();
+				MapEdit02.movingGroup = MapEdit02.selectedGroup;
 				MapEdit02.isGroupMove = true;
-				//움직여야하니까 해당 객체를 타겟에서 제외시킨다
 				for (var i in this.movingGroup.children) {
+				//움직여야하니까 해당 객체를 타겟에서 제외시킨다
 					find = this.targetList.find(function (item) {
 						return item.name == MapEdit02.movingGroup.children[i].name;
 					});
@@ -390,9 +390,12 @@ var MapEdit02 = {
 						console.log(this.targetList);
 					}
 				}
-
-
-
+				objFirstPosition = this.movingGroup.children[0].position.clone();
+				for(var i in this.movingGroup.children){
+					this.movingGroup.children[i].position.x -= objFirstPosition.x;
+					this.movingGroup.children[i].position.z -= objFirstPosition.z;
+				}
+				
 				scene.add(MapEdit02.movingGroup);
 				MapEdit02.deleteContextmenu();
 			}
@@ -471,12 +474,13 @@ var MapEdit02 = {
 			var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
 			var intersects = raycaster.intersectObjects(MapEdit02.targetList);
 			if (intersects.length > 0) {
+				console.log(intersects);
+				console.log(raycaster);
 				if (this.movingGroup) {
 					console.log("움직이는 그룹이 있을 때");
 					if (this.isGroupMove || this.isObjMove) {
 						console.log("오브젝트 이동하기");
 						if (intersects[0].object.geometry instanceof THREE.PlaneGeometry) {
-
 							//intersect[0].object.geom이 plane인 경우
 							console.log("PlaneGeom일 때");
 							position = this.movingGroup.position;
@@ -493,14 +497,23 @@ var MapEdit02 = {
 								
 								//movingGroup안에 있는 오브젝트 복제 후  포지션 설정
 								obj = this.movingGroup.children[0].clone();
+								
+								if(obj.geometry instanceof THREE.BoxGeometry){
+									position.y += obj.geometry.parameters.height;
+									console.log("박스 지오메트리일 경우 높이 더하기 : " + position.y);
+								}
+								
 								obj.position.set(position.x, position.y, position.z);
 								//plane의 부모 그룹 찾기 : scene
 								parent = scene.children.find(function (item) {
 									return item.name == intersects[0].object.name;
 								});
 								console.log(parent);
-								//설정한 Obj넣어주기
+								//설정한 Obj를 각각 장면과 타겟 리스트 안에 넣어주기
 								parent.add(obj);
+								this.targetList.push(obj);
+								
+								//select, move 플래그 재설정
 								this.selectedGroup = null;
 								this.movingGroup = null;
 								this.isObjMove = false;
@@ -510,12 +523,27 @@ var MapEdit02 = {
 							} else {
 								//없을 경우 그룹을 가져온 것
 								console.log("Group일 때");	
-								
+								//targetGroup 업데이트
 								for(var i in this.targetGroup){
 									if(this.targetGroup[i].name == this.movingGroup.name) this.targetGroup[i] = this.movingGroup;
 								}
 								scene.add(this.movingGroup);
 								
+								//그룹에 세팅된 포지션을 받아오고
+								position = this.movingGroup.position;
+								//각자 오브젝트의 위치에 더해준다
+								for(var i in this.movingGroup.children){
+									p = this.movingGroup.children[i].position;
+									p.x += position.x;
+//									p.y += position.y;
+									p.z += position.z;
+									console.log(this.movingGroup.children[i].name);
+									console.log(p);
+								}
+								//마지막으로 그룹의 포지션을 0으로 해줌
+								this.movingGroup.position.set(0,0,0);
+								
+								//타겟 포인트에 집어넣기
 								for (var i in MapEdit02.movingGroup.children) {
 									MapEdit02.targetList.push(MapEdit02.movingGroup.children[i]);
 									console.log(MapEdit02.targetList);
@@ -553,7 +581,14 @@ var MapEdit02 = {
 									scene.remove(this.movingGroup);
 									
 									//movingGroup안에 있는 오브젝트 복제 후  포지션 설정
+									position = this.movingGroup.position;
 									obj = this.movingGroup.children[0].clone();
+									
+								if(obj.geometry instanceof THREE.BoxGeometry){
+									position.y += obj.geometry.parameters.height;
+									console.log("박스 지오메트리일 경우 높이 더하기 : " + position.y);
+								}
+								
 									obj.position.set(position.x, position.y, position.z);
 									
 									//설정한 Obj넣어주기
@@ -578,6 +613,7 @@ var MapEdit02 = {
 							obj.name = objname + "_" + this.objnum;
 							position = this.movingGroup.position;
 							position.y += this.movingGroup.children[0].geometry.parameters.height / 2;
+							
 							console.log(position);
 							obj.position = position;
 							parentGroup.add(obj);
@@ -666,8 +702,8 @@ var MapEdit02 = {
 			//움직일 단위가 될 Plane의 Segment찾기
 			//움직일 수 있는 범위 설정의 바탕이 되는 PlaneGeom의 width, height 찾기
 			plane = scene.children.find(function (item) {
-				return item.geometry instanceof THREE.PlaneGeometry ? item : null;
-			});
+				return item.name == "plane";
+			}).children[0];
 			if (plane) {
 				planeG = plane.geometry;
 				segmentW = planeG.parameters.widthSegments / 4;
@@ -677,9 +713,6 @@ var MapEdit02 = {
 				planeW = planeG.parameters.width;
 				planeH = planeG.parameters.height;
 			}
-
-			//		console.log(this.targetList);
-			//		console.log(intersects);
 			if (intersects.length > 0) {
 				points = intersects[0].point;
 				if (MapEdit02.movingGroup) {
@@ -688,7 +721,20 @@ var MapEdit02 = {
 					if (intersects[0].object.geometry instanceof THREE.PlaneGeometry) y = 0;
 					else if (this.findtargetGroup(intersects[0].object)) {
 						console.log(this.findtargetGroup(intersects[0].object));
-						y = intersects[0].object.geometry.parameters.height;
+						if(intersects[0].object.geometry.parameters){
+							//intersects의 가장 가까운 오브젝트의 지오메트리의 높이가 존재하면
+							y = intersects[0].object.geometry.parameters.height;
+							console.log("object의 파라미터 중 height 가 있으면 : " + y);
+						}else{
+							//height가 없을 경우
+							console.log("Object의 파라미터 중 height가 없을 경우");
+							faceHeight = intersects[0].distance;
+							index = intersects.length-1;
+							raycasterH = intersects[index].distance;
+							console.log(raycasterH + "-" + faceHeight);
+							y = raycasterH - faceHeight;
+						}
+						
 					} else y = Math.round((points.y / segmentW) - 1) * segmentW + segmentW;
 
 					z = Math.round((points.z / segmentW) - 1) * segmentW + segmentW;
@@ -698,12 +744,8 @@ var MapEdit02 = {
 					if (z < -(planeH * 0.45)) z = -(planeW * 0.45);
 					if (z > planeH * 0.45) z = planeW * 0.45;
 
-					//				console.log(x + " : " + y + " : " + z);
+					console.log(x + " : " + y + " : " + z);
 					MapEdit02.movingGroup.position.set(x, y, z);
-
-					for (var i in MapEdit02.movingGroup.children) {
-						MapEdit02.movingGroup.children[i].position;
-					}
 				}
 			}
 			return scene;
@@ -780,7 +822,7 @@ var MapEdit02 = {
 
 								//각도 정하기
 								var rotation;
-								if (order == "rotationR") rotation = Math.PI / 4;
+								if (order == "rotationL") rotation = Math.PI / 4;
 								else rotation = -(Math.PI / 4);
 								console.log("회전 각도 : " + rotation);
 
@@ -795,28 +837,32 @@ var MapEdit02 = {
 									}
 								} else {
 									console.log("그룹일 때");
-
-
-
-									//							//선택용으로 만든 temp 매쉬 제거
-									//							pop =  MapEdit02.selectedGroup.children.find(function(item){
-									//								return item.name == "temp";
-									//							});
-									//							
-									//							MapEdit02.selectedGroup.remove(pop);
-									//							console.log(pop);
-									//							console.log(MapEdit02.selectedGroup);
-									//							
-									//							//나머지 오브젝트의 회전
-									//							for(var i in MapEdit02.selectedGroup.children){
-									//								MapEdit02.selectedGroup.children[i].rotation.y += rotation;
-									//							}
-									//							mesh = MapEdit02.addMesh(MapEdit02.selectedGroup);
-									//							MapEdit02.selectedGroup.add(mesh);
-									//							
-									//							console.log(MapEdit02.selectedGroup);
+									//회전 중심축이 되는 그룹의 첫번째 오브젝트를 회전시킴과 동시에 좌표를 구해준다.
+									rotcenter = MapEdit02.selectedGroup.children[0].position;
+//									MapEdit02.selectedGroup.children[0].rotation.y += rotation;
+									
+									//그룹의 나머지 오브젝트를 중심축에 맞춰 회전시킨 후 더한다.
+									for(var i in MapEdit02.selectedGroup.children){
+										MapEdit02.selectedGroup.children[i].rotation.y += rotation;
+										p = MapEdit02.selectedGroup.children[i].position;
+										position = rotationGroup(rotcenter.x, rotcenter.z, rotation, p);
+										MapEdit02.selectedGroup.children[i].position.set(position.x, position.y, position.z);
+										
+									}
+									function rotationGroup(px, pz, rotation, p){
+										s = Math.sin(rotation);
+										c = Math.cos(rotation);
+										//현재 오브젝트의 좌표에서 회전 중심축을 빼기 : 회전시 그리는 원의 반지름
+										p.x -= px;
+										p.z -= pz;
+										//회전시 움직이는 위치 계산
+										xnew = p.z * s + p.x * c;
+										znew = p.z * c - p.x * s;
+										p.x = xnew + px;
+										p.z = znew + pz;
+										return p;
+									}
 								}
-
 								MapEdit02.deleteContextmenu();
 							}
 						});
@@ -874,11 +920,8 @@ var MapEdit02 = {
 
 			mesh.rotation.y = obj.rotation.y;
 
-//			console.log(arguments[1]);
-//			if (arguments[1]) mesh.position.set(arguments[1].x, arguments[1].y, arguments[1].z);
-//			else mesh.position.set(0, 0, 0);
-		
-			if(obj instanceof THREE.Mesh) mesh.position = obj.position;
+			console.log(obj.position);
+			if(obj instanceof THREE.Mesh) mesh.position.set(obj.position.x, obj.position.y, obj.position.z);
 		
 			mesh.name = "temp"
 			//부모 객제가 있을 경우 부모 객체의 이름 정보를 넣어줌

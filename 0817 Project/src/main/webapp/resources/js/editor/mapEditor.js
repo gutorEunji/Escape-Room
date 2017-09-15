@@ -5,7 +5,7 @@
 
 $(function() {
 	init();
-	initMinimap();
+//	initMinimap();
 });
 
 function init() {
@@ -74,6 +74,9 @@ function init() {
 		firstEdit();
 
 		// canvas내부 마우스 모션에 대한 이벤트
+		$("#canvas").on("contextmenu",function(e){
+			e.preventDefault();
+		});
 		$("#canvas").on("mousedown", function(e) {
 			switch (e.which) {
 			case 1:
@@ -93,7 +96,9 @@ function init() {
 
 		// 버튼에 대한 이벤트
 		$("#cube").on("click", function() {
-			scene = MapEdit01.addCube(scene);
+			wallsize = $("#slider").slider("value");
+			console.log(wallsize);
+			scene = MapEdit01.addCube(scene, wallsize);
 		});
 		$(".object").on("click", function() {
 			btnname = $(this).attr("name");
@@ -136,7 +141,19 @@ function init() {
 		buttons += '<input type = "button" value = "rotationL" id = "rotationL"><br>';
 		buttons += '<input type = "button" value = "Save" id = "saveScene"><br>';
 		buttons += '<input type = "button" value = "Load" id = "loadScene"><br>';
-
+		
+		//큐브 사이즈 조절용 슬라이더바
+		console.log("슬라이더 만들기");
+		$('#slider').slider({
+			value : 5,
+			min : 10,
+			max : 50,
+			step : 10,
+			slide : function(e, ui){
+				$("#cube").val("size " + ui.value + " wall");
+				console.log($("#cube").val());
+			}
+		});
 		$('#objects').append(buttons);
 	}
 	

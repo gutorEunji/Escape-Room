@@ -78,13 +78,13 @@ var MapEdit01 = {
 	}
 	
 	//cube group 만들기
-	,addCube : function(scene){
+	,addCube : function(scene, wallsize){
 		console.log("큐브만들기 : 나중에 텍스쳐 추가");
 		this.mouseClickFunction(null, scene, "removeSecneGroup");
 		if(this.findGroup(scene)) scene.remove(group);
 		smallPlane = this.makeSmallPlane();
-		
-		cubeG = new THREE.BoxGeometry(1,10,5,1,1,1);
+		//z축을 기준으로 벽의 길이 결정하기
+		cubeG = new THREE.BoxGeometry(1,10,wallsize,1,1,1);
 		cubeM = new THREE.MeshLambertMaterial({color : Math.random() * 0xffffff});
 		cube = new THREE.Mesh(cubeG, cubeM);
 		
@@ -335,17 +335,23 @@ var MapEdit01 = {
     			if(intersects.length > 0){
     				if(intersects[0].object.geometry instanceof THREE.PlaneGeometry)
     				{//포인터에 선택된것이 Plane 객체일 때 : 이동
-    					point = intersects[0].point;
-    					console.log(point);
+//    					point = intersects[0].point;
+						position = group.position;
+//    					console.log(point);
+						console.log(position);
     					temp = group.children[1].clone();
     					console.log(temp);
     					//만약 boxGeom일 경우 원래 높이의 1/2만큼 올려주고, 아닐경우 그냥하기
     					var y;
     					if(temp.geometry instanceof THREE.BoxGeometry){
     						y = temp.geometry.parameters.height/2;
-    					}else y = point.y;
-    					temp.position.set(point.x, y, point.z);
-    					scene.add(temp);
+    					}else {
+//							y = point.y;
+							y = position.y;
+						}
+//						temp.position.set(point.x, y, point.z);
+    					temp.position.set(position.x, y, position.z);
+						scene.add(temp);
     					scene.remove(group);
     					
     					this.targetList.push(temp);
