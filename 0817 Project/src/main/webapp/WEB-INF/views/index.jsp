@@ -116,7 +116,10 @@ $(document).ready(function() {
 
 //var sw = true;
 function login() {
-	$.showLoading(); 
+	$.showLoading({
+		  name: 'circle-fade'
+	}); 
+
 	$("#loginForm").submit();
 }
 
@@ -125,7 +128,9 @@ function join() {
 }
 
 function loginPop() {
-	$.showLoading(); 
+	$.showLoading({
+		  name: 'circle-fade'
+	}); 
 	$("#login").lightbox_me({centered: true, preventScroll: true, onLoad: function() {
 		$("#login").find("input:first").focus();
 	}});

@@ -12,9 +12,13 @@
 	<link rel="stylesheet" href="resources/css/slick.css">
 	<link rel="stylesheet" href="resources/css/animate.css">
 	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/loading.min.css"> <!-- CSS reset -->
+	
 	<script src="resources/js/map.js"></script>
 	<script src="resources/js/slick.min.js"></script>
 	<script src="resources/js/script.js"></script>
+	<script src="resources/js/jquery.loading.min.js"></script>
+	
 <style>
 #da-bg-white da-padding-bottom-90 clearfix{
 	width: 1200px;
@@ -101,6 +105,10 @@ function join() {
 	}
 	
 	$("#inputProfile").val($(".selected_Profile").attr("alt"));
+	
+	$.showLoading({
+		  name: 'circle-fade'
+	}); 
 	
 	var form = $("#joinForm");
 	form.submit();
