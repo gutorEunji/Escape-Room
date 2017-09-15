@@ -828,5 +828,6 @@
     init();
     render();
     </script>
+<embed src="resources/music/bell.mp3" autostart="true" width="0" height="0">
 </body>
 </html>
