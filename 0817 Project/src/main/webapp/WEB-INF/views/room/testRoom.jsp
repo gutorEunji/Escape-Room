@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="resources/css/loading.min.css">
 	
     <script type="text/javascript" src="resources/js/three.min.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.min.js"></script>
     <script type="text/javascript" src="resources/js/physi.js"></script>
     <script type="text/javascript" src="resources/js/PointerLockControls.js"></script>
     
@@ -35,10 +36,14 @@
 	  padding: 0;
 	  border: 0;
 		}
-		
-		#instructions {
+	/* #block{
+		opacity: 0;
+		background-color: white; 
+	} */
+	#instructions {
+			/* margin-top:20%; */
 			width: 100%;
-			height: 100%;
+			height: 50%;
 		
 			display: -webkit-box;
 			display: -moz-box;
@@ -58,40 +63,113 @@
 		
 			color: #ffffff;
 			text-align: center;
-		
+			
 			cursor: pointer;
 		}
+		
+@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
+.snip1535 {
+  background-color: #c47135;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'BenchNine', Arial, sans-serif;
+  font-size: 1em;
+  font-size: 22px;
+  line-height: 1em;
+  margin: 15px 40px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.snip1535:before,
+.snip1535:after {
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+.snip1535:before {
+  border-color: #c47135;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  right: -5px;
+  top: -5px;
+}
+.snip1535:after {
+  border-bottom-width: 2px;
+  border-color: #c47135;
+  border-left-width: 2px;
+  bottom: -5px;
+  left: -5px;
+}
+.snip1535:hover,
+.snip1535.hover {
+  background-color: #c47135;
+}
+.snip1535:hover:before,
+.snip1535.hover:before,
+.snip1535:hover:after,
+.snip1535.hover:after {
+  height: 100%;
+  width: 100%;
+}
 	</style>
+<script type="text/javascript">
+	   $(document).ready(function() {
+	    	//$("#instructions").show();
+	    	
+	    	
+	    	function play_btn() {
+	    		alert("aq");
+	    		$("#block").hide();
+			};
+	    	
+			
+	    });
+	 //$(".container-fluid").hide();
+</script>
 </head>
 <body>
-	<canvas id="c"></canvas>
-	
 	<div id="block">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-9 col-md-7 col-sm-7 col-xs-2 da-text-align-right">
-				<div class="da-menu-button">
-					<img src="resources/images/menu-icon.png" alt="Menu">
-				</div>
+		<div id="instructions"> 
+		<a class="snip1535" href="#" onclick="InventoryTest()">Inventory</a>
+		<a class="snip1535" >Play</a>
+		<a class="snip1535" href="#" onclick="logout()">Escape</a>
+							
+			<!-- <div class="container-fluid" >
 				<nav>
 					<ul class="da-menu">
 						<li><span class="da-hover-menu-line"></span>
 							<a href="#" onclick="InventoryTest()">Inventory</a>
 						</li>
-						<li class="da-active-menu-link"><span class="da-hover-menu-line" ><a href="#" id="instructions">Play</span>
-							
+						<li class="da-active-menu-link"><span class="da-hover-menu-line" ></span>
+							<a href="#" onclick="play_btn()">Play</a>
 						</li>
 						<li><span class="da-hover-menu-line"></span>
 							<a href="#" onclick="logout()">Escape</a>
 						</li>
 					</ul>
 				</nav>
-			</div>
-				</div>
-			</div>
+			</div> -->
+		</div>	
 	</div>
     
     <script>
+    //logout
+    function logout() {
+		location.href = "logout";
+	}			
+ 
+    
     'use strict';
     
     Physijs.scripts.worker = 'resources/js/physijs_worker.js';
@@ -151,6 +229,7 @@
                                                     "mozPointerLockElement" in document ||
                                                     "webkitPointerLockElement" in document;
         if ( havePointerLock ) {
+        	
             var element = document.body;
             var pointerLockChange = function( e ) {
                 if ( document.pointerLockElement === element ||
@@ -158,7 +237,12 @@
                         document.webkitPointerLockElement === element ) {
                     controls.enabled = true;
                     block.style.display = "none";
+                    
                 } else {
+                	function InventoryTest()
+                    {
+                    	alert("ddd")
+                    }
                     controls.enabled = false;
                     block.style.display = "-webkit-box";
                     block.style.display = "-moz-box";
@@ -292,13 +376,7 @@
         });
             
         objectLoad(LOADING_MANAGER);
-        /* loader.load('resources/json/wall_door.json', function(geomerty, mat){
-            mesh_door = new THREE.Mesh(geomerty,mat[0]);
-            mesh_door.scale.set(28,25,50);
-            mesh_door.position.set(1,-5,255);
-            mesh_door.rotation.x -= 0.01;
-            scene.add(mesh_door);
-        });  */
+      
         /* for (var i = 0; i < json_object.length; i++) {
             alert(json_object_context[json_object[i]].name); 
              loader.load(json_object_context[json_object[i]].name, function(geomerty, mat){
@@ -650,7 +728,7 @@
             for (var i = 0; i < 32; i++) {
                 mesh_door = new THREE.Mesh(geomerty,mat[0]);
                 mesh_door.scale.set(1, 1, 1);  
-                mesh_door.position.set(0+left-right,0,0+up-down);
+                mesh_door.position.set(0+left-right,1,0+up-down);
                 //scene.add(mesh_door);
                 group.add( mesh_door );
                 if (left != 80) {
@@ -679,11 +757,7 @@
         
     }
     
-    function InventoryTest()
-    {
-    	alert("ddd")
-    	
-    }
+   
     // 자동 리사이즈
     var onResize = function() {
         camera.aspect = window.innerWidth / window.innerHeight;
