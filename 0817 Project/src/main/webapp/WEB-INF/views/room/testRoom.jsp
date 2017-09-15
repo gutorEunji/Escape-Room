@@ -109,7 +109,9 @@
             raycaster_left,
             raycaster_forward,
             raycaster_backward,
-            raycasterFromCamera;
+            raycasterFromCamera,
+            cameraIntersections,
+            selectedObjects; // 아웃라인표시를 위한 배열
     var block = document.getElementById( 'block' ),
             instructions = document.getElementById( 'instructions' );
     var outlinePass, // 아웃라인 변수
@@ -451,6 +453,11 @@
         
         scene.add(group);
         window.addEventListener( 'resize', onResize, false );
+        window.addEventListener( 'click', function () {
+        	if ( selectedObjects.length > 0 ) {
+        	    console.log ( selectedObjects[0].name );
+        	}
+        }, false );
     }; // end init
     
     // ??
@@ -462,6 +469,7 @@
             mesh_door.scale.set(35,35,35);
             mesh_door.position.set(1,0,255);
             mesh_door.rotation.y += Math.PI;
+            mesh_door.name = "문";
             scene.add(mesh_door);
             objects.push ( mesh_door );
         }); 
@@ -471,6 +479,7 @@
             mesh_door.scale.set(20,20,20);
             mesh_door.position.set(150,0,150);
             mesh_door.rotation.y += Math.PI+0.2;
+            mesh_door.name = "책";
             //scene.add(mesh_door); 
             group.add( mesh_door );
             objects.push ( mesh_door );
@@ -481,6 +490,7 @@
             mesh_door.scale.set(12,10,12);
             mesh_door.position.set(200,0,200);
             mesh_door.rotation.y += 2*Math.PI/2.3;
+            mesh_door.name = "책장";
             //scene.add(mesh_door);
             group.add( mesh_door );
             objects.push ( mesh_door );
@@ -490,6 +500,7 @@
             mesh_door = new THREE.Mesh(geomerty,mat[0]);
             mesh_door.scale.set(0.7,0.7,0.7);
             mesh_door.position.set(50,0,-220);
+            mesh_door.name = "책장2";
             scene.add(mesh_door);
             objects.push ( mesh_door );
         });
@@ -501,6 +512,7 @@
                 mesh_door = new THREE.Mesh(geomerty,mat[0]);
                 mesh_door.scale.set(10,10,10);
                 mesh_door.position.set(200-left,0+height,-220);
+                mesh_door.name = ( "종이박스" + (i + 1) );
                 scene.add(mesh_door);
                 objects.push ( mesh_door );
                 if (left != 40) {
@@ -516,6 +528,7 @@
             mesh_door.scale.set(22,22,22);
             mesh_door.position.set(150,2,-70);
             mesh_door.rotation.y -= Math.PI/6;
+            mesh_door.name = "보트";
             //scene.add(mesh_door);
             group.add( mesh_door );
             objects.push ( mesh_door );
@@ -527,12 +540,13 @@
             mesh_door.position.set(170,3,-135);
             //mesh_door.rotation.z -= Math.PI/2;
             mesh_door.rotation.z += Math.PI/6;
+            mesh_door.name = "도끼";
             scene.add(mesh_door);
             objects.push ( mesh_door );
         });
         //가스통 꾸러미
         loader.load('resources/json/gas-tank/gas-tank.json', function(geomerty, mat){
-                var gap = 10;
+            var gap = 10;
             for (var i = 0; i < 3; i++) {
                 if (gap == 10) {
                     mesh_door = new THREE.Mesh(geomerty,mat[0]);
@@ -540,6 +554,7 @@
                     mesh_door.position.set(-200+gap,5,-100);
                     mesh_door.rotation.z -= 1.6;
                     mesh_door.rotation.y += 0.6;
+                    mesh_door.name = "가스통";
                     //scene.add(mesh_door); 
                     group.add( mesh_door );
                 }
@@ -558,6 +573,7 @@
             mesh_door.scale.set(0.7, 0.7, 0.7);
             mesh_door.position.set(30,0,45);
             mesh_door.rotation.y -= Math.PI/2;
+            mesh_door.name = "금고";
             scene.add(mesh_door);
             objects.push ( mesh_door );
         });
@@ -572,6 +588,7 @@
                 mesh_door.position.set(-110+right,0+height,-220);
                 //scene.add(mesh_door);
                 group.add( mesh_door );
+                mesh_door.name = "우유 상자" + ( i + 1 );
                 objects.push ( mesh_door );
                 if (right != 60) {
                     right += 30;
@@ -586,6 +603,7 @@
             mesh_door = new THREE.Mesh(geomerty,mat[0]);
             mesh_door.scale.set(50, 50, 50);
             mesh_door.position.set(150,0,50);
+            mesh_door.name = "테이블";
             //scene.add(mesh_door);
             group.add( mesh_door );
             objects.push ( mesh_door );
@@ -595,6 +613,7 @@
             mesh_door = new THREE.Mesh(geomerty,mat[0]);
             mesh_door.scale.set(30, 30, 30);  
             mesh_door.position.set( 150 ,4.5, 50);
+            mesh_door.name = "펩시콜라";
             //scene.add(mesh_door);  
             group.add( mesh_door );
             objects.push ( mesh_door );
@@ -605,6 +624,7 @@
             mesh_door.scale.set(30, 30, 30);
             mesh_door.position.set(-150,0,+150);
             mesh_door.rotation.y += Math.PI/3;
+            mesh_door.name = "침대";
             scene.add(mesh_door);
             objects.push ( mesh_door );
         });
@@ -613,6 +633,7 @@
             mesh_door = new THREE.Mesh(geomerty,mat[0]);
             mesh_door.scale.set(10, 10, 10);
             mesh_door.position.set(-200,0,-150);
+            mesh_door.name = "통나무";
             //scene.add(mesh_door);   
             group.add( mesh_door );
             objects.push ( mesh_door );
@@ -623,6 +644,7 @@
             mesh_door.scale.set(20, 20, 20);  
             mesh_door.position.set(-200,0,-80);
             mesh_door.rotation.y += Math.PI/3;
+            mesh_door.name = "낡은 침대";
             //scene.add(mesh_door);
             group.add( mesh_door );
             objects.push ( mesh_door );
@@ -632,6 +654,7 @@
             mesh_door = new THREE.Mesh(geomerty,mat[0]);
             mesh_door.scale.set(15, 15, 15);  
             mesh_door.position.set(-235,0,0);
+            mesh_door.name = "음료수 자판기";
             scene.add(mesh_door);
             objects.push ( mesh_door );
         });
@@ -641,6 +664,7 @@
             mesh_door.scale.set(15, 15, 15);  
             mesh_door.position.set(-220,0,200);
             mesh_door.rotation.y += Math.PI/1.8;
+            mesh_door.name = "흉칙한 동상";
             //scene.add(mesh_door);
             group.add( mesh_door );
             objects.push ( mesh_door );
@@ -652,6 +676,7 @@
                 mesh_door = new THREE.Mesh(geomerty,mat[0]);
                 mesh_door.scale.set(30, 30, 30);
                 mesh_door.position.set(-220+gap,0,-230);
+                mesh_door.name = "우유탱크" + ( i + 1 );
                 scene.add(mesh_door);
                 objects.push ( mesh_door );
                 gap += 30;
@@ -664,6 +689,7 @@
                 mesh_door = new THREE.Mesh(geomerty,mat[0]);
                 mesh_door.scale.set(1, 1, 1);  
                 mesh_door.position.set(0+left-right,0,0+up-down);
+                mesh_door.name = "돈다발";
                 //scene.add(mesh_door);
                 group.add( mesh_door );
                 objects.push ( mesh_door );
@@ -682,6 +708,7 @@
             mesh_door = new THREE.Mesh(geomerty,mat[0]);
             mesh_door.scale.set(3, 3, 3);  
             mesh_door.position.set(0,0,0);
+            mesh_door.name = "";
             //scene.add(mesh_door);
             objects.push ( mesh_door );
             group.add( mesh_door );
@@ -749,15 +776,16 @@
         var backward_intersections = raycaster_backward.intersectObjects( objects );
         var left_intersections = raycaster_left.intersectObjects( objects );
         var right_intersections = raycaster_right.intersectObjects( objects );
-        var cameraIntersections = raycasterFromCamera.intersectObjects( objects );
+        cameraIntersections = raycasterFromCamera.intersectObjects( objects );
         
         // 인터섹션이 있는경우
         if ( cameraIntersections.length > 0 ) {
-            var selectedObjects = [];
+            selectedObjects = [];
             selectedObjects.push ( cameraIntersections[0].object );
             outlinePass.selectedObjects = selectedObjects;
         } else {
             outlinePass.selectedObjects = [];
+            selectedObjects = [];
         }
         
         if ( forward_intersections.length > 0 ) {
